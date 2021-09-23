@@ -1,0 +1,10 @@
+.drawer {
+  font-size: 2rem;
+  display: block;
+}
+
+@media screen and (min-width: 1024px) {
+  .drawer {
+    display: none;
+  }
+}

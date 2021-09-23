@@ -1,0 +1,56 @@
+.section {
+  margin-bottom: 23rem;
+  padding: 4rem 0;
+  height: 80vh;
+}
+.icons {
+  display: none;
+}
+
+.noteSection {
+  padding: 7rem 0;
+}
+
+.imgSection {
+  /* margin-bottom: 23rem; */
+  position: relative;
+}
+
+.imgs {
+  position: absolute;
+  top: 3rem;
+}
+
+.content {
+  margin: 6rem 0;
+}
+
+.card {
+  background-image: url(../asset/warehouse.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.cardOne {
+  background-image: url(../asset/close-up.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+
+@media screen and (min-width: 1024px) {
+  .card {
+    margin-bottom: 0rem;
+  }
+  .section {
+    margin-bottom: 10rem;
+    padding: 7rem 0;
+    height: 80vh;
+  }
+  .icons {
+    display: block;
+  }
+}

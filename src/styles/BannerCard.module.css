@@ -1,0 +1,48 @@
+
+
+.bannerCard {
+  background: #fff;
+  /* padding: 2rem; */
+  color: #333;
+  z-index: 99;
+  position: absolute;
+  bottom: -12rem;
+  left: 0rem;
+  right: 0rem;
+  border-radius: 8px;
+  box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+
+
+.card {
+  width: 50%;
+  text-align: left;
+  padding: 2rem;
+}
+
+.title {
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.link {
+  color: red;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.line {
+  margin: 0.5rem 0;
+  width: 45px;
+  height: 5px;
+  background: red;
+  border-radius: 8px;
+}
+
+@media screen and (min-width: 1024px) {
+  .bannerCard {
+    display: block;
+  }
+}

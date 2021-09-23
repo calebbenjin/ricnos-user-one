@@ -1,0 +1,75 @@
+.cardBg {
+  position: relative;
+  height: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/loginbg.png);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem 0;
+}
+
+.signupBg {
+  position: relative;
+  height: 100vh;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/packaging.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem 0;
+}
+
+.form {
+  width: 95%;
+}
+
+.label {
+  display: inline-block;
+  padding: 8px 12px; 
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: #9c27b0;
+  font-size: 16px;
+  color: #fff;
+}
+/* .input[type="file"] {
+  position: absolute;
+  z-index: -1;
+  top: 6px;
+  left: 0;
+  font-size: 15px;
+  color: rgb(153,153,153);
+} */
+.wrapper {
+  position: relative;
+} 
+
+.addBtn {
+  background: transparent;
+}
+
+@media screen and (min-width: 1024px) {
+  .form {
+    width: 35%;
+  }
+  .pickupForm {
+    width: 60%;
+  }
+
+  .cardBg {
+    padding: 10rem 0;
+    height: 100%;
+  }
+  .signupBg {
+    padding: 10rem 0;
+    height: 100%;
+  }
+}

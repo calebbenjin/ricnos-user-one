@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "firstName": "Smith",
+      "lastName": "Steve",
+      "image": "image",
+      "phone": "09066322383",
+      "email": "steve@gmail.com",
+      "Address1": "First Address Choba",
+      "Address2": "First Address Choba",
+      "city": "Port Harcourt",
+      "state": "Rivers",
+      "zipCode": "500021",
+      "country": "Nigeria",
+      "password": "1234567"
+    }
+  ]
+}

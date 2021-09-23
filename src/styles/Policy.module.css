@@ -1,0 +1,58 @@
+.showcase {
+  background-image: linear-gradient(to top, rgba(252, 188, 188, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/policybanner.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 20vh;
+  margin-top: 1rem;
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1.2rem!important;
+  margin-bottom: 10px;
+}
+.subtitle {
+  font-size: 0.8rem!important;
+}
+
+.cardText {
+  margin-bottom: 4rem;
+}
+
+
+
+
+@media screen and (min-width: 1028px) {
+
+  .cardText {
+    margin-bottom: 0rem !important;
+  }
+
+  .title {
+    font-size: 2.5rem!important;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 1rem!important;
+  }
+  .showcase {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/policybanner.png);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    height: 32vh;
+    margin-top: 3rem;
+    border-radius: 6px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 4rem;
+  }
+}

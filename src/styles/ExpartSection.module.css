@@ -1,0 +1,34 @@
+.section {
+  margin: 4rem 0;
+}
+
+.card_line {
+  width: 80%;
+  height: 4px;
+  background: red;
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  right: 2rem;
+}
+
+.card {
+  background-image: url(../asset/industrial-forklift.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+.cardOne {
+  background-image: url(../asset/fullrange.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+@media screen and (min-width: 1028px) {
+
+  .section {
+    margin-top: 10rem;
+  }
+
+}

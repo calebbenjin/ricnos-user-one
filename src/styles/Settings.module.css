@@ -1,0 +1,98 @@
+.sideNav {
+  height: 100%;
+  width: 100%;
+}
+
+.profileSetting {
+  height: 100vh;
+  width: 100%;
+}
+
+.nav {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 2px #ccc;
+  width: 90%;
+  margin: 0.5rem auto;
+}
+
+.link {
+  display: inline;
+  line-height: 3;
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #ccc;
+}
+
+.link:hover {
+  background: #e7e7e7cc;
+}
+
+.avatarBadge {
+  border: none !important;
+  right: 2rem;
+}
+
+.createBtn {
+  border: solid 2px #ac0505;
+  color: #ac0505;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.card {
+  border: solid 1px #ccc;
+  margin: 2rem 0;
+}
+
+@media screen and (min-width: 1028px) {
+  .sideNav {
+    height: 100vh;
+    border-right: solid 1px #ccc;
+    margin-top: 0rem;
+  }
+
+  .nav {
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    border: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .form {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .link {
+    display: block;
+    line-height: 4;
+    border-top: solid 1px #ccc;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #979797;
+  }
+
+  .sideNav {
+    height: 100vh;
+    width: 20%;
+    background: #fff;
+  }
+  
+  .profileSetting {
+    height: 100vh;
+    width: 80%;
+    overflow-y: scroll;
+    background: #fff;
+  }
+
+  .createBtn {
+    border: solid 2px #ac0505;
+    color: #ac0505;
+    padding: 4px;
+    border-radius: 4px;
+  }
+}

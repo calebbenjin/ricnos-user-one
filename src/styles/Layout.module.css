@@ -1,0 +1,169 @@
+.body {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.aside {
+  background: #0A0909;
+  height: 100vh;
+  width: 20%;
+  /* padding: 20px; */
+  color: #fff;
+  display: none;
+}
+
+.main {
+  background: #fafafa;
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.nav {
+  /* margin-top: 2rem; */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.navLink {
+  display: block;
+  padding-left: 20px;
+  border-left: solid 3px #0A0909;
+  line-height: 3.5;
+  transition: 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  color: #cccc;
+}
+.navLink:hover {
+  border-left: solid 4px #cccc;
+  background: rgba(204, 204, 204, 0.411);
+  color: #fff;
+}
+
+.menuLink {
+  display: block;
+  padding-left: 20px;
+  line-height: 2.5;
+  display: flex;
+  align-items: center;
+  color: #333;
+}
+
+.icon {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.dot {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-left: 0.2rem;
+}
+
+.navIcon {
+  font-size: 2rem;
+  color: #eee;
+}
+
+.navIconBox {
+  position: relative;
+  margin-right: 2rem;
+}
+.navIconBox div {
+  position: absolute;
+  top: 1rem;
+  right: -0.5rem;
+  bottom: 0;
+  font-size: 0.7rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  color: #fff;
+}
+
+.header {
+  display: none;
+}
+
+.mainBody {
+  /* padding: 0 1rem !important; */
+  /* background: #f8f8f8; */
+}
+
+.mobileNav {
+  padding: 10px 0;
+  background: #131313;
+}
+
+.avatar {
+  border: solid 1px red !important;
+}
+.mobileFooter {
+  width: 100%;
+  padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 5;
+  background: #131313;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 2px -1px 5px 1px rgba(204, 200, 200, 0.7);
+}
+
+.mobileIcon {
+  font-size: 1.7rem;
+  color: #ccc;
+}
+
+.overflow {
+  overflow-y: scroll;
+  height: 70vh;
+  margin: 2rem 0;
+}
+
+
+@media screen and (min-width: 1022px) {
+
+  .header {
+    background: #0A0909;
+    padding: 10px 2rem;
+    display: block;
+  }
+  
+  .mobileFooter {
+    display: none;
+  }
+  .mobileNav {
+    display: none;
+  }
+
+  .aside {
+    background: #0A0909;
+    height: 100vh;
+    width: 20%;
+    /* padding: 20px; */
+    color: #fff;
+    display: block !important;
+  }
+
+  .mainBody {
+    /* padding: 0 3rem !important; */
+    /* background: #fbfbfb; */
+  }
+
+}

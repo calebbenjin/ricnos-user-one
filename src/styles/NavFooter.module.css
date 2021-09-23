@@ -1,0 +1,13 @@
+.navFooter {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: 5px 0;
+  margin-top: 1rem;
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .navFooter {
+    display: block;
+  }
+}

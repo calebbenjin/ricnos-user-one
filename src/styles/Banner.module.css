@@ -1,0 +1,26 @@
+.home {
+  position: relative;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/bannerimage.png);
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+
+.about {
+  position: relative;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/about.png);
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}

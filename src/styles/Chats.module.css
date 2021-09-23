@@ -1,0 +1,97 @@
+.activeUsers {
+  width: 40%;
+  /* padding: 0 10px; */
+}
+
+.chatBody {
+  width: 60%;
+  background: #fafafa;
+  padding: 0 20px;
+}
+
+.heading .not {
+  background: green;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.heading {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: solid 2px #ccc;
+}
+
+.heading h2 {
+  font-weight: bold;
+}
+.heading h4 {
+  font-size: 0.9rem;
+}
+
+.search {
+  border-radius: 55px;
+  padding: 8px;
+  font-size: 0.8rem;
+  background: #fff !important;
+}
+
+.search::placeholder {
+  font-size: 0.8rem;
+}
+
+.header {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  color: #383737cc;
+  font-weight: 600;
+}
+
+.header p {
+  font-size: 0.8rem;
+}
+
+.userList {
+  background: #fafafa;
+}
+
+.userList li{
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 10px;
+  background: #fff;
+  color: #333;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.userList li h2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fafafa;
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.userList li h4 {
+  font-weight: 600;
+}
+
+.userList li .notification {
+  background: green;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

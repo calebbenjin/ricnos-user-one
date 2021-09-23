@@ -1,0 +1,45 @@
+.trackForm {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.trackForm form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+}
+
+
+
+
+.btn {
+  width: 100%;
+  margin: 1rem auto
+}
+
+
+
+@media screen and (min-width: 1024px) {
+  .trackForm {
+    flex-wrap: nowrap;
+    margin-top: 4rem;
+  }
+
+  .trackForm form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .trackForm form input {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    margin: 0 0 0 1rem;
+  }
+}

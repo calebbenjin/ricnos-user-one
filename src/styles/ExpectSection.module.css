@@ -1,0 +1,36 @@
+.bgImg {
+  background-image: url(../asset/fullrange.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.icon {
+  width: 150px;
+  height: 180px;
+  position: absolute;
+  left: -0.6rem;
+  top: 4rem;
+  padding: 6px;
+}
+
+
+.section {
+  margin: 2rem 0;
+}
+
+
+@media screen and (min-width: 1024px) {
+  .section {
+    margin-top: 15rem;
+  }
+
+  .icon {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 20rem;
+    top: 12rem;
+  }
+
+}

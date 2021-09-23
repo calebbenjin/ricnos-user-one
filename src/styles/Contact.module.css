@@ -1,0 +1,33 @@
+.icon {
+  font-size: 2rem;
+}
+
+.section {
+  height: 100vh;
+  background-image: url(../asset/decor-car.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.form_card {
+  position: relative;
+}
+
+.form {
+  position: absolute;
+  bottom: -3rem;
+}
+
+.text {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+  .form {
+    position: absolute;
+    bottom: -8rem;
+  }
+  .text {
+    visibility: visible;
+  }
+}

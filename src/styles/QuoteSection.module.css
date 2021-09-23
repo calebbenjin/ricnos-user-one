@@ -1,0 +1,16 @@
+.section {
+  margin: 4rem 0;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/quotebg.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 100%;
+}
+
+
+@media screen and (min-width: 1024px) {
+  .section {
+    margin: 10rem 0;
+    height: 100vh;
+  }
+}

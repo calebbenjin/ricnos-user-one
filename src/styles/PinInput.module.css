@@ -1,0 +1,42 @@
+.formControl {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+.input {
+  width: 60% !important;
+  height: 40px !important;
+  border: solid 1px red !important;
+  margin: 5px;
+  color: #333 !important;
+  padding: none !important;
+  font-size: 2rem;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.input:focus {
+  border: none !important;
+  border: solid 1px #0686b9 !important;
+}
+
+@media screen and (min-width: 1028px) {
+
+  .input {
+    height: 70px !important;
+    border: solid 1px red !important;
+    margin: 5px;
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+}

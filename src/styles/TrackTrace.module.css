@@ -1,0 +1,53 @@
+.trackForm {
+  position: relative;
+}
+
+.trackTrace {
+  z-index: 99;
+  /* position: absolute; */
+  /* bottom: -12rem; */
+  left: 0rem;
+  right: 0rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.card {
+  display: none;
+}
+
+.card_body {
+  height: 100%;
+}
+
+.trace_body {
+  display: none !important;
+}
+
+.trace_head {
+  display: none !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .card {
+    display: block;
+  }
+
+  .card_body {
+    height: 500px;
+  }
+
+  .trace_body {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/quotebg.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    display: block !important;
+  }
+
+  .trace_head {
+    display: inline-block !important;
+  }
+  
+}
