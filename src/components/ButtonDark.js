@@ -1,9 +1,8 @@
-import Loader from './Loader'
 
-export default function FormBtn({isLoading, className, children, ...props}) {
+export default function FormBtn({children}) {
   return (
-    <button className="button-dark" {...props}>
-      {isLoading ? <Loader /> : children}
+    <button className="btn-dark">
+      {children}
     </button>
   )
 }

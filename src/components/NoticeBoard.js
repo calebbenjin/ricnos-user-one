@@ -24,7 +24,7 @@ export default function messagePage() {
               size='sm'
               name='Segun Adebayo'
               mr='4'
-              src='https://bit.ly/sage-adebayo'
+              src='/'
             />
             <Text isTruncated>Joseph Benyako</Text>
           </Flex>

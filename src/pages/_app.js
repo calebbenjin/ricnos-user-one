@@ -136,9 +136,9 @@ const GlobalStyle = ({ children }) => {
             transition: all 0.4s linear;
             text-transform: uppercase;
           }
-          .button-dark {
+          .btn-dark {
             background: #000;
-            border: solid 1px red;
+            border: solid 1px #ccc;
             padding: 10px 30px;
             display: block;
             color: #fff;

@@ -24,7 +24,7 @@ export default function layout({ children }) {
           <Container maxWidth='container.xl'>
             <Flex justify="space-between" alignItems="center">
               <Link href='/dashboard/pickup/'>
-                <Button>Request pickup</Button>                
+                <a>Request pickup</a>                
               </Link>
 
               <Box as="nav">
@@ -43,7 +43,7 @@ export default function layout({ children }) {
                         </Text>
                         <Text as="small" fontSize="sm" color="grey" isTruncated>SegunAdebayo@gmail.com</Text>
                       </Box>
-                      <Avatar size="md" name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+                      <Avatar size="md" name="Segun Adebayo" src="/" />
                     </Flex>
                   </Box>
                   <Menu>
@@ -52,7 +52,7 @@ export default function layout({ children }) {
                     </MenuButton>
                     <MenuList>
                       <MenuItem>
-                        <Link href='/'>
+                        <Link href='/dashboard/settings'>
                           <a className={styles.menuLink}>
                             <FiSettings className={styles.icon} /> Settings
                           </a>
@@ -60,7 +60,7 @@ export default function layout({ children }) {
                       </MenuItem>
                       <hr />
                       <MenuItem>
-                        <Link href='/'>
+                        <Link href='/dashboard/support'>
                           <a className={styles.menuLink}>
                             <FaUsers className={styles.icon} /> Support
                           </a>
@@ -89,7 +89,7 @@ export default function layout({ children }) {
               <Menu>
                 <MenuButton>
                   <Flex alignItems="center">
-                    <Avatar size="sm" className={styles.avatar} name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+                    <Avatar size="sm" className={styles.avatar} name="Segun Adebayo" src="/" />
                     <BsThreeDotsVertical className={styles.dot} />
                   </Flex>
                 </MenuButton>

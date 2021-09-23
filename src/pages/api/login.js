@@ -16,16 +16,16 @@ export default async (req, res) => {
       }),
     })
 
-    const data = await apiRes.json()
+    const apiData = await apiRes.json()
 
-    console.log(data)
+    console.log(apiData.data.token)
 
     if (apiRes.ok) {
       // Set Cookie
       
       res.setHeader(
         'Set-Cookie',
-        cookie.serialize('token', String(data.token), {
+        cookie.serialize('token', String(apiData.data.token), {
           httpOnly: true,
           secure: process.env.NODE_ENV !== 'development',
           maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -34,9 +34,9 @@ export default async (req, res) => {
         })
       )
 
-      res.status(200).json({ user: data.user })
+      res.status(200).json({ user: apiData.user })
     } else {
-      res.status(500).json({message: data.message})
+      res.status(500).json({message: apiData.message})
     }
   } else {
     res.setHeader('Allow', ['POST'])

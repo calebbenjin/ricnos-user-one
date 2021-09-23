@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   Avatar,
-  Button,
   Badge,
   Container,
 } from '@chakra-ui/react'
@@ -17,7 +16,7 @@ import { BsArrowRight } from 'react-icons/bs'
 
 export default function dashboard() {
   return (
-    <Layout title="Dashboard">
+    <Layout title='Dashboard'>
       <Container maxWidth='container.xl'>
         <Box className={styles.showcase}>
           <Box width={['100%', '70%']}>
@@ -26,10 +25,12 @@ export default function dashboard() {
               Partner With Us And Earn By Delivering Items Going your Way.
             </Text>
             <Link href='/'>
-              <Flex alignItems='center' color='red'>
-                <BsArrowRight className={styles.icon} />
-                <a>Learn More</a>
-              </Flex>
+              <a>
+                <Flex alignItems='center' color='red'>
+                  <BsArrowRight className={styles.icon} />
+                  Learn More
+                </Flex>
+              </a>
             </Link>
           </Box>
         </Box>
@@ -161,7 +162,7 @@ export default function dashboard() {
                       mt='10'
                       className={styles.avatar}
                       name='Segun Adebayo'
-                      src='https://bit.ly/sage-adebayo'
+                      src='/'
                     />
                     <Box
                       bg='black'
@@ -171,11 +172,9 @@ export default function dashboard() {
                       mt='10'
                       textAlign='left'
                     >
-                      <Text>Please complete your profile Registration </Text>
+                      <Text mb="4">Please complete your profile Registration </Text>
                       <Link href='/dashboard/settings/'>
-                        <Button colorScheme='black' mt='4' variant='outline'>
-                          Edit Profile
-                        </Button>
+                        <a className='btn-dark'>Edit Profile</a>
                       </Link>
                     </Box>
                   </Box>
@@ -187,4 +186,15 @@ export default function dashboard() {
       </Container>
     </Layout>
   )
+}
+
+export async function getServerSideProps({ req }) {
+  // const res = await fetch(`${NEXT_URL}/api/user`)
+  // const data = await res.json()
+
+  console.log(req.headers.cookie)
+
+  return {
+    props: {},
+  }
 }

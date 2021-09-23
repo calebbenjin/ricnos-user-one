@@ -78,7 +78,7 @@ export default function layout({ children }) {
                         </Text>
                         <Text as="small" fontSize="sm" color="grey" isTruncated>SegunAdebayo@gmail.com</Text>
                       </Box>
-                      <Avatar size="md" name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+                      <Avatar size="md" name="Segun Adebayo" src="/" />
                     </Flex>
                   </Box>
                   <Menu>
