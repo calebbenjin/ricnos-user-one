@@ -86,6 +86,17 @@ export const AuthProvider = ({ children }) => {
   // Logout user
   // =====================================
 
+  const logout = async () => {
+    const res = await fetch(`${NEXT_URL}/api/logout`, {
+      method: 'POST',
+    })
+
+    if(res.ok) {
+      setUser(null)
+      router.push('/')
+    }
+  }
+
   // Password reset
   // =====================================
 
@@ -96,7 +107,7 @@ export const AuthProvider = ({ children }) => {
   // =====================================
 
   return (
-    <AuthContext.Provider value={{user, isError, isLoading, signup, login}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{user, isError, isLoading, logout, signup, login}}>{children}</AuthContext.Provider>
   )
 }
 

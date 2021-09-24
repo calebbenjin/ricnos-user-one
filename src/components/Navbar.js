@@ -27,7 +27,9 @@ export default function Navbar({ className }) {
                 <a>Contact</a>
               </Link>
               <Link href="/login">
-                <a className="button-red">Request pickup</a>
+                <a>
+                  <Button>Request pickup</Button>
+                </a>
               </Link>
             </Flex>
             <Link href="/login">
