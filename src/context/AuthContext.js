@@ -7,7 +7,7 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [isError, setIsError] = useState(null)
-  const [isLoading, setIsLoading] = useState(null);
+  const [isLoading, setIsLoading] = useState(null)
 
   const router = useRouter()
 
@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
 
   // Resister user
   // ====================================
-   
-  const signup = async (data) => {
+
+  const signup = async ({ email, phone, password, password_confirmation }) => {
     const res = await fetch(`${NEXT_URL}/api/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email, phone, password, password_confirmation }),
     })
 
     const resData = await res.json()
@@ -31,37 +31,34 @@ export const AuthProvider = ({ children }) => {
 
     if(res.ok) {
       setIsLoading(true)
-      setUser(user)
-      router('/dashboard/');
+      setUser(resData.user)
+      router.push('/dashboard/');
     } else {
       setIsLoading(false)
-      setError(data.message)
+      setError(resData.message)
       setError(null)
     }
   }
-  
-
-  
 
   // Login user
   // =====================================
-  const login = async ({email, password}) => {
+  const login = async ({ email, password }) => {
     const res = await fetch(`${NEXT_URL}/api/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-      }, 
-      body: JSON.stringify({email, password})
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
     })
 
     const data = await res.json()
 
     // console.log(data.message)
 
-    if(res.ok) {
+    if (res.ok) {
       setIsLoading(true)
       setUser(data.user)
-      router.push('/dashboard/');
+      router.push('/dashboard/')
     } else {
       setIsLoading(false)
       // console.log(data.message)
@@ -76,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     const res = await fetch(`${NEXT_URL}/api/user`)
     const data = await res.json()
 
-    if(res.ok) {
+    if (res.ok) {
       setUser(data.user)
     } else {
       setUser(null)
@@ -91,9 +88,9 @@ export const AuthProvider = ({ children }) => {
       method: 'POST',
     })
 
-    if(res.ok) {
+    if (res.ok) {
       setUser(null)
-      router.push('/')
+      router.push('/login')
     }
   }
 
@@ -107,7 +104,11 @@ export const AuthProvider = ({ children }) => {
   // =====================================
 
   return (
-    <AuthContext.Provider value={{user, isError, isLoading, logout, signup, login}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ user, isError, isLoading, logout, signup, login }}
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
 
