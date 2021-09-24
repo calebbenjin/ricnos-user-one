@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
     const resData = await res.json()
 
-    console.log(resData)
+    // console.log(resData)
 
     if(res.ok) {
       setIsLoading(true)

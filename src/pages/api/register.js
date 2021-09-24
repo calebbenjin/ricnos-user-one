@@ -21,7 +21,7 @@ export default async (req, res) => {
 
     const resData = await apiRes.json()
 
-    console.log(resData.data.token)
+    // console.log(resData.data.token)
 
     if (apiRes.ok) {
       // Set Cookie

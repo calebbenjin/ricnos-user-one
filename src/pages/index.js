@@ -8,9 +8,6 @@ import LogisticSection from '@/components/LogisticSection'
 import QuoteSection from '@/components/QuoteSection'
 import styles from '@/styles/Banner.module.css'
 import style from '@/styles/ExpectSection.module.css'
-// import TrackForm from '@/components/TrackForm'
-// import BannerCard from '../components/core/BannerCard'
-// import Heading from "../components/atoms/Heading";
 
 
 

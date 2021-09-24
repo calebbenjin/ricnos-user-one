@@ -1,4 +1,3 @@
-import { API_URL } from '@/lib/index'
 import cookie from 'cookie'
 
 export default async (req, res) => {

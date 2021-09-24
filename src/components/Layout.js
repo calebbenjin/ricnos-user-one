@@ -27,7 +27,7 @@ import AuthContext from '@/context/AuthContext'
 // import logoImage from '@/asset/logo1.svg'
 // import Image from 'next/image'
 
-export default function layout({ children }) {
+export default function layout({ children, name, email,  }) {
   const { logout } = useContext(AuthContext)
   return (
     <div className={styles.body}>
@@ -58,10 +58,10 @@ export default function layout({ children }) {
                     <Flex alignItems='center'>
                       <Box mr='3' color='white' textAlign='left'>
                         <Text fontWeight='bold' fontSize='sm'>
-                          Segun Adebayo
+                          {name && name}
                         </Text>
                         <Text as='small' fontSize='sm' color='grey' isTruncated>
-                          SegunAdebayo@gmail.com
+                        {email && email}
                         </Text>
                       </Box>
                       <Avatar size='md' name='Segun Adebayo' src='/' />

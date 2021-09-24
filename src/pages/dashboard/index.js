@@ -13,10 +13,14 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { BsArrowRight } from 'react-icons/bs'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function dashboard() {
+export default function dashboard({user}) {
+
+  console.log(user)
   return (
-    <Layout title='Dashboard'>
+    <Layout title='Dashboard' email={user.email}>
       <Container maxWidth='container.xl'>
         <Box className={styles.showcase}>
           <Box width={['100%', '70%']}>
@@ -189,12 +193,22 @@ export default function dashboard() {
 }
 
 export async function getServerSideProps({ req }) {
-  // const res = await fetch(`${NEXT_URL}/api/user`)
-  // const data = await res.json()
+  const {token} = parseCookies(req)
 
-  console.log(req.headers.cookie)
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: { 
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
 
   return {
-    props: {},
+    props: {
+      user
+    },
   }
 }

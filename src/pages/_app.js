@@ -97,11 +97,6 @@ const GlobalStyle = ({ children }) => {
             background-color: #dfd;
           }
 
-          /* .radio-toolbar input[type='radio']:focus + label {
-            border: 2px dashed #444;
-            background-color: #bfb;
-          } */
-
           .radio-toolbar input[type='radio']:checked + label {
             background-color: #bfb;
             border-color: #4c4;
@@ -123,41 +118,6 @@ const GlobalStyle = ({ children }) => {
             min-height: 100vh;
           }
 
-          .button-red {
-            background: red;
-            border: solid 1px red;
-            padding: 10px 30px;
-            display: block;
-            color: #fff;
-            margin: 0 1rem;
-            display: inline;
-            white-space: nowrap;
-            border-radius: 6px;
-            transition: all 0.4s linear;
-            text-transform: uppercase;
-          }
-          .btn-dark {
-            background: #000;
-            border: solid 1px #ccc;
-            padding: 10px 30px;
-            display: block;
-            color: #fff;
-            margin: 1rem 0;
-            display: inline;
-            white-space: nowrap;
-            border-radius: 6px;
-            transition: all 0.4s linear;
-            text-transform: uppercase;
-          }
-
-          @media screen and (max-width: 768px) {
-            .button-red {
-              width: 100%;
-              margin: 0;
-              margin-top: 1rem;
-            }
-          }
-
           .resTable {
             overflow-x: auto;
             overflow-y: scroll;
@@ -171,7 +131,6 @@ const GlobalStyle = ({ children }) => {
             padding: 0;
             width: 100%;
             background: #fff;
-            /* table-layout: scroll; */
           }
 
           table caption {
@@ -186,7 +145,6 @@ const GlobalStyle = ({ children }) => {
 
           table th,
           table td {
-            /* padding: 0.625em; */
             text-align: center;
           }
 
@@ -203,7 +161,6 @@ const GlobalStyle = ({ children }) => {
 
           table td {
             font-size: 0.85em;
-            /* letter-spacing: 0.1em; */
             text-transform: uppercase;
             padding: 20px;
           }
