@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 // import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
 export default function dashboard() {
   const [name, setName] = useState('')
@@ -32,12 +32,28 @@ export default function dashboard() {
     {
       index: Math.random(),
       itemName: '',
-      authoritemQuantity: '',
+      itemQuantity: '',
       weight: '',
       deliveryMethod: '',
       itemValueAmount: '',
     },
   ])
+
+  const data = {
+    name,
+    email,
+    phone,
+    address,
+    recieverName,
+    recieverEmail,
+    recieverAddress,
+    recieverCity,
+    recieverState,
+    description,
+    departure,
+    arrival,
+    addItem,
+  }
 
   // const handleChange = (e) => {
   //   if (
@@ -56,9 +72,10 @@ export default function dashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(addItem)
 
-    router.push('/dashboard/pickup/confirmOrder')
+    console.log(data)
+
+    // router.push('/dashboard/pickup/confirmOrder')
   }
 
   const addNewRow = () => {
@@ -88,7 +105,14 @@ export default function dashboard() {
             Order a Pickup
           </Heading>
 
-          <form onSubmit={handleSubmit} style={{background: "#fff", padding: "20px", marginBottom: '5rem'}}>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              background: '#fff',
+              padding: '20px',
+              marginBottom: '5rem',
+            }}
+          >
             <Text textAlign='left' mb='4' mt='7' fontWeight='bold'>
               Personal Data
             </Text>
@@ -100,7 +124,7 @@ export default function dashboard() {
                     id='name'
                     placeholder='Name'
                     value={name}
-                    onChange={((e) => setName(e.target.value))}
+                    onChange={(e) => setName(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -112,7 +136,7 @@ export default function dashboard() {
                     id='email'
                     placeholder='Email'
                     value={email}
-                    onChange={((e) => setEmail(e.target.value))}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -124,7 +148,7 @@ export default function dashboard() {
                     id='phone'
                     placeholder='Phone Number'
                     value={phone}
-                    onChange={((e) => setPhone(e.target.value))}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -138,7 +162,7 @@ export default function dashboard() {
                   id='address'
                   placeholder='Address'
                   value={address}
-                  onChange={((e) => setAddress(e.target.value))}
+                  onChange={(e) => setAddress(e.target.value)}
                   required
                 />
               </FormControl>
@@ -155,7 +179,7 @@ export default function dashboard() {
                     id='recieverName'
                     placeholder='Recievers Name'
                     value={recieverName}
-                    onChange={((e) => setRecieverName(e.target.value))}
+                    onChange={(e) => setRecieverName(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -167,7 +191,7 @@ export default function dashboard() {
                     id='email'
                     placeholder='Email'
                     value={recieverEmail}
-                    onChange={((e) => setRecieverEmail(e.target.value))}
+                    onChange={(e) => setRecieverEmail(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -179,46 +203,45 @@ export default function dashboard() {
                     id='phone'
                     placeholder='Phone Number'
                     value={recieverPhone}
-                    onChange={((e) => setRecieverPhone(e.target.value))}
+                    onChange={(e) => setRecieverPhone(e.target.value)}
                     required
                   />
                 </FormControl>
               </Box>
             </Flex>
-
+            <Box mb='3' width={['100%', '100%']}>
+              <FormControl>
+                <input
+                  type='text'
+                  id='description'
+                  placeholder='Description'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </FormControl>
+            </Box>
             <Flex wrap='wrap' justify='space-between' mt='4'>
-              <Box mb='3' width={['100%', '30%']}>
-                <FormControl>
-                  <input
-                    type='text'
-                    id='description'
-                    placeholder='Description Name'
-                    value={description}
-                    onChange={((e) => setDescription(e.target.value))}
-                    required
-                  />
-                </FormControl>
-              </Box>
-              <Box mb='3' width={['100%', '30%']}>
+              <Box mb='3' width={['100%', '45%']}>
                 <FormControl>
                   <input
                     type='text'
                     id='departure'
-                    placeholder="Departure"
+                    placeholder='Departure'
                     value={departure}
-                    onChange={((e) => setDeparture(e.target.value))}
+                    onChange={(e) => setDeparture(e.target.value)}
                     required
                   />
                 </FormControl>
               </Box>
-              <Box mb='3' width={['100%', '30%']}>
+              <Box mb='3' width={['100%', '45%']}>
                 <FormControl>
                   <input
                     type='text'
                     id='arrival'
                     placeholder='Arrival'
                     value={arrival}
-                    onChange={((e) => setArrival(e.target.value))}
+                    onChange={(e) => setArrival(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -232,7 +255,7 @@ export default function dashboard() {
                     id='address'
                     placeholder='Address'
                     value={recieverAddress}
-                    onChange={((e) => setRecieverAddress())}
+                    onChange={(e) => setRecieverAddress(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -244,7 +267,7 @@ export default function dashboard() {
                     placeholder='City'
                     id='city'
                     value={recieverCity}
-                    onChange={((e) => setRecieverCity())}
+                    onChange={(e) => setRecieverCity(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -258,7 +281,7 @@ export default function dashboard() {
                     id='state'
                     placeholder='State'
                     value={recieverState}
-                    onChange={((e) => setRecieverState())}
+                    onChange={(e) => setRecieverState(e.target.value)}
                     required
                   />
                 </FormControl>
@@ -272,7 +295,7 @@ export default function dashboard() {
                     <option value='option3'>Option 3</option>
                   </select>
                 </FormControl>
-              </Box> 
+              </Box>
               <Box mb='3' width={['100%', '30%']}>
                 <FormControl>
                   <select placeholder='vehicles' required>
@@ -282,14 +305,12 @@ export default function dashboard() {
                     <option value='option3'>Option 3</option>
                   </select>
                 </FormControl>
-              </Box> 
+              </Box>
             </Flex>
 
             <Text textAlign='left' mb='4' mt='10' fontWeight='bold'>
               Add Items
             </Text>
-
-            
 
             <Flex justify=''>
               <Stack spacing={5} direction={['column', 'row']} my='6'>

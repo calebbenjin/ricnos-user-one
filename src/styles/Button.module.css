@@ -53,19 +53,19 @@
     background: #b60202;
   }
 
-  .bgDark {
+  .btnDark {
     color: #fff;
     padding: 10px 20px;
     width: 100%;
     background: #000;
     max-width: 100%;
-    border-radius: 55px;
+    border-radius: 6px;
+    border: solid 1px #fff;
     margin: 1rem 0;
     white-space: nowrap;
     text-align: center;
     font-weight: 500;
     font-size: 1rem;
-    border: none;
     text-decoration: none;
     transition: all 0.5s ease;
   }

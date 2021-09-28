@@ -1,17 +1,19 @@
 import { useState, useContext } from 'react'
-import Layout from '../components/template/Layout'
+import Layout from '@/components/HomeLayout'
 import Link from 'next/link'
-import TrackForm from '../components/TrackForm'
+import TrackForm from '@/components/TrackForm'
 import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react'
 import styled from 'styled-components'
 import { GoCheck } from 'react-icons/go'
 import { FaLongArrowAltRight } from 'react-icons/fa'
-import AccordonComp from '../components/atoms/Accordon'
-import Button from '../components/atoms/Buttons/FormBtn'
-import ShippingDisplay from '../components/molecules/ShippmentDisplay'
-import {API_URL} from '../lib/index'
-import FetchContext from '../context/FetchContext'
+// import AccordonComp from '@/components/Accordon'
+import Button from '@/components/Button'
+// import ShippingDisplay from '@/components/ShippmentDisplay'
+import {API_URL} from '@/lib/index'
+import FetchContext from '@/context/FetchContext'
 
+
+"React client-side authentication with Facebook, LinkedIn, Google, and Doppler"
 
 const shippingData = [
   {
@@ -71,7 +73,7 @@ export default function TrackingPage({track}) {
           )}
 
           {shipmentData.map((item) => (
-            <ShippingDisplay key={item.id} items={item} />
+            {/* <ShippingDisplay key={item.id} items={item} /> */}
           ))}
 
           <DisplayCard>

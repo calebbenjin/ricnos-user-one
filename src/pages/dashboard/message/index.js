@@ -54,7 +54,8 @@ export default function messagePage() {
   const [users, setUsers] = useState(usersData)
 
   return (
-    <Layout>
+    <Layout email={user.email}
+    notification={user.general_notification}>
       <div>
         <Flex>
           <Box width={['100%', '75%']} p='2'>

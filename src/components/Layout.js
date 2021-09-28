@@ -27,7 +27,7 @@ import AuthContext from '@/context/AuthContext'
 // import logoImage from '@/asset/logo1.svg'
 // import Image from 'next/image'
 
-export default function layout({ children, name, email,  }) {
+export default function layout({ children, name, email, notification, imgProfile }) {
   const { logout } = useContext(AuthContext)
   return (
     <div className={styles.body}>
@@ -37,34 +37,41 @@ export default function layout({ children, name, email,  }) {
           <Container maxWidth='container.xl'>
             <Flex justify='space-between' alignItems='center'>
               <Link href='/dashboard/pickup/'>
-                <a>Request pickup</a>
+                <a>
+                  <Button>Request pickup</Button>
+                </a>
               </Link>
 
               <Box as='nav'>
                 <Flex alignItems='center'>
-                  <Link href='/notification'>
+                  <Link href='/dashboard/settings/notification'>
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
-                      <div>10</div>
+                      <div>{notification && notification}</div>
                     </a>
                   </Link>
-                  <Link href='/message'>
+                  {/* <Link href='/message'>
                     <a className={styles.navIconBox}>
                       <IoMailSharp className={styles.navIcon} />
                       <div>9</div>
                     </a>
-                  </Link>
+                  </Link> */}
                   <Box>
                     <Flex alignItems='center'>
                       <Box mr='3' color='white' textAlign='left'>
                         <Text fontWeight='bold' fontSize='sm'>
                           {name && name}
                         </Text>
-                        <Text as='small' fontSize='sm' color='grey' isTruncated>
-                        {email && email}
+                        <Text
+                          as='small'
+                          fontSize='sm'
+                          color='white'
+                          isTruncated
+                        >
+                          {email && email}
                         </Text>
                       </Box>
-                      <Avatar size='md' name='Segun Adebayo' src='/' />
+                    <Avatar size='md' name={name && name} src={imgProfile && imgProfile} />
                     </Flex>
                   </Box>
                   <Menu>
@@ -107,7 +114,7 @@ export default function layout({ children, name, email,  }) {
           <Container maxWidth='container.xl'>
             <Flex alignItems='center' justify='space-between'>
               <Text fontWeight='bold' color='red' fontSize='sm'>
-                Segun Adebayo
+                {name && name}
               </Text>
               <Menu>
                 <MenuButton>
@@ -115,8 +122,8 @@ export default function layout({ children, name, email,  }) {
                     <Avatar
                       size='sm'
                       className={styles.avatar}
-                      name='Segun Adebayo'
-                      src='/'
+                      name={name && name}
+                      src={imgProfile && imgProfile}
                     />
                     <BsThreeDotsVertical className={styles.dot} />
                   </Flex>

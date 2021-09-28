@@ -26,15 +26,15 @@ export const FetchProvider = ({children}) => {
 
     console.log(quote)
 
-    // if(res.ok) {
-    //   setIsLoading(true)
-    //   setUser(user)
-    //   router('/dashboard/');
-    // } else {
-    //   setIsLoading(false)
-    //   setError(data.message)
-    //   setError(null)
-    // }
+    if(res.ok) {
+      setIsLoading(true)
+      setUser(user)
+      // router('/dashboard/');
+    } else {
+      setIsLoading(false)
+      setError(data.message)
+      setError(null)
+    }
   }
 
 
