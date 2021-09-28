@@ -2,18 +2,16 @@ import { useState, useContext } from 'react'
 import Layout from '@/components/HomeLayout'
 import Link from 'next/link'
 import TrackForm from '@/components/TrackForm'
-// import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react'
+import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react'
 import styled from 'styled-components'
-import { GoCheck } from 'react-icons/go'
-import { FaLongArrowAltRight } from 'react-icons/fa'
+// import { GoCheck } from 'react-icons/go'
+// import { FaLongArrowAltRight } from 'react-icons/fa'
 // import AccordonComp from '@/components/Accordon'
-import Button from '@/components/Button'
-// import ShippingDisplay from '@/components/ShippmentDisplay'
-import {API_URL} from '@/lib/index'
-import FetchContext from '@/context/FetchContext'
+// import Button from '@/components/Button'
+import ShippingDisplay from '@/components/ShippmentDisplay'
+// import {API_URL} from '@/lib/index'
+// import FetchContext from '@/context/FetchContext'
 
-
-"React client-side authentication with Facebook, LinkedIn, Google, and Doppler"
 
 const shippingData = [
   {
@@ -52,12 +50,10 @@ const shippingData = [
   },
 ]
 
-export default function TrackingPage({track}) {
+export default function TrackingPage() {
   const [shipmentData, setShipmentData] = useState(shippingData)
   const [isLoading, setIsLoading] = useState(true)
-  const {} = useContext(FetchContext)
-
-  console.log(track)
+  // const {login} = useContext(FetchContext)
 
   return (
     <Layout>
@@ -66,19 +62,19 @@ export default function TrackingPage({track}) {
           <Heading textAlign='center' fontWeight='normal'>
             TRACK:EXPRESS
           </Heading>
-          {/* <TrackForm bg='white' /> */}
+          <TrackForm bg="white" />
 
           {shipmentData.length === 0 && (
             <Heading textAlign='center'>NO Shippment</Heading>
           )}
 
           {shipmentData.map((item) => (
-            {/* <ShippingDisplay key={item.id} items={item} /> */}
+            <ShippingDisplay key={item.id} items={item} />
           ))}
 
-          <DisplayCard>
+          {/* <DisplayCard>
             <Heading textAlign='center'>Please wait data is Loading...</Heading>
-          </DisplayCard>
+          </DisplayCard> */}
 
           <Text color='grey' textAlign='center'>
             If you would prefer to speak to someone personally about the
