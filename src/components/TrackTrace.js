@@ -86,7 +86,7 @@ export default function TrackTrace() {
                     <Text mb='2' fontWeight='bold'>
                       Personal Data
                     </Text>
-                    {/* <Flex
+                    <Flex
                       alignItems='center'
                       justify='space-between'
                       wrap='wrap'
@@ -184,7 +184,7 @@ export default function TrackTrace() {
                           </FormErrorMessage>
                         </FormControl>
                       </Box>
-                    </Flex> */}
+                    </Flex>
 
                     <Text mb='2' mt='4' fontWeight='bold'>
                       Shippment Data
@@ -259,36 +259,9 @@ export default function TrackTrace() {
                       </Box>
                     </Flex>
 
-                    {/*<div class='radio-toolbar'>
-                      <input
-                        type='radio'
-                        id='bike'
-                        // {isSelected ? checked : null}
-                        {...register('MotorBike')}
-                      />
-                      <label for='bike'>Bike</label>
-
-                      <input
-                        type='radio'
-                        id='car'
-                        {...register('Car')}
-                      />
-                      <label for='car'>Car</label>
-
-                      <input
-                        type='radio'
-                        id='miniVan'
-                        {...register('miniVan')}
-                      />
-                      <label for='miniVan'>Mini Van</label>
-
-                      <input
-                        type='radio'
-                        id='truck'
-                        {...register('Truck')}
-                      />
-                      <label for='truck'>Truck</label>
-                    </div> */}
+                    <Text mb='2' mt='4' fontWeight='bold'>
+                      Add item
+                    </Text>
 
                     <Flex justify='space-between'>
                       <Box width={['100%', '70%']}>
@@ -302,7 +275,7 @@ export default function TrackTrace() {
                     <Button type='submit'>Send</Button>
                   </form>
                 </Box>
-                <Box width={['100%', '20%']} className={styles.card}>
+                <Box width={['100%', '23%']}>
                   <Card
                     title='Take Your Career To Next Level'
                     description='We pride ourselves on proving the best transportation and shipping services in Nigeria'

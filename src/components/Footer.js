@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   Flex,
-  Image,
   Input,
   InputGroup,
   Spacer,
@@ -11,6 +10,7 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react'
+import Image from 'next/image'
 import logoImage from '@/asset/logo.svg'
 import {
   FaFacebookF,
@@ -30,7 +30,7 @@ export default function Footer() {
       <Container maxWidth='container.xl'>
         <Flex justify='space-between' alignItems='center' wrap='wrap' py='10'>
           <Box width={['100%', 'auto']} mt="10">
-            <Image src={logoImage} width='50px' />
+            <Image src={logoImage} width='50px' height="50" />
             <Flex mt='5'>
               <Box
                 className={styles.icon}

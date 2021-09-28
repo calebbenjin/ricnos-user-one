@@ -6,8 +6,8 @@ import {
   Heading,
   Text,
   SimpleGrid,
-  Image,
 } from '@chakra-ui/react'
+import Image from 'next/image'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import ButtonGroup from './ButtonGroup'
@@ -142,6 +142,8 @@ export default function CustomerSection() {
                     <Flex alignItems='center'>
                       <Box width={['100%', '30%']}>
                         <Image
+                          width="50"
+                          height="50"
                           src={item.avatar}
                           alt={item.name}
                           borderColor='red'
@@ -168,7 +170,7 @@ export default function CustomerSection() {
                             </Text>
                           </Box>
                           <Box width={['100%', '30%']}>
-                            <Image src={quote} />
+                            <Image src={quote} width="60" height="60" />
                           </Box>
                         </Flex>
                       </Box>

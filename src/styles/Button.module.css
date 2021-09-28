@@ -19,7 +19,6 @@
 .btnDark {
   color: #fff;
   padding: 10px;
-  width: 100%;
   background: #000;
   max-width: 100%;
   border-radius: 55px;
@@ -56,7 +55,6 @@
   .btnDark {
     color: #fff;
     padding: 10px 20px;
-    width: 100%;
     background: #000;
     max-width: 100%;
     border-radius: 6px;

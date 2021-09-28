@@ -1,8 +1,9 @@
-import { Box, Container, Flex, Heading, Text, Image, List, ListItem, ListIcon } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Text, List, ListItem, ListIcon } from "@chakra-ui/react";
+import Image from 'next/image'
 import { MdCheckCircle } from 'react-icons/md'
 import { FaLongArrowAltRight } from "react-icons/fa";
 import styles from '@/styles/ExpartSection.module.css'
-// import layerIcon from '../../assets/icons/layericon.svg'
+import layerIcon from '@/asset/icons/layer-icon.svg'
 import safcon from '@/asset/icons/safcon.svg'
 
 export default function ExpartSection() {
@@ -59,14 +60,14 @@ export default function ExpartSection() {
           <Flex wrap="wrap">
             <Box className={styles.card} position="relative" w={['100%', '50%']} h={['300px', '500px']}>
               <Box bg="red" color="white" p="4"  position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '40%']}>
-                {/* <Image src={layerIcon} /> */}
+                <Image src={layerIcon} width="60" height="60" />
                 <Text my="6">Affordable price, certified forwarder</Text>
                 <FaLongArrowAltRight />
               </Box>
             </Box>
             <Box className={styles.cardOne}  w={['100%', '50%']} h={['300px', '500px']}>
               <Box bg="black" color="white" p="4" position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '40%']}>
-                <Image src={safcon} mt="4" />
+                <Image src={safcon} width="60" height="60"/>
                 <Text my="6">Affordable price, certified forwarder</Text>
                 <FaLongArrowAltRight />
               </Box>

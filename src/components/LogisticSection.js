@@ -1,4 +1,5 @@
-import { Box, Container, Flex, Heading, Text, Image, SimpleGrid, Link } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Text, SimpleGrid, Link } from "@chakra-ui/react";
+import Image from 'next/image'
 import styles from '@/styles/LogisticSection.module.css'
 import custImg from '@/asset/userimg.png'
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -96,7 +97,7 @@ export default function PickupSection() {
               </Box>
               <Box width={['100%', '50%']} mt="5">
                 <Flex>
-                  <Image src={custImg}  borderRadius="full" boxSize="50px" border="1px" borderColor="red" mr="5" />
+                  <Image src={custImg} width="60" height="60"  borderRadius="full" boxSize="50px" border="1px" borderColor="red" mr="5" />
                   <Box>
                     <Text fontWeight="bold" fontSize="md">+234 00 000 0000</Text>
                     <Text fontSize="sm" color="grey" mt="1">Customer Representative</Text>

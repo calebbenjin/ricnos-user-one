@@ -4,8 +4,8 @@ import {
   Container,
   Flex,
   Text,
-  Image,
 } from '@chakra-ui/react'
+import Image from 'next/image'
 import styles from '@/styles/ExpectSection.module.css'
 import SectionHeader from './SectionHeader'
 import deliveryIcon from '@/asset/icons/delivery-icon.svg'
@@ -15,7 +15,7 @@ export default function ExpectSection({ className }) {
     <div className={className}>
       <Container maxWidth='container.xl'>
 
-        <Flex align='center' justify='center' wrap='wrap'>
+        <Flex align='center' justify='space-between' wrap='wrap'>
           <Box
             width={[
               '100%', // 0-30em
@@ -30,7 +30,7 @@ export default function ExpectSection({ className }) {
           >
             <Flex className={styles.icon} bg="red" align='center' justify='center'>
               <Box textAlign="center">
-                <Image src={deliveryIcon} mx="auto" />
+                <Image src={deliveryIcon} width="70" height="70" />
                 <Text as="p" fontSize="2xl" color="white" mt={2}>1.456m</Text>
                 <Heading size="sm" color="white">Delivered Goods</Heading>
               </Box>
@@ -41,7 +41,7 @@ export default function ExpectSection({ className }) {
             p="5"
             width={[
               '100%', // 0-30em
-              '60%', // 62em+
+              '57%', // 62em+
             ]}
           >
             <SectionHeader sub="Providing Full Range Of Transportation In Nigeria" title="Reliable Logistics and Transport Solutions Saves your Time." />
