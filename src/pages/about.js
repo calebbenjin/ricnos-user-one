@@ -8,8 +8,9 @@ import affordIcon from '@/asset/icons/affordableicon.svg'
 import warehouseIcon from '@/asset/icons/warehouse-icon.svg'
 import deliveryIcon from '@/asset/icons/delivery.svg'
 import safeIcon from '@/asset/icons/safcon.svg'
-// import layerIcon from '../assets/icons/layericon.svg'
-import { Box, Container, Text, Heading, Flex, Image } from "@chakra-ui/react";
+import layerIcon from '@/asset/icons/layer-icon.svg'
+import { Box, Container, Text, Heading, Flex } from "@chakra-ui/react";
+import Image from 'next/image'
 
 
 
@@ -30,15 +31,15 @@ export default function about() {
             <Box width={['100%', '50%']} className={style.icons}>
               <Flex>
                 <Box width={['100%', '50%']}>
-                  <Image src={affordIcon} alt="Ware house icon" />
+                  <Image src={affordIcon} widht="60" height="60" alt="Ware house icon" />
                   <Text color="white" mt="4">Transparent  Pricing</Text>
                 </Box>
                 <Box width={['100%', '50%']}>
-                  <Image src={deliveryIcon} alt="Ware house icon" />
+                  <Image src={deliveryIcon} widht="60" height="60" alt="Ware house icon" />
                   <Text color="white" mt="4">Fast, Efficient Delivery</Text>
                 </Box>
                 <Box width={['100%', '50%']}>
-                  <Image src={warehouseIcon} alt="Ware house icon" />
+                  <Image src={warehouseIcon} widht="60" height="60" alt="Ware house icon" />
                   <Text color="white" mt="4">Warehouse Storage</Text>
                 </Box>
               </Flex>
@@ -49,14 +50,14 @@ export default function about() {
             <Flex wrap="wrap">
               <Box className={style.card} position="relative" w={['100%', '50%']} h={['300px', '380px']}>
                 <Box bg="red" color="white" p="4"  position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '50%']}>
-                  {/* <Image src={layerIcon} /> */}
+                  <Image src={layerIcon} widht="60" height="60" />
                   <Text my="6">Affordable price, certified forwarder</Text>
                   <FaLongArrowAltRight />
                 </Box>
               </Box>
               <Box className={style.cardOne}  w={['100%', '50%']} h={['300px', '380px']}>
                 <Box bg="black" color="white" p="4" position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '50%']}>
-                  <Image src={safeIcon} mt="4" />
+                  <Image src={safeIcon} widht="60" height="60" mt="4" />
                   <Text my="6">Affordable price, certified forwarder</Text>
                   <FaLongArrowAltRight />
                 </Box>
