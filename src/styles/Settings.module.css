@@ -5,7 +5,8 @@
 
 .profileSetting {
   height: 100vh;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .nav {
@@ -45,6 +46,7 @@
   border: solid 1px #ccc;
   margin: 2rem 0;
 }
+
 
 @media screen and (min-width: 1028px) {
   .sideNav {
