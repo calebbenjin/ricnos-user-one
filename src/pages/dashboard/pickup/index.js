@@ -13,47 +13,54 @@ import {
 // import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 import { useRouter } from 'next/router'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-export default function dashboard() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [address, setAddress] = useState('')
-  const [recieverName, setRecieverName] = useState('')
-  const [recieverPhone, setRecieverPhone] = useState('')
-  const [recieverEmail, setRecieverEmail] = useState('')
-  const [recieverAddress, setRecieverAddress] = useState('')
-  const [recieverCity, setRecieverCity] = useState('')
-  const [recieverState, setRecieverState] = useState('')
-  const [description, setDescription] = useState('')
-  const [departure, setDeparture] = useState('')
-  const [arrival, setArrival] = useState('')
-  const [addItem, setAddItem] = useState([
-    {
-      index: Math.random(),
-      itemName: '',
-      itemQuantity: '',
-      weight: '',
-      deliveryMethod: '',
-      itemValueAmount: '',
-    },
-  ])
+export default function dashboard({ user, token }) {
+  const [values, setValues] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    recieverName: '',
+    recieverPhone: '',
+    recieverEmail: '',
+    recieverAddress: '',
+    recieverCity: '',
+    recieverState: '',
+    description: '',
+    departure: '',
+    arrival: '',
+  })
 
-  const data = {
-    name,
-    email,
-    phone,
-    address,
-    recieverName,
-    recieverEmail,
-    recieverAddress,
-    recieverCity,
-    recieverState,
-    description,
-    departure,
-    arrival,
-    addItem,
-  }
+  // const [addItem, setAddItem] = useState([
+  //   {
+  //     index: Math.random(),
+  //     itemName: '',
+  //     itemQuantity: '',
+  //     weight: '',
+  //     deliveryMethod: '',
+  //     itemValueAmount: '',
+  //   },
+  // ])
+
+  // const data = {
+  //   name,
+  //   email,
+  //   phone,
+  //   address,
+  //   recieverName,
+  //   recieverEmail,
+  //   recieverAddress,
+  //   recieverCity,
+  //   recieverState,
+  //   description,
+  //   departure,
+  //   arrival,
+  //   addItem,
+  // }
 
   // const handleChange = (e) => {
   //   if (
@@ -68,12 +75,34 @@ export default function dashboard() {
   //   }
   // }
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setValues({ ...values, [name]: value })
+  }
+
   const router = useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log(data)
+    // console.log(values)
+
+    const res = await fetch(`${API_URL}/user/order/createOrder`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+
+    if (!res.ok) {
+      toast.error('Something went Wrong')
+    } else {
+      const userData = await res.json()
+      toast.success('Resquest Pick order')
+      console.log(userData)
+    }
 
     // router.push('/dashboard/pickup/confirmOrder')
   }
@@ -98,12 +127,20 @@ export default function dashboard() {
   }
 
   return (
-    <Layout title='Request for Pickup'>
+    <Layout
+      title='Request for Pickup'
+      email={user.email}
+      notification={user.general_notification}
+      imgProfile={user.passport_thumbnail}
+      name={user.name}
+    >
       <Container maxWidth='container.lg'>
         <Box>
           <Heading size='lg' my='10'>
             Order a Pickup
           </Heading>
+
+          <ToastContainer />
 
           <form
             onSubmit={handleSubmit}
@@ -123,8 +160,9 @@ export default function dashboard() {
                     type='text'
                     id='name'
                     placeholder='Name'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name='name'
+                    value={values.name}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -135,8 +173,9 @@ export default function dashboard() {
                     type='email'
                     id='email'
                     placeholder='Email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    name='email'
+                    value={values.email}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -147,8 +186,9 @@ export default function dashboard() {
                     type='text'
                     id='phone'
                     placeholder='Phone Number'
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    name='phone'
+                    value={values.phone}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -161,8 +201,9 @@ export default function dashboard() {
                   type='text'
                   id='address'
                   placeholder='Address'
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  name='address'
+                  value={values.address}
+                  onChange={handleInputChange}
                   required
                 />
               </FormControl>
@@ -178,8 +219,9 @@ export default function dashboard() {
                     type='text'
                     id='recieverName'
                     placeholder='Recievers Name'
-                    value={recieverName}
-                    onChange={(e) => setRecieverName(e.target.value)}
+                    name='recieverName'
+                    value={values.recieverName}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -190,8 +232,9 @@ export default function dashboard() {
                     type='email'
                     id='email'
                     placeholder='Email'
-                    value={recieverEmail}
-                    onChange={(e) => setRecieverEmail(e.target.value)}
+                    name='recieverEmail'
+                    value={values.recieverEmail}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -202,8 +245,9 @@ export default function dashboard() {
                     type='text'
                     id='phone'
                     placeholder='Phone Number'
-                    value={recieverPhone}
-                    onChange={(e) => setRecieverPhone(e.target.value)}
+                    name='recieverPhone'
+                    value={values.recieverPhone}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -215,8 +259,9 @@ export default function dashboard() {
                   type='text'
                   id='description'
                   placeholder='Description'
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  name='description'
+                  value={values.description}
+                  onChange={handleInputChange}
                   required
                 />
               </FormControl>
@@ -228,8 +273,9 @@ export default function dashboard() {
                     type='text'
                     id='departure'
                     placeholder='Departure'
-                    value={departure}
-                    onChange={(e) => setDeparture(e.target.value)}
+                    name='departure'
+                    value={values.departure}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -240,8 +286,9 @@ export default function dashboard() {
                     type='text'
                     id='arrival'
                     placeholder='Arrival'
-                    value={arrival}
-                    onChange={(e) => setArrival(e.target.value)}
+                    name='arrival'
+                    value={values.arrival}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -254,8 +301,9 @@ export default function dashboard() {
                     type='text'
                     id='address'
                     placeholder='Address'
-                    value={recieverAddress}
-                    onChange={(e) => setRecieverAddress(e.target.value)}
+                    name='address'
+                    value={values.address}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -264,10 +312,11 @@ export default function dashboard() {
                 <FormControl>
                   <input
                     type='text'
-                    placeholder='City'
-                    id='city'
-                    value={recieverCity}
-                    onChange={(e) => setRecieverCity(e.target.value)}
+                    placeholder='reciever City'
+                    id='recieverCity'
+                    name='recieverCity'
+                    value={values.recieverCity}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
@@ -278,17 +327,20 @@ export default function dashboard() {
                 <FormControl>
                   <input
                     type='text'
-                    id='state'
-                    placeholder='State'
-                    value={recieverState}
-                    onChange={(e) => setRecieverState(e.target.value)}
+                    placeholder='reciever State'
+                    id='recieverState'
+                    name='recieverState'
+                    value={values.recieverState}
+                    onChange={handleInputChange}
                     required
                   />
                 </FormControl>
               </Box>
-              <Box mb='3' width={['100%', '30%']}>
+              {/* <Box mb='3' width={['100%', '30%']}>
                 <FormControl>
-                  <select placeholder='Region' required>
+                  <select placeholder='Region' name='recieverState'
+                    value={values.recieverRegion}
+                    onChange={handleInputChange} required>
                     <option>Select Regoin</option>
                     <option value='option1'>Option 1</option>
                     <option value='option2'>Option 2</option>
@@ -305,7 +357,7 @@ export default function dashboard() {
                     <option value='option3'>Option 3</option>
                   </select>
                 </FormControl>
-              </Box>
+              </Box> */}
             </Flex>
 
             <Text textAlign='left' mb='4' mt='10' fontWeight='bold'>
@@ -325,4 +377,27 @@ export default function dashboard() {
       </Container>
     </Layout>
   )
+}
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  // console.log(res)
+
+  const resData = await res.json()
+  const { user } = resData.data
+
+  return {
+    props: {
+      user,
+      token,
+    },
+  }
 }

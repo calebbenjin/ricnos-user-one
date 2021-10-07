@@ -67,6 +67,8 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+
+
   // Check if user is logged in
   // ================================================
   const checkUserLoggedIn = async (user) => {
@@ -79,6 +81,8 @@ export const AuthProvider = ({ children }) => {
       setUser(null)
     }
   }
+
+  console.log(user)
 
   // Logout user
   // =====================================

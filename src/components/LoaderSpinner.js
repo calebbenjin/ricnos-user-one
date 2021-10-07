@@ -4,16 +4,14 @@ import styles from '@/styles/loader.module.css'
 export default function Loading({title}) {
   return (
     <div className={styles.card}>
-      <div>
-        <Spinner
-          thickness='4px'
-          speed='0.65s'
-          emptyColor='gray.200'
-          color='blue.500'
-          size='xl'
-        />
-        <h2>{title}...</h2>
-      </div>
+      <Spinner
+      thickness='3px'
+      speed='0.70s'
+      emptyColor='gray.200'
+      color='gray.800'
+      size='lg'
+    />
+      <h2>{title}...</h2>
     </div>
   )
 }

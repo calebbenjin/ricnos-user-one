@@ -4,66 +4,72 @@
   padding: 10px 30px;
   display: block;
   color: #fff;
-  margin: 1rem 0;
+  margin: 0 1rem;
   display: inline;
   white-space: nowrap;
   border-radius: 6px;
   transition: all 0.4s linear;
   text-transform: uppercase;
 }
-
 .button:hover {
   background: #b60202;
 }
 
 .btnDark {
   color: #fff;
-  padding: 10px;
+  padding: 10px 20px;
   background: #000;
   max-width: 100%;
   border-radius: 6px;
+  border: solid 1px #fff;
   margin: 1rem 0;
   white-space: nowrap;
   text-align: center;
   font-weight: 500;
-  font-size: 0.8rem;
-  border: none;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.5s ease;
 }
 
 
 
-@media screen and (min-width: 1022px) {
+
+
+
+
+
+@media screen and (max-width: 768px) {
   .btn {
     background: red;
     border: solid 1px red;
     padding: 10px 30px;
     display: block;
     color: #fff;
-    margin: 0 1rem;
+    margin: 1rem 0;
+    width: 100%;
     display: inline;
     white-space: nowrap;
     border-radius: 6px;
     transition: all 0.4s linear;
     text-transform: uppercase;
   }
+  
   .button:hover {
     background: #b60202;
   }
-
+  
   .btnDark {
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px;
     background: #000;
     max-width: 100%;
     border-radius: 6px;
-    border: solid 1px #fff;
     margin: 1rem 0;
     white-space: nowrap;
     text-align: center;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.8rem;
+    border: none;
     text-decoration: none;
     transition: all 0.5s ease;
   }

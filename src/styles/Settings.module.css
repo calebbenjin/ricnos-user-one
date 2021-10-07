@@ -4,9 +4,12 @@
 }
 
 .profileSetting {
-  height: 100vh;
+  height: 100%;
   width: 90%;
+  padding-bottom: 63rem;
   margin: 0 auto;
+  background: #fff;
+  padding: 2rem;
 }
 
 .nav {

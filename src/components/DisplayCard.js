@@ -4,16 +4,16 @@ import { FaTimes } from 'react-icons/fa'
 import { Text } from '@chakra-ui/react'
 
 export default function DisplayCard({ children, title }) {
-  const [isClose, setIsClose] = useState(false)
+  const [isClose, setIsClose] = useState(true)
 
   if (isClose) {
     return (
       <div className={styles.card}>
-        <Text fontWeight='bold' fontSize='lg' color="green">{title}</Text>
         <button className={styles.btn} onClick={() => setIsClose(false)}>
           <FaTimes />
         </button>
         <div className={styles.body}>
+        <Text fontWeight='bold' fontSize='lg' mb="4" color="green">{title}</Text>
           <div>{children}</div>
         </div>
       </div>
