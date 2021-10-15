@@ -1,29 +1,53 @@
-import React from 'react'
+import React from 'react';
+import Link from 'next/link';
 
-export default function DataTable({data}) {
-
-  const columns = data[0] && Object.keys(data[0]); 
-  // const status = data.status
-
-  // console.log(columns)
-
-  // console.log(data.map(stat =>  stat))
-
+export default function DataTable({ data }) {
   return (
     <div className="resTable">
       <table cellPadding={0} cellSpacing={0}>
         <thead>
-          <tr>{data[0] && columns.map((heading, i) => <th data-label={heading} key={i} scope="col">{heading}</th>)}</tr>
+          <tr>
+            <th data-label="Agent" scope="col">
+              Agent
+            </th>
+            <th data-label="Track No" scope="col">
+              Track No
+            </th>
+            <th data-label="Item" scope="col">
+              Item
+            </th>
+            <th data-label="From" scope="col">
+              From
+            </th>
+            <th data-label="To" scope="col">
+              To
+            </th>
+            <th data-label="Status" scope="col">
+              Status
+            </th>
+            <th data-label="Price" scope="col">
+              Price
+            </th>
+          </tr>
         </thead>
         <tbody>
-          {data.map((row, i) => <tr key={i}>
-          {console.log(row.status.toString())}
-            {
-              columns.map((column, idx) => <td  key={idx}> {row[column]} </td>)
-            }
-          </tr>)}
+          {data.map((row, i) => (
+            <tr key={i}>
+              <td> No Agent </td>
+              <td>
+                <Link href={`/dashboard/pickup/${row.id}/confirm`}>
+                  {row.tracking_id}
+                </Link>
+              </td>
+              <td> {row.items.map((item) => `${item.item}, `)} </td>
+              <td> {row.departure} </td>
+              <td> {row.arrival} </td>
+              <td> {row.status} </td>
+              <td> #{row.amount} </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }

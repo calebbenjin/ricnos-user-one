@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/HomeLayout';
 import Link from 'next/link';
@@ -57,7 +57,14 @@ export default function TrackingPage() {
 
   const router = useRouter();
 
-  console.log(router);
+  useEffect(() => {
+    if (router.query) {
+      setShipmentData(router.query.tracking_data);
+    }
+
+    console.log(router.query.tracking_data);
+  }, []);
+
   return (
     <Layout>
       <Div>

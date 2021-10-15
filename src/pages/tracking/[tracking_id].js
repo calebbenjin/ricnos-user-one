@@ -1,10 +1,11 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/HomeLayout';
 import Link from 'next/link';
 import TrackForm from '@/components/TrackForm';
 import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react';
 import styled from 'styled-components';
+import { API_URL } from '@/lib/index';
 // import { GoCheck } from 'react-icons/go'
 // import { FaLongArrowAltRight } from 'react-icons/fa'
 // import AccordonComp from '@/components/Accordon'
@@ -13,51 +14,7 @@ import ShippingDisplay from '@/components/ShippmentDisplay';
 // import {API_URL} from '@/lib/index'
 // import FetchContext from '@/context/FetchContext'
 
-const shippingData = [
-  {
-    id: 1,
-    userName: 'Joseph',
-    location: 'April, 14 2021 16:10 Local time | LAGOS',
-    trackingCode: '7302559294',
-    from: 'Choba Port Harcourt',
-    to: 'Ikeji Lagos',
-    items: [
-      { id: 1, name: 'Shoe', quantity: 2 },
-      { id: 2, name: 'Hands Bag', quantity: 1 },
-      { id: 3, name: 'Books', quantity: 5 },
-      { id: 4, name: 'Laptop', quantity: 4 },
-    ],
-    shippments: [
-      {
-        id: 1,
-        date: 'April, 14 2021',
-        time: '16:10',
-        status: 'Delivered',
-      },
-      {
-        id: 2,
-        date: 'April, 14 2021',
-        time: '16:10',
-        status: 'Delivered',
-      },
-      {
-        id: 3,
-        date: 'April, 14 2021',
-        time: '16:10',
-        status: 'Delivered',
-      },
-    ],
-  },
-];
-
-export default function TrackingPage() {
-  const [shipmentData, setShipmentData] = useState(shippingData);
-  const [isLoading, setIsLoading] = useState(true);
-  // const {login} = useContext(FetchContext)
-
-  const router = useRouter();
-
-  console.log(router);
+export default function TrackingPage({ tracking_data }) {
   return (
     <Layout>
       <Div>
@@ -67,12 +24,12 @@ export default function TrackingPage() {
           </Heading>
           <TrackForm bg="white" />
 
-          {shipmentData.length === 0 && (
+          {tracking_data.length === 0 && (
             <Heading textAlign="center">NO Shippment</Heading>
           )}
 
-          {shipmentData.map((item) => (
-            <ShippingDisplay key={item.id} items={item} />
+          {tracking_data.map((item) => (
+            <ShippingDisplay data={tracking_data} key={item.id} items={item} />
           ))}
 
           {/* <DisplayCard>
@@ -92,16 +49,28 @@ export default function TrackingPage() {
   );
 }
 
-// export async function getServerSideProps({query: {tracking_id}}) {
-//   const res = await fetch(`${API_URL}/tracking/${tracking_id}`)
-//   const trackData = await res.json()
+export async function getServerSideProps(context) {
+  const { tracking_id } = context.query;
+  let tracking_data;
+  try {
+    const res = await fetch(`${API_URL}/tracking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tracking_id: tracking_id }),
+    });
+    tracking_data = await res.json();
+  } catch (err) {
+    console.error(err);
+  }
 
-//   return {
-//     props: {
-//       track: trackData[0]
-//     }
-//   }
-// }
+  return {
+    props: {
+      tracking_data: tracking_data.data.order,
+    },
+  };
+}
 
 // export async function getStaticProps() {
 //   const res = await fetch(`${API_URL}/tracking`)
