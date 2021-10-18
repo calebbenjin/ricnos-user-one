@@ -3,11 +3,11 @@ import { Spinner } from '@chakra-ui/react'
 export default function Loading() {
   return (
     <Spinner
-      thickness='4px'
-      speed='0.65s'
+      thickness='3px'
+      speed='0.70s'
       emptyColor='gray.200'
-      color='blue.500'
-      size='xl'
+      color='gray.800'
+      size='lg'
     />
   )
 }

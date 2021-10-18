@@ -189,7 +189,7 @@ export default function dashboard({ token }) {
   };
 
   return (
-    <Layout title="Request for Pickup">
+<Layout title="Request for Pickup">
       <Container maxWidth="container.lg">
         <Box>
           <Heading size="lg" my="10">
@@ -431,7 +431,6 @@ export default function dashboard({ token }) {
                   </FormControl>
                 </Box>
               </Flex>
-
               {itemsList.map((item, i) => (
                 <div key={i}>
                   <Text textAlign="left" mb="4" mt="7" fontWeight="bold">
@@ -537,4 +536,27 @@ export async function getServerSideProps({ req }) {
       token,
     },
   };
+}
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  // console.log(res)
+
+  const resData = await res.json()
+  const { user } = resData.data
+
+  return {
+    props: {
+      user,
+      token,
+    },
+  }
 }

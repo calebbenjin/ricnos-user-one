@@ -1,214 +1,139 @@
 import SideNav from '@/components/SideNav'
+import Layout from '@/components/Layout'
 import {
   Box,
-  Flex,
+  Checkbox,
   Container,
+  Flex,
+  List,
+  ListItem,
   Text,
-  Avatar,
-  AvatarBadge,
-  FormLabel,
   FormControl,
-  Input,
+  FormLabel,
   Heading,
+  Switch,
 } from '@chakra-ui/react'
-import Layout from '@/components/Layout'
 import styles from '@/styles/Settings.module.css'
-import { BsPencil } from 'react-icons/bs'
-import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 
-export default function settingsPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-
-  const onSubmit = (data) => {
-    console.log(data)
-  }
+export default function notificationPage() {
   return (
     <Layout>
       <Flex justify='space-between' wrap='wrap'>
         <SideNav />
 
         <Box className={styles.profileSetting}>
-          <div>
-            <Box className={styles.form} bg='white' p='6'>
-              <Heading size='md' my='5'>
-                Profile Settings
-              </Heading>
-              <hr />
-
-              <Box textAlign='center' className={styles.avatarBox}>
-                <Avatar
-                  size='2xl'
-                  mt='10'
-                  className={styles.avatar}
-                  name='Segun Adebayo'
-                  src='https://bit.ly/sage-adebayo'
-                >
-                  <AvatarBadge
-                    className={styles.avatarBadge}
-                    boxSize='0.8em'
-                    borderRadius='md'
-                    bg='red.500'
-                  >
-                    {' '}
-                    <BsPencil color='white' fontSize='1.5rem' />{' '}
-                  </AvatarBadge>
-                </Avatar>
+          <Container maxWidth='container.md'>
+            <Heading fontSize='lg' mb='5' mt="10">
+              Notifications Settings
+            </Heading>
+            <hr />
+            <Flex wrap='wrap' justify='space-between' my='10'>
+              <Box width={['100%', '20%']}>
+                <Heading size='sm' mb='1'>
+                  Notifications
+                </Heading>
+                <Text fontSize='sm'>
+                  For important updates regarding RICNO LOGISTICS and your
+                  activities, you will recieve certain notifications.
+                </Text>
               </Box>
+              <Box width={['100%', '70%']} mt='5'>
+                <Flex justify='space-between'>
+                  <Box>
+                    <Text color='grey' fontSize='lg' mb='5'>
+                      Type
+                    </Text>
+                    <List fontSize='sm'>
+                      <ListItem mb='6'>Message</ListItem>
+                      <ListItem mb='6'>Order Update</ListItem>
+                      <ListItem mb='6'>General Notification</ListItem>
+                    </List>
+                  </Box>
+                  <Box>
+                    <Text color='grey' fontSize='md' mb='5'>
+                      Email
+                    </Text>
+                    <List fontSize='sm'>
+                      <ListItem mb='6'>
+                        <Checkbox size='lg' colorScheme='red'></Checkbox>
+                      </ListItem>
+                      <ListItem mb='6'>
+                        <Checkbox size='lg' colorScheme='red'></Checkbox>
+                      </ListItem>
+                      <ListItem mb='6'>
+                        <Checkbox size='lg' colorScheme='red'></Checkbox>
+                      </ListItem>
+                    </List>
+                  </Box>
+                  <Box>
+                    <Text color='grey' fontSize='md' mb='5'>
+                      Mobile
+                    </Text>
 
+                    <List fontSize='sm'>
+                      <ListItem mb='6'>
+                        <Checkbox size='lg' colorScheme='red'></Checkbox>
+                      </ListItem>
+                      <ListItem mb='6'>
+                        <Checkbox size='lg' colorScheme='red'></Checkbox>
+                      </ListItem>
+                      <ListItem mb='6'>
+                        <Checkbox size='lg' colorScheme='red'></Checkbox>
+                      </ListItem>
+                    </List>
+                  </Box>
+                </Flex>
+              </Box>
+            </Flex>
+          </Container>
+          <hr />
+
+          <Container maxWidth='container.md' mb="20">
+            <Text color='grey' fontSize='2xl' mb='5' mt='10'>
+              Real-Time Notifications
+            </Text>
+            <Flex alignItems='center' justify='space-between' my='10'>
               <Box>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <Flex wrap='wrap' justify='space-between' mt='10'>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>Firstname</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          size='lg'
-                          id='firstname'
-                          placeholder='Name'
-                          {...register('name')}
-                        />
-                      </FormControl>
-                    </Box>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>Lastname</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          size='lg'
-                          id='lastname'
-                          placeholder='Lastname'
-                          {...register('lastname')}
-                        />
-                      </FormControl>
-                    </Box>
-                  </Flex>
-                  <Flex wrap='wrap' justify='space-between'>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>Phone</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          size='lg'
-                          id='phone'
-                          placeholder='+234 810-000-0000'
-                          {...register('phone')}
-                        />
-                      </FormControl>
-                    </Box>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>Email Address</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          size='lg'
-                          id='email'
-                          placeholder='Example@mail.com'
-                          {...register('email')}
-                        />
-                      </FormControl>
-                    </Box>
-                  </Flex>
-                  <Box mb='4' width={['100%']}>
-                    <FormControl>
-                      <FormLabel fontWeight='normal'>Address 1</FormLabel>
-                      <Input
-                        borderColor='grey'
-                        type='text'
-                        size='lg'
-                        id='address'
-                        placeholder='Address 1'
-                        {...register('address')}
-                      />
-                    </FormControl>
-                  </Box>
-                  <Box mb='4' width={['100%']}>
-                    <FormControl>
-                      <FormLabel fontWeight='normal'>Address 2</FormLabel>
-                      <Input
-                        borderColor='grey'
-                        type='text'
-                        size='lg'
-                        id='address'
-                        placeholder='Address 2 (Optional)'
-                        {...register('address')}
-                      />
-                    </FormControl>
-                  </Box>
-
-                  <Flex wrap='wrap' justify='space-between'>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>City</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          id='city'
-                          size='lg'
-                          placeholder='City'
-                          {...register('city')}
-                        />
-                      </FormControl>
-                    </Box>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>State</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          id='state'
-                          size='lg'
-                          placeholder='State'
-                          {...register('state')}
-                        />
-                      </FormControl>
-                    </Box>
-                  </Flex>
-                  <Flex wrap='wrap' justify='space-between'>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>Zip Code</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          id='zipcode'
-                          size='lg'
-                          placeholder='Zip Code'
-                          {...register('zipcode')}
-                        />
-                      </FormControl>
-                    </Box>
-                    <Box mb='4' width={['100%', '47%']}>
-                      <FormControl>
-                        <FormLabel fontWeight='normal'>Country</FormLabel>
-                        <Input
-                          borderColor='grey'
-                          type='text'
-                          size='lg'
-                          id='country'
-                          placeholder='Country'
-                          {...register('country')}
-                        />
-                      </FormControl>
-                    </Box>
-                  </Flex>
-
-                  <Box textAlign='right' mb='20'>
-                    <Button>Save Changes</Button>
-                  </Box>
-                </form>
+                <Text>Enable /disable real-time notifications</Text>
               </Box>
+              <Box>
+                <FormControl display='flex' alignItems='center'>
+                  <Switch id='email-alerts' colorScheme='red' mr='3' />
+                  <FormLabel
+                    htmlFor='email-alerts'
+                    mb='2'
+                    fontWeight='normal'
+                    color='red'
+                  >
+                    Try me.
+                  </FormLabel>
+                </FormControl>
+              </Box>
+            </Flex>
+            <Flex alignItems='center' justify='space-between' my='10'>
+              <Box>
+                <Text>Enable /disable sound</Text>
+              </Box>
+              <Box>
+                <FormControl display='flex' alignItems='center'>
+                  <Switch id='email-alerts' colorScheme='red' mr='3' />
+                  <FormLabel
+                    htmlFor='email-alerts'
+                    mb='2'
+                    fontWeight='normal'
+                    color='red'
+                  >
+                    icon
+                  </FormLabel>
+                </FormControl>
+              </Box>
+            </Flex>
+
+            <Box textAlign='right' mt='10'>
+              <Button>Save Changes</Button>
             </Box>
-          </div>
+          </Container>
         </Box>
       </Flex>
     </Layout>
