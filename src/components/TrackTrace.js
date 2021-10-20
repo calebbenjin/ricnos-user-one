@@ -33,7 +33,8 @@ import { API_URL } from '@/lib/index'
 export default function TrackTrace() {
   // const { isLoading, showResult } = useContext(FetchContext)
   const [isLoading, setIsLoading] = useState(null)
-  const [showResult, setShowResult] = useState(null)
+  const [showResult, setShowResult] = useState(false)
+  const [quoteResult, setQuoteResult] = useState()
 
   const {
     register,
@@ -51,24 +52,23 @@ export default function TrackTrace() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({weight, value, vehicle, region}),
+      body: JSON.stringify({ weight, value, vehicle, region }),
     })
 
     const quoteData = await res.json()
 
-    console.log(quoteData)
+    console.log('Quote res', quoteData)
 
-    // if (res.ok) {
-    //   setIsLoading(true)
-    //   setShowResult(true)
-    //   setUser(user)
-    // } else {
-    //   setIsLoading(false)
-    //   setShowResult(false)
-    //   setIsError(data.message)
-    //   setIsError(null)
-    //   console.log('Somothing went Wrong')
-    // }
+    if (res.ok) {
+      setIsLoading(true)
+      setShowResult(true)
+    } else {
+      setIsLoading(false)
+      setShowResult(false)
+      setIsError(quoteData.data.message)
+      setIsError(null)
+      console.log('Somothing went Wrong')
+    }
   }
 
   return (
@@ -112,7 +112,7 @@ export default function TrackTrace() {
                       <Text mb='2' fontWeight='bold'>
                         Personal Data
                       </Text>
-                      {/* <Flex
+                      <Flex
                         alignItems='center'
                         justify='space-between'
                         wrap='wrap'
@@ -162,14 +162,14 @@ export default function TrackTrace() {
                             </FormErrorMessage>
                           </FormControl>
                         </Box>
-                      </Flex> */}
+                      </Flex>
 
                       <Text mb='2' mt='4' fontWeight='bold'>
                         Shippment Data
                       </Text>
 
                       <Flex wrap='wrap' justify='space-between' mt='4'>
-                        {/* <Box mb='3' width={['100%', '32%']}>
+                        <Box mb='3' width={['100%', '32%']}>
                           <FormControl isInvalid={errors.description}>
                             <input
                               type='text'
@@ -198,8 +198,8 @@ export default function TrackTrace() {
                               {errors.departure && errors.departure.message}
                             </FormErrorMessage>
                           </FormControl>
-                        </Box> */}
-                        {/* <Box mb='3' width={['100%', '32%']}>
+                        </Box>
+                        <Box mb='3' width={['100%', '32%']}>
                           <FormControl isInvalid={errors.arrival}>
                             <input
                               type='text'
@@ -213,7 +213,7 @@ export default function TrackTrace() {
                               {errors.arrival && errors.arrival.message}
                             </FormErrorMessage>
                           </FormControl>
-                        </Box> */}
+                        </Box>
                       </Flex>
                       <Flex wrap='wrap' justify='space-between' mt='4'>
                         <Box mb='3' width={['100%', '25%']}>
@@ -273,7 +273,7 @@ export default function TrackTrace() {
                             <input
                               type='text'
                               id='value'
-                              name="value"
+                              name='value'
                               placeholder='Item value amount'
                               {...register('value', {
                                 required: 'Enter your Item value amount',
@@ -305,7 +305,7 @@ export default function TrackTrace() {
                     </form>
                   )}
 
-                  {showResult ? (
+                  {showResult && !isLoading ? (
                     <DisplayCard title='Shippment Quotation Result'>
                       <Text fontSize='lg' textTransform='capitalize'>
                         <b>Item Weight:</b> 3 kg
