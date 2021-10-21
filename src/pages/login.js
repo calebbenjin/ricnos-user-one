@@ -24,7 +24,7 @@ import { useRouter } from 'next/router'
 import Button from '@/components/Button'
 import AuthContext from '@/context/AuthContext'
 
-export default function loginPage() {
+export default function LoginPage() {
   const { login, isError, isLoading } = useContext(AuthContext)
   const [isLoader, setIsLoader] = useState(false)
 

@@ -18,7 +18,7 @@ import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import ButtonDark from '@/components/ButtonDark'
 
-export default function dashboard({ user }) {
+export default function Dashboard({ user }) {
   const [paymentStatus, setPaymentStatus] = useState(false)
 
   console.log(user)

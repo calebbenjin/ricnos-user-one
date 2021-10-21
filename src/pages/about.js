@@ -14,7 +14,7 @@ import Image from 'next/image'
 
 
 
-export default function about() {
+export default function AboutPage() {
   return (
     <Layout>
       <Banner className={styles.about} title="If it’s about us, time is the thing." des="RICNOS is committed to customer service excellence and our business is based around solid values." />

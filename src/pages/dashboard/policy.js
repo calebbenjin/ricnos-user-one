@@ -9,7 +9,7 @@ import {
 import Layout from '@/components/Layout'
 import styles from '@/styles/Policy.module.css'
 
-export default function policyPage() {
+export default function PolicyPage() {
   return (
     <Layout>
       <div className="container">
@@ -101,8 +101,8 @@ export default function policyPage() {
                 <p className="justify">
                   Once you agree to allow our website to use cookies, you also
                   agree to use the data it collects regarding your online
-                  behaviour (analyse web traffic, web pages you spend the most
-                  time on, and websites you visit). The data we collect by using
+                  behaviour analyse web traffic, web pages you spend the most
+                  time on, and websites you visit. The data we collect by using
                   cookies is used to customize our website to your needs. After
                   we use the data for statistical analysis, the data is
                   completely removed from our systems.Please note that cookies
@@ -124,7 +124,7 @@ export default function policyPage() {
                   collection of your personal data. You can achieve this by
                   doing the following: When you are filling the forms on the
                   website, make sure to check if there is a box which you can
-                  leave unchecked, if you don't want to disclose your personal
+                  leave unchecked, if you dont want to disclose your personal
                   information. If you have already agreed to share your
                   information with us, feel free to contact us via email and we
                   will be more than happy to change this for you. [name] will

@@ -3,7 +3,7 @@ import Layout from '../../../components/template/DashboardLayout'
 import Link from '../../../components/atoms/Links'
 import setting from '../../../styles/Settings.module.css'
 
-export default function openTicket() {
+export default function OpenTicket() {
   return (
     <Layout>
       <Flex>

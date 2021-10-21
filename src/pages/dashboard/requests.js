@@ -15,7 +15,7 @@ import {
 import { useForm } from 'react-hook-form'
 import Button from '../../components/atoms/Buttons/FormBtn'
 
-export default function dashboard() {
+export default function RequestPage() {
 
   const {
     register,

@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
 
-export default function securityPage() {
+export default function SecurityPage() {
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
 

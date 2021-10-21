@@ -24,7 +24,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import AuthContext from '@/context/AuthContext'
 import Loader from '@/components/Loader'
 
-export default function signupPage() {
+export default function SignupPage() {
   const {
     register,
     handleSubmit,

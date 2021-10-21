@@ -18,7 +18,7 @@ import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 // import PinInput from '../components/PinInput'
 
-export default function signupPage() {
+export default function SignupPage() {
   const {
     register,
     handleSubmit,

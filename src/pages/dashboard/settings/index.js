@@ -16,7 +16,7 @@ import {
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
 
-export default function notificationPage() {
+export default function NotificationPage() {
   return (
     <Layout>
       <Flex justify='space-between' wrap='wrap'>

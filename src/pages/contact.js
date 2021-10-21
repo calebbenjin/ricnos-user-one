@@ -13,7 +13,7 @@ import Button from '@/components/Button'
 
 
 
-export default function contactPage() {
+export default function ContactPage() {
   const { register, handleSubmit, formState: { errors }} = useForm()
 
   const onSubmit = (data) => {

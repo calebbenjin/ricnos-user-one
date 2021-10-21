@@ -50,7 +50,7 @@ const usersData = [
   },
 ]
 
-export default function messagePage() {
+export default function MessagePage() {
   const [users, setUsers] = useState(usersData)
 
   return (

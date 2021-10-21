@@ -16,7 +16,7 @@ import {
 import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 
-export default function forgetPasswordPage() {
+export default function ForgetPasswordPage() {
   const {
     register,
     handleSubmit,

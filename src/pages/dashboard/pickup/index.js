@@ -18,7 +18,7 @@ import AuthContext from '@/context/AuthContext';
 import { API_URL } from '@/lib/index';
 import { parseCookies } from '@/helpers/index';
 
-export default function dashboard({ token }) {
+export default function PickupPage({ token }) {
   const [userDetails, setUserDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [processingOrder, setProcessingOrder] = useState(false);
@@ -528,15 +528,15 @@ export default function dashboard({ token }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+// export async function getServerSideProps({ req }) {
+//   const { token } = parseCookies(req);
 
-  return {
-    props: {
-      token,
-    },
-  };
-}
+//   return {
+//     props: {
+//       token,
+//     },
+//   };
+// }
 
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)

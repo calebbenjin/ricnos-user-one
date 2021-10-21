@@ -20,7 +20,7 @@ import Button from '@/components/Button'
 import banner from '@/styles/Policy.module.css'
 import navs from '@/styles/Settings.module.css'
 
-export default function settingsPage() {
+export default function SettingsPage() {
   const {
     register,
     handleSubmit,

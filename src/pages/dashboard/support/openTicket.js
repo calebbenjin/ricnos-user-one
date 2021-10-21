@@ -4,7 +4,7 @@ import Link from '@/components/Link'
 import { TiPlus } from 'react-icons/ti'
 import setting from '@/styles/Settings.module.css'
 
-export default function openTicket() {
+export default function OpenTicket() {
   return (
     <Layout>
       <Flex>
