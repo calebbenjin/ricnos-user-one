@@ -17,10 +17,11 @@ import Button from '@/components/Button';
 import AuthContext from '@/context/AuthContext';
 import { API_URL } from '@/lib/index';
 import { parseCookies } from '@/helpers/index';
+import Loading from '@/components/Loader';
 
 export default function PickupPage({ token }) {
   const [userDetails, setUserDetails] = useState();
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const [processingOrder, setProcessingOrder] = useState(false);
   const [itemsList, setItemsList] = useState([
     {
@@ -98,7 +99,7 @@ export default function PickupPage({ token }) {
   }, [user]);
 
   useEffect(() => {
-    if (loading) {
+    if (isLoading) {
       getQuoteData();
     }
   }, [getQuoteData]);
@@ -196,7 +197,10 @@ export default function PickupPage({ token }) {
             Order a Pickup
           </Heading>
 
-          {!loading && (
+          {processingOrder ? <Loading title="Processing your order" /> : null}
+          
+
+          {!isLoading && (
             <form
               onSubmit={handleSubmit}
               style={{
@@ -517,9 +521,7 @@ export default function PickupPage({ token }) {
                 Add more items
               </Text>
 
-              <Button disabled={processingOrder}>
-                {processingOrder ? 'Processing your Order' : 'Checkout'}
-              </Button>
+              <Button> Checkout</Button>
             </form>
           )}
         </Box>

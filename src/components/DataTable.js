@@ -36,14 +36,14 @@ export default function DataTable({ data }) {
               <td> No Agent </td>
               <td>
                 <Link href={`/dashboard/pickup/${row.id}/confirm`}>
-                  {row.tracking_id}
+                  <a>#{row.tracking_id}</a>
                 </Link>
               </td>
               <td> {row.items.map((item) => `${item.item}, `)} </td>
               <td> {row.departure} </td>
               <td> {row.arrival} </td>
               <td> {row.status} </td>
-              <td> #{row.amount} </td>
+              <td> NGN {row.amount} </td>
             </tr>
           ))}
         </tbody>

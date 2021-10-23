@@ -44,7 +44,7 @@ export default function layout({ children, name, email, notification, imgProfile
 
               <Box as='nav'>
                 <Flex alignItems='center'>
-                  <Link href='/dashboard/settings/notification'>
+                  <Link href='/dashboard/message/'>
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
                       <div>{notification && notification}</div>
