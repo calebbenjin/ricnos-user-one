@@ -23,6 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 import Button from '@/components/Button'
 import AuthContext from '@/context/AuthContext'
+import Loading from '@/components/Loader'
 
 export default function LoginPage() {
   const { login, isError, isLoading } = useContext(AuthContext)
@@ -50,7 +51,8 @@ export default function LoginPage() {
   return (
     <Layout>
       <Box className={styles.cardBg}>
-        <ToastContainer />
+        
+        {isLoading ? <Loading title="Connecting..." /> : <ToastContainer />}
         <Box className={styles.form}>
           <Container maxWidth='container.xl'>
             <Box width={['100%', '50%']}></Box>
@@ -107,7 +109,7 @@ export default function LoginPage() {
                 <Box my='5'>
                   <Link href='/signup'>Don't have an account? Signup</Link>
                 </Box>
-                <Button type='submit'>{isLoading ? 'Loading...' : 'LOGIN'}</Button>
+                <Button type='submit'>LOGIN</Button>
               </form>
             </Box>
           </Container>

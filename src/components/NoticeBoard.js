@@ -1,3 +1,4 @@
+import { useState, useContext } from 'react'
 import { Heading, Flex, Box, Avatar, Text } from '@chakra-ui/react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaLongArrowAltRight } from 'react-icons/fa';
@@ -8,8 +9,13 @@ import styles from '@/styles/Message.module.css';
 import Link from 'next/link';
 import Logo from './Logo';
 import logoImg from '@/asset/logo1.svg';
+import AuthContext from '@/context/AuthContext';
 
-export default function messagePage({ user, order }) {
+export default function MessagePage() {
+  const { user } = useContext(AuthContext)
+
+  const userData = user.data.user
+
   return (
     <Box p="5" boxShadow="md" borderRadius="md" backgroundColor="white">
       <Flex justify="space-between" alignItems="center">
@@ -20,8 +26,8 @@ export default function messagePage({ user, order }) {
       <Flex justify="space-between" alignItems="center" mt="8">
         <Box my="4">
           <Flex alignItems="center" wrap="wrap">
-            <Avatar size="sm" name={user.name} mr="4" src={user.passport} />
-            <Text isTruncated>{user.name}</Text>
+            <Avatar size="sm" name={userData.name} mr="4" src={userData?userData.passport : null} />
+            <Text isTruncated>{userData.name}</Text>
           </Flex>
         </Box>
         <Link href="/dashboard/settings">
@@ -51,34 +57,33 @@ export default function messagePage({ user, order }) {
 
         <Flex alignItems="center" my="10">
           <GoMail className={styles.calander} />
-          <Text>{user.email}</Text>
+          <Text>{userData.email}</Text>
         </Flex>
         <Flex alignItems="center">
           <FiPhone className={styles.calander} />
-          <Text>{user.phone}</Text>
+          <Text>{userData.phone}</Text>
         </Flex>
       </Box>
 
       <hr />
-      <Box mt="4">
+      {/* <Box mt="4">
         <Heading size="sm">Shipping Address</Heading>
-        <Text mt="6">{order.reciever_name}</Text>
+        <Text mt="6">{userData.order.reciever_name}</Text>
         <Text my="4">{order.reciever_phone}</Text>
 
         <Text>{order.address}</Text>
         <Text my="4">
           {order.city}, {order.state}
         </Text>
-      </Box>
+      </Box> */}
 
       <hr />
       <Box mt="4">
         <Heading size="sm">Billing Address</Heading>
-        <Text mt="6">{user.name}</Text>
-        <Text my="4">{user.phone}</Text>
-
-        {/* <Text>{user.addresses.address}</Text>
-        <Text my="4">Port Harcourt,Rivers State</Text> */}
+        <Text mt="6">{userData.name}</Text>
+        <Text my="4">{userData.phone}</Text>        
+        <Text>{userData.addresses.address}</Text>
+        <Text my="4">Port Harcourt,Rivers State</Text>
       </Box>
       <hr />
 
@@ -94,3 +99,4 @@ export default function messagePage({ user, order }) {
     </Box>
   );
 }
+

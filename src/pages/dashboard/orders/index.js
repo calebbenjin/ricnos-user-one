@@ -1,40 +1,44 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react'
 
-import OrdersTable from '@/components/OrdersTable';
-import Layout from '@/components/Layout';
-import { API_URL } from '@/lib/index';
-import { parseCookies } from '@/helpers/index';
+import OrdersTable from '@/components/OrdersTable'
+import Layout from '@/components/Layout'
+import { API_URL } from '@/lib/index'
+import { parseCookies } from '@/helpers/index'
 
-export default function OrdersPage({ orders }) {
+export default function OrdersPage({ user }) {
+
+console.log(user)
 
   return (
-    <Layout title="Shipments orders">
-      <OrdersTable orders={orders} />
+    <Layout
+      title='Shipments orders'
+      email={user.email}
+      notification={user.general_notification}
+      imgProfile={user.passport_thumbnail}
+      name={user.name}
+    >
+      <OrdersTable orders={user.orders} />
     </Layout>
-  );
+  )
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req);
+  const { token } = parseCookies(req)
 
-  var myHeaders = new Headers();
-  myHeaders.append('Accept', 'application/json');
-  myHeaders.append('Authorization', `Bearer ${token}`);
-
-  var requestOptions = {
+  const resUser = await fetch(`${API_URL}/user`, {
     method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow',
-  };
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
-  const res = await fetch(`${API_URL}/user/order/orders`, requestOptions);
-  const data = await res.json();
+  const userData = await resUser.json()
 
-  console.log(token);
+  const { user } = userData.data
 
   return {
     props: {
-      orders: data.data?.user.orders,
+      user,
     },
-  };
+  }
 }

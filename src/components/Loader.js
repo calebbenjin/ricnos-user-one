@@ -1,13 +1,21 @@
 import { Spinner } from '@chakra-ui/react'
+import styles from '@/styles/loader.module.css'
 
-export default function Loading() {
+export default function Loading({title}) {
   return (
-    <Spinner
-      thickness='3px'
-      speed='0.70s'
-      emptyColor='gray.200'
-      color='gray.800'
-      size='lg'
-    />
+    <div className={styles.loaderContainer}>
+        <div className={styles.container}>
+          <div>
+          <Spinner
+            thickness='5px'
+            speed='0.70s'
+            emptyColor='gray.200'
+            color='red'
+            size='xl'
+          />
+          <h4>{title}</h4>
+          </div>
+        </div>
+    </div>
   )
 }

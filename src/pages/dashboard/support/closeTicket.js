@@ -8,7 +8,6 @@ export default function OpenTicket() {
     <Layout>
       <Flex>
         <Box width={['100%', '20%']} className={setting.sideNav}>
-          {/* <Container maxWidth='container.xl'> */}
           <nav className={setting.nav}>
             <Link href='/dashboard/support/'>
               <a fontWeight='bold' className={setting.link}>
@@ -22,7 +21,6 @@ export default function OpenTicket() {
               <a className={setting.link}>Close Ticket</a>
             </Link>
           </nav>
-          {/* </Container> */}
         </Box>
 
         <Box width={['100%', '80%']}>

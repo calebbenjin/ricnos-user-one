@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import DataTable from './DataTable';
-import { Heading } from '@chakra-ui/react';
+import { Heading, Input } from '@chakra-ui/react';
 import AuthContext from '@/context/AuthContext';
 
 export default function OrdersTable({ orders }) {
@@ -28,9 +28,10 @@ export default function OrdersTable({ orders }) {
         <Heading size="lg" mt="" mb="10">
           My Orders
         </Heading>
-        <input
-          style={{ background: '#fff !important', width: '50%;' }}
+        <Input
+          bg="white"
           type="text"
+
           placeholder="Search for Items"
           value={q}
           onChange={(e) => setQ(e.target.value)}
