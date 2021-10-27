@@ -99,9 +99,11 @@ export default function PickupPage({ token }) {
   }, [user]);
 
   useEffect(() => {
-    if (isLoading) {
-      getQuoteData();
-    }
+    // if (isLoading) {
+    // }
+    
+    getQuoteData();
+
   }, [getQuoteData]);
 
   const router = useRouter();
