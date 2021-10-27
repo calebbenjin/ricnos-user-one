@@ -95,7 +95,6 @@ export default function ShippingDisplay({ items, data }) {
             {data?.items.map((item) => (
               <Flex
                 key={item.id}
-                key={item.id}
                 mb="2"
                 justify="space-between"
                 alignItems="center"
@@ -121,8 +120,8 @@ export default function ShippingDisplay({ items, data }) {
                 16:10 Local time | Delivered - Signed for by: Joseph Benyako
               </Text>
             </DateBox> */}
-            {trackers?.map((tracker) => (
-              <DateBox>
+            {trackers?.map((tracker, i) => (
+              <DateBox key={i}>
                 <Text fontSize="sm" fontWeight="bold" color="grey" mt="5">
                   {tracker.tracker_date.split(':')[0]}
                 </Text>

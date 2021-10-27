@@ -30,7 +30,7 @@ export default function ExpectSection({ className }) {
           >
             <Flex className={styles.icon} bg="red" align='center' justify='center'>
               <Box textAlign="center">
-                <Image src={deliveryIcon} width="70" height="70" />
+                <Image src={deliveryIcon} width="70" alt="deliveryIcon" height="70" />
                 <Text as="p" fontSize="2xl" color="white" mt={2}>1.456m</Text>
                 <Heading size="sm" color="white">Delivered Goods</Heading>
               </Box>

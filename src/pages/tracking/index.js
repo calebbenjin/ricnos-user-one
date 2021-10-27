@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Layout from '@/components/HomeLayout';
-import Link from 'next/link';
-import TrackForm from '@/components/TrackForm';
-import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react';
-import styled from 'styled-components';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Layout from '@/components/HomeLayout'
+import Link from 'next/link'
+import TrackForm from '@/components/TrackForm'
+import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react'
+import styled from 'styled-components'
 // import { GoCheck } from 'react-icons/go'
 // import { FaLongArrowAltRight } from 'react-icons/fa'
 // import AccordonComp from '@/components/Accordon'
 // import Button from '@/components/Button'
-import ShippingDisplay from '@/components/ShippmentDisplay';
+import ShippingDisplay from '@/components/ShippmentDisplay'
 // import {API_URL} from '@/lib/index'
 // import FetchContext from '@/context/FetchContext'
 
@@ -48,35 +48,33 @@ const shippingData = [
       },
     ],
   },
-];
+]
 
 export default function TrackingPage() {
-  const [shipmentData, setShipmentData] = useState(shippingData);
-  const [isLoading, setIsLoading] = useState(true);
+  const [shipmentData, setShipmentData] = useState(shippingData)
+  const [isLoading, setIsLoading] = useState(true)
   // const {login} = useContext(FetchContext)
 
+  const router = useRouter()
   useEffect(() => {
-    const router = useRouter();
-
-    
     if (router.query) {
-      setShipmentData(router.query.tracking_data);
+      setShipmentData(router.query.tracking_data)
     }
 
     // console.log(router.query.tracking_data);
-  }, []);
+  }, [])
 
   return (
     <Layout>
       <Div>
-        <Container maxWidth="container.md">
-          <Heading textAlign="center" fontWeight="normal">
+        <Container maxWidth='container.md'>
+          <Heading textAlign='center' fontWeight='normal'>
             TRACK:EXPRESS
           </Heading>
-          <TrackForm bg="white" />
+          <TrackForm bg='white' />
 
           {shipmentData.length === 0 && (
-            <Heading textAlign="center">NO Shippment</Heading>
+            <Heading textAlign='center'>NO Shippment</Heading>
           )}
 
           {shipmentData.map((item) => (
@@ -87,17 +85,17 @@ export default function TrackingPage() {
             <Heading textAlign='center'>Please wait data is Loading...</Heading>
           </DisplayCard> */}
 
-          <Text color="grey" textAlign="center">
+          <Text color='grey' textAlign='center'>
             If you would prefer to speak to someone personally about the
             location of your shipment, please contact Ricnos logistics{' '}
-            <Link href="/login">
+            <Link href='/login'>
               <a>Customer Service</a>
             </Link>
           </Text>
         </Container>
       </Div>
     </Layout>
-  );
+  )
 }
 
 // export async function getServerSideProps({query: {tracking_id}}) {
@@ -139,7 +137,7 @@ const Div = styled.div`
       font-size: 3.5rem;
     }
   }
-`;
+`
 
 const DisplayCard = styled.div`
   margin: 5rem 0;
@@ -151,13 +149,13 @@ const DisplayCard = styled.div`
     margin: 5rem 0;
     background: #fff;
   }
-`;
+`
 
-const FlexContainer = styled.div``;
+const FlexContainer = styled.div``
 const DateBox = styled.div`
   padding-bottom: 1.5rem;
   border-bottom: solid 2px #ccc;
-`;
+`
 
 const Line = styled.div`
   width: 35%;
@@ -172,4 +170,4 @@ const Line = styled.div`
     margin-right: 1rem;
     background: green;
   }
-`;
+`

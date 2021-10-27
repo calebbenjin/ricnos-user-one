@@ -54,7 +54,7 @@ export default function ConfirmOrderPage() {
               <span>{products.date}</span>
             </Flex>
             <Box p='7' boxShadow='md' borderRadius='md' backgroundColor='white'>
-              <Heading size="md">Personal Data</Heading>
+              <Heading size='md'>Personal Data</Heading>
 
               <Box mt='5'>
                 <Flex justify='space-between' wrap='wrap'>
@@ -88,52 +88,54 @@ export default function ConfirmOrderPage() {
               return (
                 <>
                   {toggleItem ? (
-                    <Link href='/dashboard/pickup/' key={item.id}>
-                      <Box
-                        mt='5'
-                        boxShadow='md'
-                        borderRadius='md'
-                        backgroundColor='white'
-                        p='6'
-                        key={item.id}
-                      >
-                        <Flex
-                          justify='space-between'
-                          alignItems='center'
-                          wrap='wrap'
+                    <Link href='/dashboard/pickup/' key={item.id} passhref>
+                      <a>
+                        <Box
+                          mt='5'
+                          boxShadow='md'
+                          borderRadius='md'
+                          backgroundColor='white'
+                          p='6'
+                          key={item.id}
                         >
-                          <Box width={['100%', '20%']} bg='gray'>
-                            <Image
-                              src='/Home.svg'
-                              alt='productImage'
-                              width='100'
-                              height='100'
+                          <Flex
+                            justify='space-between'
+                            alignItems='center'
+                            wrap='wrap'
+                          >
+                            <Box width={['100%', '20%']} bg='gray'>
+                              <Image
+                                src='/Home.svg'
+                                alt='productImage'
+                                width='100'
+                                height='100'
+                              />
+                            </Box>
+                            <Box width={['100%', '20%']}>
+                              <Text color='red' fontWeight='bold'>
+                                Item Name
+                              </Text>
+                              <Text>{item.itemName}</Text>
+                            </Box>
+                            <Box width={['100%', '20%']}>
+                              <Text color='red' fontWeight='bold'>
+                                Quantity
+                              </Text>
+                              <Text>{item.quantity}</Text>
+                            </Box>
+                            <Box width={['100%', '20%']}>
+                              <Text color='red' fontWeight='bold'>
+                                Amount
+                              </Text>
+                              <Text>{item.amount}</Text>
+                            </Box>
+                            <FaTimes
+                              onClick={() => setToggleItem(false)}
+                              style={{ color: '#ccc', fontSize: '1.3rem' }}
                             />
-                          </Box>
-                          <Box width={['100%', '20%']}>
-                            <Text color='red' fontWeight='bold'>
-                              Item Name
-                            </Text>
-                            <Text>{item.itemName}</Text>
-                          </Box>
-                          <Box width={['100%', '20%']}>
-                            <Text color='red' fontWeight='bold'>
-                              Quantity
-                            </Text>
-                            <Text>{item.quantity}</Text>
-                          </Box>
-                          <Box width={['100%', '20%']}>
-                            <Text color='red' fontWeight='bold'>
-                              Amount
-                            </Text>
-                            <Text>{item.amount}</Text>
-                          </Box>
-                          <FaTimes
-                            onClick={() => setToggleItem(false)}
-                            style={{ color: '#ccc', fontSize: '1.3rem' }}
-                          />
-                        </Flex>
-                      </Box>
+                          </Flex>
+                        </Box>
+                      </a>
                     </Link>
                   ) : null}
                 </>

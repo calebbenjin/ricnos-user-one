@@ -78,7 +78,7 @@ export default function AboutPage() {
                 <Text color="grey" mt="4">Were possible we’ll erect and dismantle unit load devices(ULDS), reducing significantly the risk of damage to your shipment and saving you time and expense. we can do this because many of our freight stattion have their own ground transportations around the airport.</Text>
               </Box>
               <Box>
-                <Heading color="grey" mt="6" size="sm" mb="2" mt="10">STATS & CHARTS</Heading>
+                <Heading color="grey" size="sm" mb="2" mt="10">STATS & CHARTS</Heading>
                 <Text color="grey">Our partnership and contract assets allows us to retain optimal levels of control whilst expanding our reach to over 76% of towns in nigeria  with 5 yers experince , we are now trusted for shippment of all sizes and commodity types. Our services  extends to all states and territories, and includes multiple per-week services to places many others only serve occasionally.</Text>
 
                 <Text color="grey" mt="4">We pride ourselved on providing the best transport and shipping services currently available in Nigeria. Our  skilled personnel, utilising thr latest communications, tracking and processing software, combined with lots of expertise, ensuring all frieght are shipped, delivered as safely, sucurely and promptly as possible.</Text>
