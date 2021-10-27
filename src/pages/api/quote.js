@@ -1,6 +1,6 @@
 import { API_URL } from '../../lib/index'
 
-export default async (req, res) => {
+export default async function (req, res) {
   if (req.method === 'POST') {
     const {
       weight,

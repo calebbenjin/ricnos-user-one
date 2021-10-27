@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
 
   // Resister user
   // ====================================
-
   const signup = async ({ email, phone, password, password_confirmation }) => {
     const res = await fetch(`${NEXT_URL}/api/register`, {
       method: 'POST',
@@ -36,8 +35,8 @@ export const AuthProvider = ({ children }) => {
       router.push('/dashboard/');
     } else {
       setIsLoading(false);
-      setError(resData.message);
-      setError(null);
+      setIsError(resData.message);
+      setIsError(null);
     }
   };
 
@@ -74,13 +73,11 @@ export const AuthProvider = ({ children }) => {
     const data = await res.json();
 
     if (res.ok) {
-      setUser(data.user);
+      setUser(data.user.data.user);
     } else {
       setUser(null);
     }
   };
-
-  console.log(user)
 
   // Logout user
   // =====================================

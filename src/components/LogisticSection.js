@@ -97,7 +97,7 @@ export default function PickupSection() {
               </Box>
               <Box width={['100%', '50%']} mt="5">
                 <Flex>
-                  <Image src={custImg} width="60" height="60"  borderRadius="full" boxSize="50px" border="1px" borderColor="red" mr="5" />
+                  <Image src={custImg} alt="customerimg" width="60" height="60"  />
                   <Box>
                     <Text fontWeight="bold" fontSize="md">+234 00 000 0000</Text>
                     <Text fontSize="sm" color="grey" mt="1">Customer Representative</Text>
@@ -113,7 +113,7 @@ export default function PickupSection() {
         <SimpleGrid key={i}  minChildWidth={['100%', "120px"]} spacing="60px" mt="20">
               <Box  boxShadow="md" bg="white" width={['100%', '380px']} borderRadius="md" key={i} position="relative">
                 <Box p="10" textAlign="left">
-                  <Image src={item.icon} />
+                  <Image src={item.icon} width="60" alt="icon" height="60" />
                   <Heading size="md" mt="4">{item.title}</Heading>
                   <Text as="p" color="grey" my="4">{item.des}</Text>
                   <Link href={item.path} color="red" fontWeight="bold"> 

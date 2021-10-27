@@ -31,15 +31,15 @@ export default function AboutPage() {
             <Box width={['100%', '50%']} className={style.icons}>
               <Flex>
                 <Box width={['100%', '50%']}>
-                  <Image src={affordIcon} widht="60" height="60" alt="Ware house icon" />
+                  <Image src={affordIcon} width="60" height="60" alt="Ware house icon" />
                   <Text color="white" mt="4">Transparent  Pricing</Text>
                 </Box>
                 <Box width={['100%', '50%']}>
-                  <Image src={deliveryIcon} widht="60" height="60" alt="Ware house icon" />
+                  <Image src={deliveryIcon} width="60" height="60" alt="Ware house icon" />
                   <Text color="white" mt="4">Fast, Efficient Delivery</Text>
                 </Box>
                 <Box width={['100%', '50%']}>
-                  <Image src={warehouseIcon} widht="60" height="60" alt="Ware house icon" />
+                  <Image src={warehouseIcon} width="60" height="60" alt="Ware house icon" />
                   <Text color="white" mt="4">Warehouse Storage</Text>
                 </Box>
               </Flex>
@@ -50,14 +50,14 @@ export default function AboutPage() {
             <Flex wrap="wrap">
               <Box className={style.card} position="relative" w={['100%', '50%']} h={['300px', '380px']}>
                 <Box bg="red" color="white" p="4"  position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '50%']}>
-                  <Image src={layerIcon} widht="60" height="60" />
+                  <Image src={layerIcon} widht="60" alt="LayerIcon" height="60" />
                   <Text my="6">Affordable price, certified forwarder</Text>
                   <FaLongArrowAltRight />
                 </Box>
               </Box>
               <Box className={style.cardOne}  w={['100%', '50%']} h={['300px', '380px']}>
-                <Box bg="black" color="white" p="4" position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '50%']}>
-                  <Image src={safeIcon} widht="60" height="60" mt="4" />
+                <Box bg="black" color="white" p="4" mb="6" position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '50%']}>
+                  <Image src={safeIcon} widht="60" alt="safeIcon" height="60" />
                   <Text my="6">Affordable price, certified forwarder</Text>
                   <FaLongArrowAltRight />
                 </Box>
@@ -78,7 +78,7 @@ export default function AboutPage() {
                 <Text color="grey" mt="4">Were possible we’ll erect and dismantle unit load devices(ULDS), reducing significantly the risk of damage to your shipment and saving you time and expense. we can do this because many of our freight stattion have their own ground transportations around the airport.</Text>
               </Box>
               <Box>
-                <Heading color="grey" mt="6" size="sm" mb="2" mt="10">STATS & CHARTS</Heading>
+                <Heading color="grey" size="sm" mb="2" mt="10">STATS & CHARTS</Heading>
                 <Text color="grey">Our partnership and contract assets allows us to retain optimal levels of control whilst expanding our reach to over 76% of towns in nigeria  with 5 yers experince , we are now trusted for shippment of all sizes and commodity types. Our services  extends to all states and territories, and includes multiple per-week services to places many others only serve occasionally.</Text>
 
                 <Text color="grey" mt="4">We pride ourselved on providing the best transport and shipping services currently available in Nigeria. Our  skilled personnel, utilising thr latest communications, tracking and processing software, combined with lots of expertise, ensuring all frieght are shipped, delivered as safely, sucurely and promptly as possible.</Text>

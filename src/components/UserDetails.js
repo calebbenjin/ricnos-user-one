@@ -29,8 +29,8 @@ export default function UserDetails() {
             <Text isTruncated>Joseph Benyako</Text>
           </Flex>
         </Box>
-        <Link href='/'>
-          <FaLongArrowAltRight className={styles.arrowIcon} />
+        <Link href='/' passHref>
+          <a><FaLongArrowAltRight className={styles.arrowIcon} /></a>
         </Link>
       </Flex>
       <hr />
@@ -41,8 +41,8 @@ export default function UserDetails() {
             <Text>5 Orders</Text>
           </Flex>
         </Box>
-        <Link href='/'>
-          <FaLongArrowAltRight className={styles.arrowIcon} />
+        <Link href='/' passHref>
+          <a><FaLongArrowAltRight className={styles.arrowIcon} /></a>
         </Link>
       </Flex>
       <hr />

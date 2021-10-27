@@ -1,7 +1,7 @@
 import { API_URL } from '@/lib/index'
 import cookie from 'cookie'
 
-export default async (req, res) => {
+export default async function (req, res){
   if (req.method === 'GET') {
     if (!req.headers.cookie) {
       res.status(403).json({message: 'Not Authorized'})

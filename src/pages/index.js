@@ -178,7 +178,7 @@ export default function Home({ vehicles, regions }) {
               <Tabs isFitted variant='enclosed'>
                 <TabList>
                   <Tab color='white' bg='red' py='4'>
-                    <Image src={quoteIcon} width='40' height='40' />
+                    <Image src={quoteIcon} width='40' alt="quoteIcon" height='40' />
                     <Text as='h4' fontSize='lg' color='white' ml='2'>
                       Get a quote
                     </Text>
@@ -190,7 +190,7 @@ export default function Home({ vehicles, regions }) {
                     className={trackStyles.trace_head}
                   >
                     <Flex alignItems='center' justify='center'>
-                      <Image src={trackIcon} width='40' height='40' />
+                      <Image src={trackIcon} width='40' alt="trackIcon" height='40' />
                       <Text as='h4' fontSize='lg' color='white' ml='2'>
                         Track & Trace
                       </Text>

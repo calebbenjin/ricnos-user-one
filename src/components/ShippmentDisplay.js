@@ -17,7 +17,7 @@ export default function ShippingDisplay({ items, data }) {
     return obj;
   });
 
-  console.log(data);
+  console.log(trackers);
 
   return (
     <DisplayCard>
@@ -120,8 +120,8 @@ export default function ShippingDisplay({ items, data }) {
                 16:10 Local time | Delivered - Signed for by: Joseph Benyako
               </Text>
             </DateBox> */}
-            {trackers?.map((tracker) => (
-              <DateBox>
+            {trackers?.map((tracker, i) => (
+              <DateBox key={i}>
                 <Text fontSize="sm" fontWeight="bold" color="grey" mt="5">
                   {tracker.tracker_date.split(':')[0]}
                 </Text>
@@ -131,7 +131,7 @@ export default function ShippingDisplay({ items, data }) {
                 </Text>
 
                 {tracker.tracker_data.map((tracker_info) => (
-                  <div>
+                  <div key={tracker_info.id}>
                     <Text color="grey" mt="4" fontSize="sm" fontWeight="bold">
                       {data.departure} - {data.arrival}
                     </Text>

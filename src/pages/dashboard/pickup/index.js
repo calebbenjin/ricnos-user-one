@@ -21,7 +21,7 @@ import Loading from '@/components/Loader';
 
 export default function PickupPage({ token }) {
   const [userDetails, setUserDetails] = useState();
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [processingOrder, setProcessingOrder] = useState(false);
   const [itemsList, setItemsList] = useState([
     {
@@ -94,7 +94,7 @@ export default function PickupPage({ token }) {
     if (user) {
       setUserDetails(user.data.user);
       setSenderAddress(user.data.user.addresses.address);
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [user]);
 
