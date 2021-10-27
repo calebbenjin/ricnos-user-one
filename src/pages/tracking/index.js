@@ -55,14 +55,15 @@ export default function TrackingPage() {
   const [isLoading, setIsLoading] = useState(true);
   // const {login} = useContext(FetchContext)
 
-  const router = useRouter();
-
   useEffect(() => {
+    const router = useRouter();
+
+    
     if (router.query) {
       setShipmentData(router.query.tracking_data);
     }
 
-    console.log(router.query.tracking_data);
+    // console.log(router.query.tracking_data);
   }, []);
 
   return (

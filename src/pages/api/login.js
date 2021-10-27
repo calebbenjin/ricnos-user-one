@@ -1,8 +1,8 @@
 import { API_URL } from '@/lib/index'
 import cookie from 'cookie'
 
-export default async (req, res) => {
-  if (req.method === 'POST') {
+export default async function (req, res) {
+  if(req.method === 'POST') {
     const { email, password } = req.body
 
     const apiRes = await fetch(`${API_URL}/login`, {

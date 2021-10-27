@@ -24,11 +24,19 @@ import { HiOutlineMail } from 'react-icons/hi'
 import { RiUserLine } from 'react-icons/ri'
 import Button from '@/components/Button'
 import AuthContext from '@/context/AuthContext'
+import PageLoader from '@/components/PageLoader'
 // import logoImage from '@/asset/logo1.svg'
 // import Image from 'next/image'
 
-export default function layout({ children, name, email, notification, imgProfile }) {
-  const { logout } = useContext(AuthContext)
+export default function Layout({
+  children,
+  name,
+  email,
+  notification,
+  imgProfile,
+}) {
+  const { logout, user, isLoading } = useContext(AuthContext)
+ 
   return (
     <div className={styles.body}>
       <AsideNav />
@@ -47,7 +55,8 @@ export default function layout({ children, name, email, notification, imgProfile
                   <Link href='/dashboard/message/'>
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
-                      <div>{notification && notification}</div>
+                      <div>{user ? user.general_notification : null}</div>
+                      {/* <div>{notification && notification}</div> */}
                     </a>
                   </Link>
                   {/* <Link href='/message'>
@@ -60,7 +69,8 @@ export default function layout({ children, name, email, notification, imgProfile
                     <Flex alignItems='center'>
                       <Box mr='3' color='white' textAlign='left'>
                         <Text fontWeight='bold' fontSize='sm'>
-                          {name && name}
+                          {/* {name && name} */}
+                          {user ? user.name : null}
                         </Text>
                         <Text
                           as='small'
@@ -69,9 +79,15 @@ export default function layout({ children, name, email, notification, imgProfile
                           isTruncated
                         >
                           {email && email}
+                          {/* {user.email && user.email} */}
                         </Text>
                       </Box>
-                    <Avatar size='md' name={name && name} src={imgProfile && imgProfile} />
+                      {/* <Avatar size='md' name={name && name} src={imgProfile && imgProfile} /> */}
+                      <Avatar
+                        size='md'
+                        name={user ? user.name : null}
+                        src={user ? user.passport : null}
+                      />
                     </Flex>
                   </Box>
                   <Menu>
@@ -114,7 +130,8 @@ export default function layout({ children, name, email, notification, imgProfile
           <Container maxWidth='container.xl'>
             <Flex alignItems='center' justify='space-between'>
               <Text fontWeight='bold' color='red' fontSize='sm'>
-                {name && name}
+                {user ? user.name : null}
+                {/* {name && name} */}
               </Text>
               <Menu>
                 <MenuButton>

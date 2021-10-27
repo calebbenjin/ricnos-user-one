@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Layout from '@/components/Layout';
 import NoticeBoard from '@/components/NoticeBoard';
 import Button from '@/components/Button';
 import { Box, Container, Text, Flex, Heading } from '@chakra-ui/react';
-import { FaTimes } from 'react-icons/fa';
-import Image from 'next/image';
-import Link from 'next/link';
+// import { FaTimes } from 'react-icons/fa';
+// import Image from 'next/image';
+// import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { API_URL } from '@/lib/index';

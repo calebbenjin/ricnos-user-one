@@ -17,7 +17,7 @@ export default function ShippingDisplay({ items, data }) {
     return obj;
   });
 
-  console.log(data);
+  console.log(trackers);
 
   return (
     <DisplayCard>
@@ -95,6 +95,7 @@ export default function ShippingDisplay({ items, data }) {
             {data?.items.map((item) => (
               <Flex
                 key={item.id}
+                key={item.id}
                 mb="2"
                 justify="space-between"
                 alignItems="center"
@@ -131,7 +132,7 @@ export default function ShippingDisplay({ items, data }) {
                 </Text>
 
                 {tracker.tracker_data.map((tracker_info) => (
-                  <div>
+                  <div key={tracker_info.id}>
                     <Text color="grey" mt="4" fontSize="sm" fontWeight="bold">
                       {data.departure} - {data.arrival}
                     </Text>

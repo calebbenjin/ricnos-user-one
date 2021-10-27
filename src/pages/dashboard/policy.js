@@ -106,7 +106,7 @@ export default function PolicyPage() {
                   cookies is used to customize our website to your needs. After
                   we use the data for statistical analysis, the data is
                   completely removed from our systems.Please note that cookies
-                  don't allow us to gain control of your computer in any way.
+                  don&apos;t allow us to gain control of your computer in any way.
                   They are strictly used to monitor which pages you find useful
                   and which you do not so that we can provide a better
                   experience for you. If you want to disable cookies, you can do

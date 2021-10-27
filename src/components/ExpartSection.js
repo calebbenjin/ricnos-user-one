@@ -60,14 +60,14 @@ export default function ExpartSection() {
           <Flex wrap="wrap">
             <Box className={styles.card} position="relative" w={['100%', '50%']} h={['300px', '500px']}>
               <Box bg="red" color="white" p="4"  position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '40%']}>
-                <Image src={layerIcon} width="60" height="60" />
+                <Image src={layerIcon} width="60" alt="layerIcon" height="60" />
                 <Text my="6">Affordable price, certified forwarder</Text>
                 <FaLongArrowAltRight />
               </Box>
             </Box>
             <Box className={styles.cardOne}  w={['100%', '50%']} h={['300px', '500px']}>
               <Box bg="black" color="white" p="4" position="absolute" bottom="0" left="0" w={['150px', '30%']} h={['220px', '40%']}>
-                <Image src={safcon} width="60" height="60"/>
+                <Image src={safcon} width="60" alt="safcon" height="60"/>
                 <Text my="6">Affordable price, certified forwarder</Text>
                 <FaLongArrowAltRight />
               </Box>

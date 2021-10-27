@@ -35,6 +35,7 @@ export default function TrackForm() {
           size="lg"
           {...register('trackID')}
           ref={trackIdRef}
+          required
         />
         <Button disabled={loading}>
           {loading ? 'Loading...' : 'Track item'}

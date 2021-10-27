@@ -146,8 +146,6 @@ export default function CustomerSection() {
                           height="50"
                           src={item.avatar}
                           alt={item.name}
-                          borderColor='red'
-                          border='2px'
                         />
                       </Box>
                       <Box width={['100%', '70%']}>
@@ -170,7 +168,7 @@ export default function CustomerSection() {
                             </Text>
                           </Box>
                           <Box width={['100%', '30%']}>
-                            <Image src={quote} width="60" height="60" />
+                            <Image src={quote} width="60" alt="quoteImg" height="60" />
                           </Box>
                         </Flex>
                       </Box>

@@ -25,7 +25,7 @@ import Button from '@/components/Button'
 import AuthContext from '@/context/AuthContext'
 import Loading from '@/components/Loader'
 
-export default function LoginPage() {
+function LoginPage() {
   const { login, isError, isLoading } = useContext(AuthContext)
   const [isLoader, setIsLoader] = useState(false)
 
@@ -107,7 +107,7 @@ export default function LoginPage() {
                 </FormControl>
                 <hr />
                 <Box my='5'>
-                  <Link href='/signup'>Don't have an account? Signup</Link>
+                  <Link href='/signup'>Don&apos;t have an account? Signup</Link>
                 </Box>
                 <Button type='submit'>LOGIN</Button>
               </form>
@@ -118,3 +118,7 @@ export default function LoginPage() {
     </Layout>
   )
 }
+
+
+
+export default LoginPage

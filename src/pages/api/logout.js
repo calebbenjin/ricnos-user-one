@@ -1,6 +1,6 @@
 import cookie from 'cookie'
 
-export default async (req, res) => {
+export default async function (req, res) {
   if (req.method === 'POST') {
     // DESTROY COOKIE
     res.setHeader(

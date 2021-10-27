@@ -30,7 +30,7 @@ export default function Footer() {
       <Container maxWidth='container.xl'>
         <Flex justify='space-between' alignItems='center' wrap='wrap' py='10'>
           <Box width={['100%', 'auto']} mt="10">
-            <Image src={logoImage} width='50px' height="50" />
+            <Image src={logoImage} width='50px' alt="logoimg" height="50" />
             <Flex mt='5'>
               <Box
                 className={styles.icon}
@@ -81,7 +81,7 @@ export default function Footer() {
                   placeholder='Your email address'
                   size='sm'
                 />
-                <InputRightElement children={<FaTelegramPlane color='red' />} />
+                {/* <InputRightElement children={<FaTelegramPlane color='red' />} /> */}
               </InputGroup>
             </form>
           </Box>

@@ -88,7 +88,7 @@ export default function ConfirmOrderPage() {
               return (
                 <>
                   {toggleItem ? (
-                    <Link href='/dashboard/pickup/'>
+                    <Link href='/dashboard/pickup/' key={item.id}>
                       <Box
                         mt='5'
                         boxShadow='md'
