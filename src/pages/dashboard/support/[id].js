@@ -1,62 +1,62 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Layout from '@/components/Layout'
-import { Flex, Box} from '@chakra-ui/react'
-import NoticeBoard from '@/components/NoticeBoard'
-import styles from '@/styles/Chats.module.css'
-import { BsThreeDots } from 'react-icons/bs'
+// import { Flex, Box} from '@chakra-ui/react'
+// import NoticeBoard from '@/components/NoticeBoard'
+// import styles from '@/styles/Chats.module.css'
+// import { BsThreeDots } from 'react-icons/bs'
 
-const usersData = [
-  {
-    id: 1,
-    img: 'image',
-    name: 'John Snow',
-    time: '3mins',
-  },
-  {
-    id: 2,
-    img: 'image',
-    name: 'John Snow',
-    time: '3mins',
-  },
-  {
-    id: 3,
-    img: 'image',
-    name: 'John Snow',
-    time: '3mins',
-  },
-  {
-    id: 4,
-    img: 'image',
-    name: 'Mike Grey',
-    time: '3mins',
-  },
-  {
-    id: 5,
-    img: 'image',
-    name: 'Honnesy Roese',
-    time: '3mins',
-  },
-  {
-    id: 6,
-    img: 'image',
-    name: 'Mally Goerge',
-    time: '3mins',
-  },
-  {
-    id: 7,
-    img: 'image',
-    name: 'John Snow',
-    time: '3mins',
-  },
-]
+// const usersData = [
+//   {
+//     id: 1,
+//     img: 'image',
+//     name: 'John Snow',
+//     time: '3mins',
+//   },
+//   {
+//     id: 2,
+//     img: 'image',
+//     name: 'John Snow',
+//     time: '3mins',
+//   },
+//   {
+//     id: 3,
+//     img: 'image',
+//     name: 'John Snow',
+//     time: '3mins',
+//   },
+//   {
+//     id: 4,
+//     img: 'image',
+//     name: 'Mike Grey',
+//     time: '3mins',
+//   },
+//   {
+//     id: 5,
+//     img: 'image',
+//     name: 'Honnesy Roese',
+//     time: '3mins',
+//   },
+//   {
+//     id: 6,
+//     img: 'image',
+//     name: 'Mally Goerge',
+//     time: '3mins',
+//   },
+//   {
+//     id: 7,
+//     img: 'image',
+//     name: 'John Snow',
+//     time: '3mins',
+//   },
+// ]
 
 export default function MessagePage() {
-  const [users, setUsers] = useState(usersData)
+  // const [users, setUsers] = useState(usersData)
 
   return (
     <Layout>
       <div>
-        <Flex>
+        {/* <Flex>
           <Box width={['100%', '75%']} p='2'>
             <Box p='5' borderRadius='md'>
               <Flex>
@@ -104,7 +104,7 @@ export default function MessagePage() {
           <Box width={['100%', '25%']} p='2' mt='2'>
             <NoticeBoard />
           </Box>
-        </Flex>
+        </Flex> */}
       </div>
     </Layout>
   )
