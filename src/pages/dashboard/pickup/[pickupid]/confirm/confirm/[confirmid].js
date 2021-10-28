@@ -1,52 +1,52 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Layout from '@/components/Layout'
-import NoticeBoard from '@/components/NoticeBoard'
-import Button from '@/components/Button'
-import { Box, Container, Text, Flex, Heading } from '@chakra-ui/react'
-import { FaTimes } from 'react-icons/fa'
-import Image from 'next/image'
-import Link from 'next/link'
+// import NoticeBoard from '@/components/NoticeBoard'
+// import Button from '@/components/Button'
+// import { Box, Container, Text, Flex, Heading } from '@chakra-ui/react'
+// import { FaTimes } from 'react-icons/fa'
+// import Image from 'next/image'
+// import Link from 'next/link'
 
-const productsData = {
-  orderID: '#008426',
-  date: '06.22.2021 at 10:14am',
-  name: 'Joush Mike',
-  email: 'Joushmike@gmail.com',
-  phone: '+2348777265650',
-  items: [
-    {
-      id: '1',
-      image: 'ProductImage',
-      itemName: 'Bage',
-      quantity: 3,
-      amount: '20,8700',
-    },
-    {
-      id: '2',
-      image: 'ProductImage',
-      itemName: 'Bage',
-      quantity: 3,
-      amount: '20,8700',
-    },
-    {
-      id: '2',
-      image: 'ProductImage',
-      itemName: 'Bage',
-      quantity: 3,
-      amount: '20,8700',
-    },
-  ],
-}
+// const productsData = {
+//   orderID: '#008426',
+//   date: '06.22.2021 at 10:14am',
+//   name: 'Joush Mike',
+//   email: 'Joushmike@gmail.com',
+//   phone: '+2348777265650',
+//   items: [
+//     {
+//       id: '1',
+//       image: 'ProductImage',
+//       itemName: 'Bage',
+//       quantity: 3,
+//       amount: '20,8700',
+//     },
+//     {
+//       id: '2',
+//       image: 'ProductImage',
+//       itemName: 'Bage',
+//       quantity: 3,
+//       amount: '20,8700',
+//     },
+//     {
+//       id: '2',
+//       image: 'ProductImage',
+//       itemName: 'Bage',
+//       quantity: 3,
+//       amount: '20,8700',
+//     },
+//   ],
+// }
 
 export default function ConfirmOrderPage() {
-  const [toggleItem, setToggleItem] = useState(true)
-  const [products, setProducts] = useState(productsData)
+  // const [toggleItem, setToggleItem] = useState(true)
+  // const [products, setProducts] = useState(productsData)
 
-  console.log(products.items)
+  // console.log(products.items)
 
   return (
     <Layout>
-      <Container maxWidth='container.xl'>
+      {/* <Container maxWidth='container.xl'>
         <Flex justify='space-between' wrap='wrap'>
           <Box width={['100%', '68%']} p='2' mt='10' mb='20'>
             <Flex justify='space-between' alignItems='center' mb='4'>
@@ -186,7 +186,7 @@ export default function ConfirmOrderPage() {
             <NoticeBoard />
           </Box>
         </Flex>
-      </Container>
+      </Container> */}
     </Layout>
   )
 }
