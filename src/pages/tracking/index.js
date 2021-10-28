@@ -60,7 +60,7 @@ export default function TrackingPage() {
   useEffect(() => {
     // if (router.query) {
     // }
-    setShipmentData(router.query.tracking_data)
+    // setShipmentData(router.query.tracking_data)
 
     // console.log(router.query.tracking_data);
   }, [])
