@@ -56,10 +56,11 @@ export default function TrackingPage() {
   // const {login} = useContext(FetchContext)
 
   const router = useRouter()
+
   useEffect(() => {
-    if (router.query) {
-      setShipmentData(router.query.tracking_data)
-    }
+    // if (router.query) {
+    // }
+    // setShipmentData(router.query.tracking_data)
 
     // console.log(router.query.tracking_data);
   }, [])

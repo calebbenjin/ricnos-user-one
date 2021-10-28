@@ -7,15 +7,9 @@ import { parseCookies } from '@/helpers/index'
 
 export default function OrdersPage({ user }) {
 
-console.log(user)
-
   return (
     <Layout
       title='Shipments orders'
-      email={user.email}
-      notification={user.general_notification}
-      imgProfile={user.passport_thumbnail}
-      name={user.name}
     >
       <OrdersTable orders={user.orders} />
     </Layout>

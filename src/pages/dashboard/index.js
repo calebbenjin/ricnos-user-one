@@ -25,10 +25,6 @@ export default function Dashboard({ user }) {
   return (
     <Layout
       title='Dashboard'
-      email={user.email}
-      notification={user.general_notification}
-      imgProfile={user.passport_thumbnail}
-      name={user.name}
     >
       <Container maxWidth='container.xl'>
         <Box className={styles.showcase}>

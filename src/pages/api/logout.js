@@ -1,6 +1,6 @@
 import cookie from 'cookie'
 
-export default async function (req, res) {
+const logout = async (req, res) => {
   if (req.method === 'POST') {
     // DESTROY COOKIE
     res.setHeader(
@@ -21,3 +21,5 @@ export default async function (req, res) {
     res.status(405).json({ message: `Method ${req.method} not allowed` })
   }
 }
+
+export default logout
