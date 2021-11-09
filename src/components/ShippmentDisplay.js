@@ -1,67 +1,76 @@
-import { Heading, Text, Flex, Box } from '@chakra-ui/react';
-import styled from 'styled-components';
-import { GoCheck } from 'react-icons/go';
-import { FaLongArrowAltRight } from 'react-icons/fa';
-import AccordonComp from '@/components/Accordon';
-import Button from '@/components/Button';
+import { Heading, Text, Flex, Box } from '@chakra-ui/react'
+import styled from 'styled-components'
+import { GoCheck } from 'react-icons/go'
+import { FaLongArrowAltRight } from 'react-icons/fa'
+import AccordonComp from '@/components/Accordon'
+import Button from '@/components/Button'
+// import { format } from "date-fns"; 
 
 export default function ShippingDisplay({ items, data }) {
-  const recent_tracking_item = data.trackers[Object.keys(data?.trackers)[0]][0];
+  const recent_tracking_item =
+    data.order.trackers[Object.keys(data.order?.trackers)[0]][0]
 
-  const trackers = Object.keys(data?.trackers).map((key) => {
+  const trackers = Object.keys(data.order?.trackers).map((key) => {
     let obj = {
-      tracker_data: [...data?.trackers[key]],
+      tracker_data: [...data.order?.trackers[key]],
       tracker_date: key,
-    };
+    }
 
-    return obj;
-  });
+    return obj
+  })
 
-  console.log(trackers);
+  console.log(data)
+
+  const date = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
 
   return (
     <DisplayCard>
       <>
         <Flex>
           <GoCheck
-            className="icon"
-            color={data.integer_status == '1' ? 'green' : 'yellow'}
+            className='icon'
+            color={data.order.integer_status == '1' ? 'yellow' : 'green'}
           />
           <div>
             <Heading
-              color={data.integer_status == '1' ? 'green' : 'yellow'}
-              size="md"
+              color={data.order.integer_status == '1' ? 'yellow' : 'green'}
+              size='md'
             >
-              {/* Delivered signed by: {items.userName} */}
+              {/* Delivered signed by: {data.order.items.userName} */}
               {recent_tracking_item.order_status}
             </Heading>
-            <Text as="p" mt="2" color="grey">
+            <Text as='p' mt='2' color='grey'>
+              {/* {new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit',
+              }).format(recent_tracking_item.updated_at)} */}
               {recent_tracking_item.updated_at} |{' '}
               {recent_tracking_item.location}
             </Text>
           </div>
         </Flex>
-        <Box display="flex">
+        <Box display='flex'>
           <Line></Line>
           <Line></Line>
           <Line></Line>
         </Box>
 
         <Box>
-          <Text as="p" mt="5" color="grey">
+          <Text as='p' mt='5' color='grey'>
             This shipment is handled by: Ricnos Logistics
           </Text>
-          <Text as="p" color="grey">
-            Tracking Code: {data?.tracking_id}
+          <Text as='p' color='grey'>
+            Tracking Code: {data.order?.tracking_id}
           </Text>
           <Heading
-            color="red"
-            size="sm"
-            my="10"
-            display="flex"
-            alignItems="center"
+            color='red'
+            size='sm'
+            my='10'
+            display='flex'
+            alignItems='center'
           >
-            <span>{data?.departure}</span>{' '}
+            <span>{data.order?.departure}</span>{' '}
             <FaLongArrowAltRight
               style={{
                 marginLeft: '1rem',
@@ -69,7 +78,7 @@ export default function ShippingDisplay({ items, data }) {
                 fontSize: '1.5rem',
               }}
             />{' '}
-            <span>{data?.arrival}</span>
+            <span>{data.order?.arrival}</span>
           </Heading>
         </Box>
 
@@ -77,27 +86,27 @@ export default function ShippingDisplay({ items, data }) {
           <Button>Proof of delivery</Button>
         </Box>
 
-        <AccordonComp title="More Shippment Details">
-          <Text fontSize="xl" mb="4">
-            Tracking Code: {data?.tracking_id}
+        <AccordonComp title='More Shippment Details'>
+          <Text fontSize='xl' mb='4'>
+            Tracking Code: {data.order?.tracking_id}
           </Text>
           <hr />
 
-          <Box mt="5">
-            <Flex justify="space-between" mb="5" alignItems="center">
+          <Box mt='5'>
+            <Flex justify='space-between' mb='5' alignItems='center'>
               <Box width={['50%']}>
-                <Text fontWeight="bold">Items</Text>
+                <Text fontWeight='bold'>Items</Text>
               </Box>
               <Box width={['50%']}>
-                <Text fontWeight="bold">Quantity</Text>
+                <Text fontWeight='bold'>Quantity</Text>
               </Box>
             </Flex>
-            {data?.items.map((item) => (
+            {data.order?.items.map((item) => (
               <Flex
                 key={item.id}
-                mb="2"
-                justify="space-between"
-                alignItems="center"
+                mb='2'
+                justify='space-between'
+                alignItems='center'
               >
                 <Box width={['50%']}>
                   <Text>{item.item}</Text>
@@ -109,37 +118,37 @@ export default function ShippingDisplay({ items, data }) {
             ))}
           </Box>
         </AccordonComp>
-        <AccordonComp title="All Shippment Updates">
+        <AccordonComp title='All Shippment Updates'>
           <FlexContainer>
-            {/* <DateBox>
-              <Text fontSize="sm" fontWeight="bold">
+            <DateBox>
+              <Text fontSize='sm' fontWeight='bold'>
                 Wednesday
               </Text>
-              <Text fontSize="xl">April, 14 2021</Text>
-              <Text fontSize="sm" mt="2" color="green">
+              <Text fontSize='xl'>April, 14 2021</Text>
+              <Text fontSize='sm' mt='2' color='green'>
                 16:10 Local time | Delivered - Signed for by: Joseph Benyako
               </Text>
-            </DateBox> */}
+            </DateBox>
             {trackers?.map((tracker, i) => (
               <DateBox key={i}>
-                <Text fontSize="sm" fontWeight="bold" color="grey" mt="5">
+                {/* <Text fontSize="sm" fontWeight="bold" color="grey" mt="5">
                   {tracker.tracker_date.split(':')[0]}
-                </Text>
-                <Text fontSize="xl">{tracker.tracker_date.split(':')[1]}</Text>
-                <Text fontSize="sm" mt="3" color="grey">
+                </Text> */}
+                {/* <Text fontSize="xl">{tracker.tracker_date.split(':')[1]}</Text> */}
+                <Text fontSize='sm' mt='3' color='grey'>
                   12:08 Local time | Forwarded for delivery
                 </Text>
 
                 {tracker.tracker_data.map((tracker_info) => (
                   <div key={tracker_info.id}>
-                    <Text color="grey" mt="4" fontSize="sm" fontWeight="bold">
+                    <Text color='grey' mt='4' fontSize='sm' fontWeight='bold'>
                       {data.departure} - {data.arrival}
                     </Text>
-                    <Text fontSize="sm" color="grey">
+                    <Text fontSize='sm' color='grey'>
                       {tracker_info.created_at} Local time |{' '}
                       {tracker_info.order_status}
                     </Text>
-                    <Text fontSize="sm" color="grey">
+                    <Text fontSize='sm' color='grey'>
                       {data.departure} - {data.arrival}
                     </Text>
                   </div>
@@ -187,7 +196,7 @@ export default function ShippingDisplay({ items, data }) {
         </AccordonComp>
       </>
     </DisplayCard>
-  );
+  )
 }
 
 const Div = styled.div`
@@ -207,7 +216,7 @@ const Div = styled.div`
       font-size: 3.5rem;
     }
   }
-`;
+`
 
 const DisplayCard = styled.div`
   margin: 5rem 0;
@@ -219,13 +228,13 @@ const DisplayCard = styled.div`
     margin: 5rem 0;
     background: #fff;
   }
-`;
+`
 
-const FlexContainer = styled.div``;
+const FlexContainer = styled.div``
 const DateBox = styled.div`
   padding-bottom: 1.5rem;
   border-bottom: solid 2px #ccc;
-`;
+`
 
 const Line = styled.div`
   width: 35%;
@@ -240,4 +249,4 @@ const Line = styled.div`
     margin-right: 1rem;
     background: green;
   }
-`;
+`

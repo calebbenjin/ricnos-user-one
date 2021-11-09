@@ -14,13 +14,17 @@ import {
   Switch,
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { BsEye } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
+import AuthContext from '@/context/AuthContext'
+
 
 export default function SecurityPage() {
+  const { user } = useContext(AuthContext)
+  const [loading, setLoading] = useState(false)
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
 
@@ -38,7 +42,7 @@ export default function SecurityPage() {
   }
 
   return (
-    <Layout>
+    <Layout title="Security Settings" data={user}>
       <Flex bg='white'>
         <SideNav />
 

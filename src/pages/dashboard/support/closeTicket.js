@@ -9,9 +9,8 @@ import PageLoader from '@/components/PageLoader'
 export default function OpenTicket() {
   const { user } = useContext(AuthContext)
 
-  if (user) {
-    return (
-      <Layout>
+   return (
+      <Layout data={user}>
         <Flex>
           <Box width={['100%', '20%']} className={setting.sideNav}>
             <nav className={setting.nav}>
@@ -68,7 +67,4 @@ export default function OpenTicket() {
         </Flex>
       </Layout>
     )
-  } else {
-    return <PageLoader />
-  }
 }

@@ -23,9 +23,7 @@ export default function Dashboard({ user }) {
 
   console.log(user)
   return (
-    <Layout
-      title='Dashboard'
-    >
+    <Layout title='Dashboard' data={user}>
       <Container maxWidth='container.xl'>
         <Box className={styles.showcase}>
           <Box width={['100%', '70%']}>
@@ -57,9 +55,13 @@ export default function Dashboard({ user }) {
               Activities
             </Heading>
             <hr />
-            {user.orders.map((order) => (
+            {!user.order ? (
+              <Heading mt='8' color='grey' size='sm' textAlign='center'>
+                You have no available orders
+              </Heading>
+            ) : (
               <>
-                {order ? (
+                {user.orders.map((order) => (
                   <>
                     <Box
                       p='8'
@@ -69,7 +71,7 @@ export default function Dashboard({ user }) {
                       borderRadius='md'
                       key={order.id}
                     >
-                      <Text textTransform="uppercase" >
+                      <Text textTransform='uppercase'>
                         {order.reference}
                         <Badge
                           variant='solid'
@@ -96,11 +98,15 @@ export default function Dashboard({ user }) {
                         <Box>
                           <Box className={styles.from}>
                             <Text>From</Text>
-                            <Text textTransform="uppercase">{order.departure}</Text>
+                            <Text textTransform='uppercase'>
+                              {order.departure}
+                            </Text>
                           </Box>
                           <Box className={styles.to} mt='8'>
                             <Text>To</Text>
-                            <Text textTransform="uppercase">{order.arrival}</Text>
+                            <Text textTransform='uppercase'>
+                              {order.arrival}
+                            </Text>
                           </Box>
                         </Box>
                       </Flex>
@@ -114,7 +120,7 @@ export default function Dashboard({ user }) {
                       my='6'
                       borderRadius='md'
                     >
-                      <Text mb='2' textTransform="uppercase">
+                      <Text mb='2' textTransform='uppercase'>
                         {order.reference}
                         <Badge variant='solid' ml='3' fontWeight='normal'>
                           {paymentStatus ? 'Completed Order' : 'Pending Order'}
@@ -126,13 +132,9 @@ export default function Dashboard({ user }) {
                       </Heading>
                     </Box>
                   </>
-                ) : (
-                  <Heading my='2' size='md'>
-                    You have no available orders
-                  </Heading>
-                )}
+                ))}
               </>
-            ))}
+            )}
           </Box>
 
           <Box
@@ -175,17 +177,6 @@ export default function Dashboard({ user }) {
                     <hr />
                     <Text mt='2'>{user.phone}</Text>
                   </ListItem>
-                  {/* <ListItem>
-                    <Text fontSize='sm' fontWeight='bold' color='grey'>
-                      Billing Details
-                    </Text>
-                    <hr />
-                    <Text mt='2'>John Deo</Text>
-                    <Text>
-                      No 9 lacfog plaza, Kilometer 16, East west road. Choba.
-                    </Text>
-                    <Text mt='2'>Port Harcourt,Rivers State</Text>
-                  </ListItem> */}
                 </List>
               </Box>
               <Box width={['100%', '47%']}>

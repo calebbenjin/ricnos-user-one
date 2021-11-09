@@ -1,3 +1,4 @@
+import { useState, useContext } from 'react'
 import {
   Box,
   Heading,
@@ -8,10 +9,13 @@ import {
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/Policy.module.css'
+import AuthContext from '@/context/AuthContext'
 
 export default function PolicyPage() {
+  const { user } = useContext(AuthContext)
+
   return (
-    <Layout>
+    <Layout data={user}>
       <div className="container">
         <Box className={styles.showcase}>
           <Box width={['100%', '70%']}>

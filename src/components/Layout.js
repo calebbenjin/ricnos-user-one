@@ -24,19 +24,17 @@ import { HiOutlineMail } from 'react-icons/hi'
 import { RiUserLine } from 'react-icons/ri'
 import Button from '@/components/Button'
 import AuthContext from '@/context/AuthContext'
-import PageLoader from '@/components/PageLoader'
-// import logoImage from '@/asset/logo1.svg'
-// import Image from 'next/image'
 
 export default function Layout({
   children,
+  data,
   name,
   email,
   notification,
   imgProfile,
 }) {
-  const { logout, user, isLoading } = useContext(AuthContext)
- 
+  const { logout } = useContext(AuthContext)
+
   return (
     <div className={styles.body}>
       <AsideNav />
@@ -55,22 +53,14 @@ export default function Layout({
                   <Link href='/dashboard/message/'>
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
-                      <div>{user ? user.general_notification : null}</div>
-                      {/* <div>{notification && notification}</div> */}
+                      <div>{data ? data.general_notification : null}</div>
                     </a>
                   </Link>
-                  {/* <Link href='/message'>
-                    <a className={styles.navIconBox}>
-                      <IoMailSharp className={styles.navIcon} />
-                      <div>9</div>
-                    </a>
-                  </Link> */}
                   <Box>
                     <Flex alignItems='center'>
                       <Box mr='3' color='white' textAlign='left'>
                         <Text fontWeight='bold' fontSize='sm'>
-                          {/* {name && name} */}
-                          {user ? user.name : null}
+                          {data ? data.name : null}
                         </Text>
                         <Text
                           as='small'
@@ -78,15 +68,13 @@ export default function Layout({
                           color='white'
                           isTruncated
                         >
-                          {email && email}
-                          {/* {user.email && user.email} */}
+                          {data ? data.email : null}
                         </Text>
                       </Box>
-                      {/* <Avatar size='md' name={name && name} src={imgProfile && imgProfile} /> */}
                       <Avatar
                         size='md'
-                        name={user ? user.name : null}
-                        src={user ? user.passport : null}
+                        name={data ? data.name : null}
+                        src={data ? data.passport : null}
                       />
                     </Flex>
                   </Box>
@@ -111,12 +99,10 @@ export default function Layout({
                         </Link>
                       </MenuItem>
                       <hr />
-                      <MenuItem>
-                        <Link href='/'>
-                          <a className={styles.menuLink}>
-                            <FiLogOut className={styles.icon} /> Logout
-                          </a>
-                        </Link>
+                      <MenuItem onClick={() => logout()}>
+                        <a className={styles.menuLink}>
+                          <FiLogOut className={styles.icon} /> Logout
+                        </a>
                       </MenuItem>
                     </MenuList>
                   </Menu>
@@ -130,8 +116,7 @@ export default function Layout({
           <Container maxWidth='container.xl'>
             <Flex alignItems='center' justify='space-between'>
               <Text fontWeight='bold' color='red' fontSize='sm'>
-                {user ? user.name : null}
-                {/* {name && name} */}
+                {data ? data.name : null}
               </Text>
               <Menu>
                 <MenuButton>
@@ -139,8 +124,8 @@ export default function Layout({
                     <Avatar
                       size='sm'
                       className={styles.avatar}
-                      name={name && name}
-                      src={imgProfile && imgProfile}
+                      name={data ? data.name : null}
+                      src={data ? data.imgProfile : null}
                     />
                     <BsThreeDotsVertical className={styles.dot} />
                   </Flex>

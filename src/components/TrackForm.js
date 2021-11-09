@@ -4,6 +4,7 @@ import styles from '@/styles/trackForm.module.css';
 import Button from './Button';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import LoaderSpinner from '@/components/LoaderSpinner'
 
 export default function TrackForm() {
   const {
@@ -37,8 +38,8 @@ export default function TrackForm() {
           ref={trackIdRef}
           required
         />
-        <Button disabled={loading}>
-          {loading ? 'Loading...' : 'Track item'}
+        <Button type="submit" loading={loading} title="Loading...">
+          Track item
         </Button>
       </form>
     </Box>

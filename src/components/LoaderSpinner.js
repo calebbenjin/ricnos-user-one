@@ -6,10 +6,10 @@ export default function Loading({title}) {
     <div className={styles.card}>
       <Spinner
       thickness='3px'
-      speed='0.70s'
+      speed='0.50s'
       emptyColor='gray.200'
       color='gray.800'
-      size='lg'
+      size='md'
     />
       <h2>{title}...</h2>
     </div>

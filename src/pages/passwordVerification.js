@@ -6,7 +6,7 @@ import { Box, Container, Text, Heading } from '@chakra-ui/react'
 // import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 
-export default function SignupPage() {
+export default function PasswordVerificationPage() {
   const [inputState, setInputState] = useState(new Array(6).fill(''))
 
   const handleChange = (element, index) => {
