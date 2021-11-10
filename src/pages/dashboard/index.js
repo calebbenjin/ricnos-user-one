@@ -21,7 +21,6 @@ import ButtonDark from '@/components/ButtonDark'
 export default function Dashboard({ user }) {
   const [paymentStatus, setPaymentStatus] = useState(false)
 
-  console.log(user)
   return (
     <Layout title='Dashboard' data={user}>
       <Container maxWidth='container.xl'>

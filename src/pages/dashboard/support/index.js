@@ -1,4 +1,6 @@
 import { useState, useContext } from 'react'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 import {
   Box,
   Heading,
@@ -20,11 +22,8 @@ import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 import banner from '@/styles/Policy.module.css'
 import navs from '@/styles/Settings.module.css'
-import AuthContext from '@/context/AuthContext'
-import PageLoader from '@/components/PageLoader'
 
-export default function SettingsPage() {
-  const { user } = useContext(AuthContext)
+export default function SettingsPage({ user }) {
 
   const {
     register,
@@ -184,4 +183,26 @@ export default function SettingsPage() {
       </Flex>
     </Layout>
   )
+}
+
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+    },
+  }
 }

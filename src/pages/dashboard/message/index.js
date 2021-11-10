@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import Layout from '@/components/Layout'
 import { Flex, Box } from '@chakra-ui/react'
 import styles from '@/styles/Chats.module.css'
@@ -7,7 +7,8 @@ import { MdAttachFile } from 'react-icons/md'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import Image from 'next/image'
 import userImg from '@/asset/user4.jpg'
-import AuthContext from '@/context/AuthContext'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
 const usersData = [
   {
@@ -42,12 +43,11 @@ const usersData = [
   },
 ]
 
-export default function MessagePage() {
-  const { user } = useContext(AuthContext)
+export default function MessagePage({ user: data}) {
   const [users, setUsers] = useState(usersData)
 
   return (
-    <Layout title="Message" data={user}>
+    <Layout title='Message' data={data}>
       <>
         <div className={styles.flexContainer}>
           <div className={styles.chatBoard}>
@@ -192,4 +192,26 @@ export default function MessagePage() {
       </>
     </Layout>
   )
+}
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+      token,
+    },
+  }
 }

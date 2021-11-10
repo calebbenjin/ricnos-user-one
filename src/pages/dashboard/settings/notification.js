@@ -1,4 +1,3 @@
-import { useState, useContext } from 'react'
 import SideNav from '@/components/SideNav'
 import Layout from '@/components/Layout'
 import {
@@ -16,10 +15,10 @@ import {
 } from '@chakra-ui/react'
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
-import AuthContext from '@/context/AuthContext'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function NotificationPage() {
-  const { user } = useContext(AuthContext)
+export default function NotificationPage({ user }) {
 
 
   return (
@@ -143,4 +142,28 @@ export default function NotificationPage() {
       </Flex>
     </Layout>
   )
+}
+
+
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await res.json()
+  const { user } = userData.data
+
+
+  return {
+    props: {
+      user,
+      token,
+    },
+  }
 }

@@ -58,20 +58,9 @@ export default function SettingsPage({ user, token }) {
   //   country: user.addresses.country,
   // })
 
-  console.log(user)
-
-  const imageUploaded = () => {
-    // setImagePreview(user.passport)
-    // setShowModal(false)
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    // const formdata = new FormData()
-    
-
-    // formdata.append("passport", fileInput.files[0], "[PROXY]");
 
     const res = await fetch(`${API_URL}/user/update_profile`, {
       method: 'POST',
@@ -348,6 +337,7 @@ export async function getServerSideProps({ req }) {
   const userData = await res.json()
   const { user } = userData.data
 
+
   return {
     props: {
       user,
@@ -355,3 +345,5 @@ export async function getServerSideProps({ req }) {
     },
   }
 }
+
+

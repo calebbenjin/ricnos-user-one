@@ -9,10 +9,10 @@ import {
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/Policy.module.css'
-import AuthContext from '@/context/AuthContext'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function PolicyPage() {
-  const { user } = useContext(AuthContext)
+export default function PolicyPage({ user }) {
 
   return (
     <Layout data={user}>
@@ -145,4 +145,25 @@ export default function PolicyPage() {
       </div>
     </Layout>
   )
+}
+
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const userData = await res.json()
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+      token
+    }
+  }
 }

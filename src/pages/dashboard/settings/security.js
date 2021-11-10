@@ -19,11 +19,11 @@ import { BsEye } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
-import AuthContext from '@/context/AuthContext'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
 
-export default function SecurityPage() {
-  const { user } = useContext(AuthContext)
+export default function SecurityPage({ user }) {
   const [loading, setLoading] = useState(false)
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
@@ -180,10 +180,31 @@ export default function SecurityPage() {
               </Box>
             </Flex>
           </Container>
-
-          <hr />
         </Box>
       </Flex>
     </Layout>
   )
+}
+
+
+export async function getServerSideProps( { req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+      token
+    }
+  }
 }
