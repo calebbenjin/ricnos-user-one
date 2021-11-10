@@ -16,42 +16,77 @@ import Layout from '@/components/Layout'
 import styles from '@/styles/Support.module.css'
 import { FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
 import { MdPhoneAndroid } from 'react-icons/md'
-import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 import banner from '@/styles/Policy.module.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import navs from '@/styles/Settings.module.css'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import { useRouter } from 'next/router'
 
-export default function SettingsPage({ user }) {
+export default function SettingsPage({ user, token }) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    subject: '',
+    category_id: '',
+    email: '',
+    message: ''
+  })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+
+    // selectedFile(fileInput.files[0])
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    console.log(formData)
+    const res = await fetch(`${API_URL}/support/create`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+
+    if (!res.ok) {
+      setIsLoading(false)
+      toast.error('Something went Wrong')
+    } else {
+      setIsLoading(false)
+      toast.success('Message Sent, We Will Respond as Soon As We Can')
+      setFormData({
+        name: '',
+        subject: '',
+        category_id: '',
+        email: '',
+        message: ''
+      })
+    }
+  }
 
   const router = useRouter()
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      router.push('/login')
     }
-  });
- 
+  })
+
   if (!user) {
-    return null;
+    return null
   }
 
   return (
-    <Layout data={user} 
-    >
+    <Layout data={user}>
+      <ToastContainer />
       <Flex justify='space-between' wrap='wrap'>
         <Box width={['100%', '20%']} className={navs.sideNav}>
           {/* <Container maxWidth='container.xl'> */}
@@ -114,78 +149,83 @@ export default function SettingsPage({ user }) {
                     Fill up the form and our team will get back to you with in
                     24hours.
                   </Text>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl isInvalid={errors.name} my='3'>
+                  <form onSubmit={handleSubmit}>
+                    <FormControl my='3'>
                       <Input
                         type='text'
                         borderColor='grey'
                         size='lg'
-                        id="name"
+                        id='name'
+                        name='name'
                         placeholder='Name'
-                        {...register('name', { required: 'Name is Empty' })}
+                        value={formData.name}
+                        required
+                        onChange={handleChange}
                       />
-                      <FormErrorMessage>
-                        {errors.name && errors.name.message}
-                      </FormErrorMessage>
                     </FormControl>
-                    <FormControl isInvalid={errors.email} my='3'>
+                    <FormControl my='3'>
                       <Input
                         type='email'
                         borderColor='grey'
                         size='lg'
-                        id="email"
+                        id='email'
+                        name='email'
                         placeholder='Email'
-                        {...register('email', { required: 'Email is Empty' })}
+                        value={formData.email}
+                        required
+                        onChange={handleChange}
                       />
-                      <FormErrorMessage>
-                        {errors.email && errors.email.message}
-                      </FormErrorMessage>
                     </FormControl>
-                    <FormControl isInvalid={errors.category} my='3'>
+                    <FormControl my='3'>
                       <Select
                         placeholder='Category'
-                        {...register('category')}
+                        value={formData.category_id}
+                        required
+                        onChange={handleChange}
                         borderColor='grey'
                         size='lg'
-                        id="category"
+                        id='category'
+                        name='category_id'
                       >
-                        <option value='option1'>Option 1</option>
-                        <option value='option2'>Option 2</option>
-                        <option value='option3'>Option 3</option>
+                        <option value='1'>Option 1</option>
+                        <option value='2'>Option 2</option>
+                        <option value='3'>Option 3</option>
                       </Select>
-                      <FormErrorMessage>
-                        {errors.category && errors.category.message}
-                      </FormErrorMessage>
                     </FormControl>
-                    <FormControl isInvalid={errors.subject} my='3'>
+                    <FormControl my='3'>
                       <Input
                         type='text'
                         borderColor='grey'
                         size='lg'
-                        id="subject"
+                        id='subject'
+                        name='subject'
                         placeholder='Subject'
-                        {...register('subject', { required: 'Subject is Empty' })}
+                        value={formData.subject}
+                        required
+                        onChange={handleChange}
                       />
-                      <FormErrorMessage>
-                        {errors.subject && errors.subject.message}
-                      </FormErrorMessage>
                     </FormControl>
-                    <FormControl isInvalid={errors.message} my='3'>
+                    <FormControl my='3'>
                       <Textarea
                         placeholder='Please enter details of your request'
                         borderColor='grey'
                         size='lg'
                         h='100px'
-                        {...register('message', {
-                          required: 'Message is Empty',
-                        })}
+                        value={formData.message}
+                        required
+                        id="message"
+                        name="message"
+                        onChange={handleChange}
                       ></Textarea>
-                      <FormErrorMessage>
-                        {errors.phone && errors.phone.message}
-                      </FormErrorMessage>
                     </FormControl>
                     <Box textAlign='right'>
-                      <Button>Send</Button>
+                      <Button
+                        type='submit'
+                        loading={isLoading}
+                        title='SENDING...'
+                      >
+                        Send
+                      </Button>
                     </Box>
                   </form>
                 </Box>
@@ -198,31 +238,30 @@ export default function SettingsPage({ user }) {
   )
 }
 
-
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  if(token) {
+  if (token) {
     const res = await fetch(`${API_URL}/user`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-  
+
     const userData = await res.json()
-  
+
     const { user } = userData.data
-  
+
     return {
       props: {
         user,
-        token
+        token,
       },
     }
   } else {
     return {
-      props: {}
+      props: {},
     }
   }
 }
