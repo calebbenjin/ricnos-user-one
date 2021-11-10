@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import {
@@ -22,6 +22,9 @@ import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 import banner from '@/styles/Policy.module.css'
 import navs from '@/styles/Settings.module.css'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 export default function SettingsPage({ user }) {
 
@@ -35,6 +38,18 @@ export default function SettingsPage({ user }) {
     console.log(data)
   }
 
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  });
+ 
+  if (!user) {
+    return null;
+  }
 
   return (
     <Layout data={user} 
@@ -189,20 +204,27 @@ export default function SettingsPage({ user }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-
-  const { user } = userData.data
-
-  return {
-    props: {
-      user,
-    },
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }

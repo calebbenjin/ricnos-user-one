@@ -1,22 +1,27 @@
-import { useState, useContext } from 'react'
-import {
-  Box,
-  Heading,
-  Text,
-  Flex,
-  List,
-  ListItem,
-} from '@chakra-ui/react'
+import { useState, useEffect } from 'react'
+import { Box, Heading, Text, Flex, List, ListItem } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/Policy.module.css'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 export default function PolicyPage({ user }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+    }
+  })
+
+  if (!user) {
+    return null
+  }
 
   return (
     <Layout data={user}>
-      <div className="container">
+      <div className='container'>
         <Box className={styles.showcase}>
           <Box width={['100%', '70%']}>
             <Heading className={styles.title}>
@@ -32,7 +37,7 @@ export default function PolicyPage({ user }) {
           <Flex justify='space-between' wrap='wrap'>
             <Box width={['100%', '47%']}>
               <Box>
-                <p className="justify">
+                <p className='justify'>
                   This privacy policy will help you understand how RICNO
                   LOGISTICS uses and protects the data you provide to us when
                   you visit and use web Application. We reserve the right to
@@ -88,7 +93,7 @@ export default function PolicyPage({ user }) {
                 <Heading fontSize='md' mb='3'>
                   Safeguarding and Securing the Data
                 </Heading>
-                <p className="justify">
+                <p className='justify'>
                   RICNO LOGISTICS is committed to securing your data and keeping
                   it confidential. RICNO LOGISTICS has done all in its power to
                   prevent data theft, unauthorized access, and disclosure by
@@ -102,7 +107,7 @@ export default function PolicyPage({ user }) {
                 <Heading fontSize='md' mb='3'>
                   Our Cookie Policy
                 </Heading>
-                <p className="justify">
+                <p className='justify'>
                   Once you agree to allow our website to use cookies, you also
                   agree to use the data it collects regarding your online
                   behaviour analyse web traffic, web pages you spend the most
@@ -110,9 +115,9 @@ export default function PolicyPage({ user }) {
                   cookies is used to customize our website to your needs. After
                   we use the data for statistical analysis, the data is
                   completely removed from our systems.Please note that cookies
-                  don&apos;t allow us to gain control of your computer in any way.
-                  They are strictly used to monitor which pages you find useful
-                  and which you do not so that we can provide a better
+                  don&apos;t allow us to gain control of your computer in any
+                  way. They are strictly used to monitor which pages you find
+                  useful and which you do not so that we can provide a better
                   experience for you. If you want to disable cookies, you can do
                   it by accessing the settings of your internet browser.
                   (Provide links for cookie settings for major internet
@@ -123,7 +128,7 @@ export default function PolicyPage({ user }) {
                 <Heading fontSize='md' mb='3'>
                   Restricting the Collection of your Personal Data
                 </Heading>
-                <p className="justify">
+                <p className='justify'>
                   At some point, you might wish to restrict the use and
                   collection of your personal data. You can achieve this by
                   doing the following: When you are filling the forms on the
@@ -147,23 +152,30 @@ export default function PolicyPage({ user }) {
   )
 }
 
-
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-  const userData = await res.json()
-  const { user } = userData.data
+  if (token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
 
-  return {
-    props: {
-      user,
-      token
+    const userData = await res.json()
+
+    const { user } = userData.data
+
+    return {
+      props: {
+        user,
+        token,
+      },
+    }
+  } else {
+    return {
+      props: {},
     }
   }
 }

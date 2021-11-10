@@ -14,13 +14,14 @@ import {
   Switch,
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { BsEye } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 
 export default function SecurityPage({ user }) {
@@ -39,6 +40,18 @@ export default function SecurityPage({ user }) {
 
   const onSubmit = (data) => {
     console.log(data)
+  }
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  });
+ 
+  if (!user) {
+    return null;
   }
 
   return (
@@ -187,24 +200,30 @@ export default function SecurityPage({ user }) {
 }
 
 
-export async function getServerSideProps( { req }) {
+export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
     }
-  })
-
-  const userData = await res.json()
-
-  const { user } = userData.data
-
-  return {
-    props: {
-      user,
-      token
+  } else {
+    return {
+      props: {}
     }
   }
 }

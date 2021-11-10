@@ -1,12 +1,25 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Flex, Box, Container, Text, Heading, Button } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import Link from '@/components/Link'
 import setting from '@/styles/Settings.module.css'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 export default function OpenTicket({user}) {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  });
+ 
+  if (!user) {
+    return null;
+  }
 
    return (
       <Layout data={user}>
@@ -72,20 +85,27 @@ export default function OpenTicket({user}) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-
-  const { user } = userData.data
-
-  return {
-    props: {
-      user,
-    },
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }

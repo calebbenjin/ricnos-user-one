@@ -1,10 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SideNav from '@/components/SideNav'
 import {
   Box,
   Flex,
-  Container,
-  Text,
   Avatar,
   AvatarBadge,
   FormLabel,
@@ -23,25 +21,26 @@ import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useRouter } from 'next/router'
 
 export default function SettingsPage({ user, token }) {
   const [imagePreview, setImagePreview] = useState(
-    user.passport ? user.passport : null
+    user && user.passport ? user.passport : null
   )
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [selectedFile, setSelectedFile] = useState(null);
   const [values, setValues] = useState({
     passport: '',
-    first_name: user.first_name,
-    last_name: user.last_name,
-    phone: user.phone,
-    email: user.email,
+    first_name: user && user.first_name,
+    last_name: user && user.last_name,
+    phone: user && user.phone,
+    email: user && user.email,
     address: '',
     address_one: '',
     city: '',
     state: '',
-    zip_code: user.zip_code,
+    zip_code: user && user.zip_code,
     country: '',
   })
   // const [values, setValues] = useState({
@@ -96,6 +95,19 @@ export default function SettingsPage({ user, token }) {
     // selectedFile(fileInput.files[0])
   }
 
+  const router = useRouter()
+
+
+  useEffect(() => {
+    if(!user) {
+      router.push('/login')
+    }
+  })
+
+  if(!user) {
+    return null
+  }
+
   return (
     <Layout
       title='My Profile'
@@ -118,8 +130,8 @@ export default function SettingsPage({ user, token }) {
                   size='2xl'
                   mt='10'
                   className={styles.avatar}
-                  name={user.name}
-                  src={user.passport}
+                  name={user && user.name}
+                  src={user && user.passport}
                 >
                   <AvatarBadge
                     className={styles.avatarBadge}
@@ -327,22 +339,28 @@ export default function SettingsPage({ user, token }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-  const { user } = userData.data
-
-
-  return {
-    props: {
-      user,
-      token,
-    },
+  if(token) {
+    const resUser = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await resUser.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }
 
