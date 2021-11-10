@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Flex, Box, Container, Text, Heading, Button } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import Link from '@/components/Link'
@@ -6,88 +6,101 @@ import { TiPlus } from 'react-icons/ti'
 import setting from '@/styles/Settings.module.css'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 export default function OpenTicket({ user }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+    }
+  })
+
+  if (!user) {
+    return null
+  }
 
   return (
-      <Layout data={user}>
-        <Flex>
-          <Box width={['100%', '20%']} className={setting.sideNav}>
-            <nav className={setting.nav}>
-              <Link href='/dashboard/support/'>
-                <a fontWeight='bold' className={setting.link}>
-                  Send Message
-                </a>
-              </Link>
-              <Link href='/dashboard/support/openTicket'>
-                <a className={setting.link}>Open Ticket</a>
-              </Link>
-              <Link href='/dashboard/support/closeTicket'>
-                <a className={setting.link}>Close Ticket</a>
-              </Link>
-            </nav>
-          </Box>
+    <Layout data={user}>
+      <Flex>
+        <Box width={['100%', '20%']} className={setting.sideNav}>
+          <nav className={setting.nav}>
+            <Link href='/dashboard/support/'>
+              <a fontWeight='bold' className={setting.link}>
+                Send Message
+              </a>
+            </Link>
+            <Link href='/dashboard/support/openTicket'>
+              <a className={setting.link}>Open Ticket</a>
+            </Link>
+            <Link href='/dashboard/support/closeTicket'>
+              <a className={setting.link}>Close Ticket</a>
+            </Link>
+          </nav>
+        </Box>
 
-          <Box width={['100%', '80%']}>
-            <Container maxWidth='container.md'>
-              <Text fontWeight='bold' fontSize='md' mt='6' color='grey'>
-                Opened Ticket
-              </Text>
+        <Box width={['100%', '80%']}>
+          <Container maxWidth='container.md'>
+            <Text fontWeight='bold' fontSize='md' mt='6' color='grey'>
+              Opened Ticket
+            </Text>
 
-              <Text color='grey' my='5'>
-                Ticket help you get answer/response directly from our Agents{' '}
-              </Text>
+            <Text color='grey' my='5'>
+              Ticket help you get answer/response directly from our Agents{' '}
+            </Text>
 
-              <Link href='/dashboard/support/'>
-                <Button
-                  leftIcon={<TiPlus />}
-                  colorScheme='red'
-                  variant='outline'
-                >
-                  Create New Ticket
-                </Button>
-              </Link>
+            <Link href='/dashboard/support/'>
+              <Button leftIcon={<TiPlus />} colorScheme='red' variant='outline'>
+                Create New Ticket
+              </Button>
+            </Link>
 
-              <Box className={setting.card} borderRadius='md' py='6' px='10'>
-                <Flex justify='space-between' alignItems='center' wrap='wrap'>
-                  <Box>
-                    <Heading size='sm'>Title</Heading>
-                    <Text my='4'>RN14273T11222</Text>
-                    <Text>16/11/2021</Text>
-                  </Box>
-                  <Link href='/'>
-                    <Button variant='outline' color='grey'>
-                      Open
-                    </Button>
-                  </Link>
-                </Flex>
-              </Box>
-            </Container>
-          </Box>
-        </Flex>
-      </Layout>
-    )
+            <Box className={setting.card} borderRadius='md' py='6' px='10'>
+              <Flex justify='space-between' alignItems='center' wrap='wrap'>
+                <Box>
+                  <Heading size='sm'>Title</Heading>
+                  <Text my='4'>RN14273T11222</Text>
+                  <Text>16/11/2021</Text>
+                </Box>
+                <Link href='/'>
+                  <Button variant='outline' color='grey'>
+                    Open
+                  </Button>
+                </Link>
+              </Flex>
+            </Box>
+          </Container>
+        </Box>
+      </Flex>
+    </Layout>
+  )
 }
-
-
 
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-
-  const { user } = userData.data
-
-  return {
-    props: {
-      user,
-    },
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }

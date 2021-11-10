@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { Flex, Box } from '@chakra-ui/react'
 import styles from '@/styles/Chats.module.css'
@@ -9,6 +9,7 @@ import Image from 'next/image'
 import userImg from '@/asset/user4.jpg'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 const usersData = [
   {
@@ -45,6 +46,17 @@ const usersData = [
 
 export default function MessagePage({ user: data}) {
   const [users, setUsers] = useState(usersData)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!data) {
+      router.push('/login');
+    }
+  });
+ 
+  if (!data) {
+    return null;
+  }
 
   return (
     <Layout title='Message' data={data}>
@@ -197,21 +209,27 @@ export default function MessagePage({ user: data}) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-
-  const { user } = userData.data
-
-  return {
-    props: {
-      user,
-      token,
-    },
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token,
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }

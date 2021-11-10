@@ -1,5 +1,6 @@
 import SideNav from '@/components/SideNav'
 import Layout from '@/components/Layout'
+import { useState, useEffect } from 'react'
 import {
   Box,
   Checkbox,
@@ -17,8 +18,21 @@ import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
+import { useRouter } from 'next/router'
 
 export default function NotificationPage({ user }) {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  });
+ 
+  if (!user) {
+    return null;
+  }
 
 
   return (
@@ -149,21 +163,27 @@ export default function NotificationPage({ user }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-  const { user } = userData.data
-
-
-  return {
-    props: {
-      user,
-      token,
-    },
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }

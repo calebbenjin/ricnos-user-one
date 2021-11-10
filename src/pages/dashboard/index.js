@@ -17,9 +17,22 @@ import { BsArrowRight } from 'react-icons/bs'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import ButtonDark from '@/components/ButtonDark'
+import { useRouter } from 'next/router'
 
 export default function Dashboard({ user }) {
   const [paymentStatus, setPaymentStatus] = useState(false)
+
+const router = useRouter()
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  });
+ 
+  if (!user) {
+    return null;
+  }
 
   return (
     <Layout title='Dashboard' data={user}>
@@ -54,13 +67,13 @@ export default function Dashboard({ user }) {
               Activities
             </Heading>
             <hr />
-            {!user.order ? (
+            {user && !user.order ? (
               <Heading mt='8' color='grey' size='sm' textAlign='center'>
                 You have no available orders
               </Heading>
             ) : (
               <>
-                {user.orders.map((order) => (
+                {user && user.orders.map((order) => (
                   <>
                     <Box
                       p='8'
@@ -153,7 +166,7 @@ export default function Dashboard({ user }) {
             <Flex justify='space-between' wrap='wrap'>
               <Box width={['100%', '47%']}>
                 <List spacing={4} mt='8'>
-                  {user.name ? (
+                  {user && user.name ? (
                     <ListItem>
                       <Text fontSize='sm' fontWeight='bold' color='grey'>
                         Name
@@ -221,20 +234,27 @@ export default function Dashboard({ user }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/user`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const userData = await res.json()
-
-  const { user } = userData.data
-
-  return {
-    props: {
-      user,
-    },
+  if(token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+    const userData = await res.json()
+  
+    const { user } = userData.data
+  
+    return {
+      props: {
+        user,
+        token
+      },
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }
