@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import { parseCookies } from '@/helpers/index'
-import { API_URL } from '@/lib/index'
 import {
   Box,
   Heading,
