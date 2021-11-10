@@ -14,13 +14,17 @@ import {
   Switch,
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { BsEye } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import styles from '@/styles/Settings.module.css'
 import Button from '@/components/Button'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function SecurityPage() {
+
+export default function SecurityPage({ user }) {
+  const [loading, setLoading] = useState(false)
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
 
@@ -38,7 +42,7 @@ export default function SecurityPage() {
   }
 
   return (
-    <Layout>
+    <Layout title="Security Settings" data={user}>
       <Flex bg='white'>
         <SideNav />
 
@@ -176,10 +180,31 @@ export default function SecurityPage() {
               </Box>
             </Flex>
           </Container>
-
-          <hr />
         </Box>
       </Flex>
     </Layout>
   )
+}
+
+
+export async function getServerSideProps( { req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+      token
+    }
+  }
 }

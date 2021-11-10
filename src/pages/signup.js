@@ -32,7 +32,8 @@ export default function SignupPage() {
   } = useForm()
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
-  const { signup, isLoading, error } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
+  const { signup, error } = useContext(AuthContext)
 
   const handleClick = () => setShow(!show)
   const confirmHandleClick = () => setConfirmShow(!confirmShow)
@@ -45,6 +46,7 @@ export default function SignupPage() {
     e.preventDefault()
 
     console.log(data)
+    setIsLoading(true)
 
     const { email, phone, password, password_confirmation } = data
 
@@ -168,7 +170,7 @@ export default function SignupPage() {
                   <Link href='/login'>Already have an account? Login</Link>
                 </Box>
 
-                <Button>{isLoading ? <Loader /> : "Sign up"}</Button>
+                <Button type="submit" title="LOADING..." loading={isLoading}>Sign up</Button>
               </form>
             </Box>
           </Container>

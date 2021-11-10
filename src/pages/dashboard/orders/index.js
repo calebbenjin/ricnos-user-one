@@ -10,6 +10,7 @@ export default function OrdersPage({ user }) {
   return (
     <Layout
       title='Shipments orders'
+      data={user}
     >
       <OrdersTable orders={user.orders} />
     </Layout>

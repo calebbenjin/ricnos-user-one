@@ -3,15 +3,13 @@ import { Flex, Box, Container, Text, Heading, Button } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import Link from '@/components/Link'
 import setting from '@/styles/Settings.module.css'
-import AuthContext from '@/context/AuthContext'
-import PageLoader from '@/components/PageLoader'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function OpenTicket() {
-  const { user } = useContext(AuthContext)
+export default function OpenTicket({user}) {
 
-  if (user) {
-    return (
-      <Layout>
+   return (
+      <Layout data={user}>
         <Flex>
           <Box width={['100%', '20%']} className={setting.sideNav}>
             <nav className={setting.nav}>
@@ -68,7 +66,26 @@ export default function OpenTicket() {
         </Flex>
       </Layout>
     )
-  } else {
-    return <PageLoader />
+}
+
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+    },
   }
 }

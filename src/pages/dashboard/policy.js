@@ -1,3 +1,4 @@
+import { useState, useContext } from 'react'
 import {
   Box,
   Heading,
@@ -8,10 +9,13 @@ import {
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/Policy.module.css'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function PolicyPage() {
+export default function PolicyPage({ user }) {
+
   return (
-    <Layout>
+    <Layout data={user}>
       <div className="container">
         <Box className={styles.showcase}>
           <Box width={['100%', '70%']}>
@@ -141,4 +145,25 @@ export default function PolicyPage() {
       </div>
     </Layout>
   )
+}
+
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const userData = await res.json()
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+      token
+    }
+  }
 }

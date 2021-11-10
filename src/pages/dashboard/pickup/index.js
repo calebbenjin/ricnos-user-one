@@ -20,6 +20,7 @@ import { parseCookies } from '@/helpers/index';
 import Loading from '@/components/Loader';
 
 export default function PickupPage({ token }) {
+  const { user } = useContext(AuthContext)
   const [userDetails, setUserDetails] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [processingOrder, setProcessingOrder] = useState(false);
@@ -88,12 +89,10 @@ export default function PickupPage({ token }) {
   const [departure, setDeparture] = useState('');
   const [arrival, setArrival] = useState('');
 
-  const { user } = useContext(AuthContext);
-
   useEffect(() => {
     if (user) {
-      setUserDetails(user.data.user);
-      setSenderAddress(user.data.user.addresses.address);
+      setUserDetails(user);
+      setSenderAddress(user.addresses.address);
       setIsLoading(false);
     }
   }, [user]);

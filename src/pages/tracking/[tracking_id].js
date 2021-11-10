@@ -1,57 +1,65 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Layout from '@/components/HomeLayout';
-import Link from 'next/link';
-import TrackForm from '@/components/TrackForm';
-import { Container, Heading, Text, Flex, Box } from '@chakra-ui/react';
-import styled from 'styled-components';
-import { API_URL } from '@/lib/index';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Layout from '@/components/HomeLayout'
+import Link from 'next/link'
+import TrackForm from '@/components/TrackForm'
+import { Container, Heading, Text, Box, } from '@chakra-ui/react'
+import styled from 'styled-components'
+import { API_URL } from '@/lib/index'
 // import { GoCheck } from 'react-icons/go'
 // import { FaLongArrowAltRight } from 'react-icons/fa'
 // import AccordonComp from '@/components/Accordon'
-// import Button from '@/components/Button'
-import ShippingDisplay from '@/components/ShippmentDisplay';
-// import {API_URL} from '@/lib/index'
-// import FetchContext from '@/context/FetchContext'
+import Button from '@/components/Button'
+import ShippingDisplay from '@/components/ShippmentDisplay'
+import styles from '@/styles/trackForm.module.css'
+import { useForm } from 'react-hook-form';
 
 export default function TrackingPage({ tracking_data }) {
+
+  console.log(tracking_data)
+
+  const router = useRouter();
+
   return (
     <Layout>
       <Div>
-        <Container maxWidth="container.md">
-          <Heading textAlign="center" fontWeight="normal">
+        <Container maxWidth='container.md'>
+          <Heading textAlign='center' fontWeight='normal'>
             TRACK:EXPRESS
           </Heading>
-          <TrackForm bg="white" />
 
-          {tracking_data.length === 0 && (
-            <Heading textAlign="center">NO Shippment</Heading>
-          )}
+          {/* Track form */}
+          <TrackForm />
 
-          {tracking_data.map((item) => (
-            <ShippingDisplay data={tracking_data} key={item.id} items={item} />
-          ))}
+          {tracking_data.success === false ?
+            <ErrorMessage>{tracking_data.message}</ErrorMessage>
+          : <ShippingDisplay data={tracking_data.data} /> }
+
+          {/* {tracking_data.map((item) => (
+          ))} */}
+            {/* <ShippingDisplay data={tracking_data.data} /> */}
 
           {/* <DisplayCard>
             <Heading textAlign='center'>Please wait data is Loading...</Heading>
           </DisplayCard> */}
 
-          <Text color="grey" textAlign="center">
+          <Text color='grey' textAlign='center'>
             If you would prefer to speak to someone personally about the
             location of your shipment, please contact Ricnos logistics{' '}
-            <Link href="/login">
+            <Link href='/login'>
               <a>Customer Service</a>
             </Link>
           </Text>
         </Container>
       </Div>
     </Layout>
-  );
+  )
 }
 
+
 export async function getServerSideProps(context) {
-  const { tracking_id } = context.query;
-  let tracking_data;
+  const { tracking_id } = context.query
+  let tracking_data
   try {
     const res = await fetch(`${API_URL}/tracking`, {
       method: 'POST',
@@ -59,17 +67,18 @@ export async function getServerSideProps(context) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ tracking_id: tracking_id }),
-    });
-    tracking_data = await res.json();
+    })
+    tracking_data = await res.json()
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
+
 
   return {
     props: {
-      tracking_data: tracking_data.data.order,
+      tracking_data
     },
-  };
+  }
 }
 
 // export async function getStaticProps() {
@@ -100,7 +109,7 @@ const Div = styled.div`
       font-size: 3.5rem;
     }
   }
-`;
+`
 
 const DisplayCard = styled.div`
   margin: 5rem 0;
@@ -112,13 +121,23 @@ const DisplayCard = styled.div`
     margin: 5rem 0;
     background: #fff;
   }
+`
+
+const ErrorMessage = styled.div`
+  text-transform: uppercase;
+  padding: 1rem;
+  background: lightgreen;
+  text-align: center;
+  font-weight: 700;
+  border-radius: 6px;
+  margin: 1rem 0;
 `;
 
-const FlexContainer = styled.div``;
+const FlexContainer = styled.div``
 const DateBox = styled.div`
   padding-bottom: 1.5rem;
   border-bottom: solid 2px #ccc;
-`;
+`
 
 const Line = styled.div`
   width: 35%;
@@ -133,4 +152,4 @@ const Line = styled.div`
     margin-right: 1rem;
     background: green;
   }
-`;
+`

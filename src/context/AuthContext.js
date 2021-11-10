@@ -1,20 +1,24 @@
-import { createContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { NEXT_URL, API_URL } from '@/lib/index';
+import { createContext, useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
+import { NEXT_URL } from '@/lib/index'
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isError, setIsError] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
+  const [user, setUser] = useState(null)
+  const [isError, setIsError] = useState(null)
+  const isMounted = useRef(false)
 
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    console.log('use effect in auth context running');
-    return checkUserLoggedIn();
-  }, []);
+    if (isMounted.current) {
+      console.log('use effect in auth context running')
+      return checkUserLoggedIn()
+    } else {
+      isMounted.current = true
+    }
+  }, [])
 
   // Resister user
   // ====================================
@@ -25,20 +29,18 @@ export const AuthProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, phone, password, password_confirmation }),
-    });
+    })
 
-    const resData = await res.json();
+    const resData = await res.json()
 
     if (res.ok) {
-      setIsLoading(true);
-      setUser(resData.user);
-      router.push('/dashboard/');
+      setUser(resData.user)
+      router.push('/login')
     } else {
-      setIsLoading(false);
-      setIsError(resData.message);
-      setIsError(null);
+      setIsError(resData.message)
+      setIsError(null)
     }
-  };
+  }
 
   // Login user
   // =====================================
@@ -49,35 +51,31 @@ export const AuthProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
-    });
+    })
 
-    const data = await res.json();
+    const data = await res.json()
 
     if (res.ok) {
-      setIsLoading(true);
-      setUser(data.user);
-      router.push('/dashboard/');
+      setUser(data.user)
+      router.push('/dashboard/')
     } else {
-      setIsLoading(false);
-      setIsError(data.message);
-      setIsError(null);
+      setIsError(data.message)
+      setIsError(null)
     }
-  };
-
-
+  }
 
   // Check if user is logged in
   // ================================================
-  const checkUserLoggedIn = async (user) => {
-    const res = await fetch(`${NEXT_URL}/api/user`);
-    const data = await res.json();
+  const checkUserLoggedIn = async () => {
+    const res = await fetch(`${NEXT_URL}/api/user`)
+    const data = await res.json()
 
     if (res.ok) {
-      setUser(data.user.data.user);
+      setUser(data.user.data.user)
     } else {
-      setUser(null);
+      setUser(null)
     }
-  };
+  }
 
   // Logout user
   // =====================================
@@ -85,13 +83,13 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     const res = await fetch(`${NEXT_URL}/api/logout`, {
       method: 'POST',
-    });
+    })
 
     if (res.ok) {
-      setUser(null);
-      router.push('/login');
+      setUser(null)
+      router.push('/login')
     }
-  };
+  }
 
   // Password reset
   // =====================================
@@ -103,12 +101,10 @@ export const AuthProvider = ({ children }) => {
   // =====================================
 
   return (
-    <AuthContext.Provider
-      value={{ user, isError, isLoading, logout, signup, login }}
-    >
+    <AuthContext.Provider value={{ user, isError, logout, signup, login }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export default AuthContext;
+export default AuthContext

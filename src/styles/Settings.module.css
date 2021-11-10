@@ -27,6 +27,7 @@
   text-transform: capitalize;
   font-weight: 700;
   color: #ccc;
+  padding: 0;
 }
 
 .link:hover {
@@ -59,7 +60,7 @@
   }
 
   .nav {
-    text-align: center;
+    text-align: left;
     display:flex;
     flex-direction: column;
     border: none;
@@ -74,6 +75,7 @@
 
   .link {
     display: block;
+    padding-left: 3rem;
     line-height: 4;
     border-top: solid 1px #ccc;
     text-transform: capitalize;

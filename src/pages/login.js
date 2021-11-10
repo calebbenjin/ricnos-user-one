@@ -18,16 +18,16 @@ import {
   Heading,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { useRouter } from 'next/router'
 import Button from '@/components/Button'
 import AuthContext from '@/context/AuthContext'
 import Loading from '@/components/Loader'
 
 function LoginPage() {
-  const { login, isError, isLoading } = useContext(AuthContext)
-  const [isLoader, setIsLoader] = useState(false)
+  const { login, isError } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -38,21 +38,21 @@ function LoginPage() {
 
   const handleClick = () => setShow(!show)
 
-  const router = useRouter()
-
   useEffect(() => isError && toast.error(isError))
 
   const onSubmit = (data, e) => {
     e.preventDefault()
+    setIsLoading(true)
     const { email, password } = data
     login({ email, password })
+
+    // setIsLoading(false)
   }
 
   return (
     <Layout>
       <Box className={styles.cardBg}>
-        
-        {isLoading ? <Loading title="Connecting..." /> : <ToastContainer />}
+        <ToastContainer />
         <Box className={styles.form}>
           <Container maxWidth='container.xl'>
             <Box width={['100%', '50%']}></Box>
@@ -97,19 +97,15 @@ function LoginPage() {
                   </FormErrorMessage>
                 </FormControl>
                 <FormControl mb='5'>
-                  <Flex>
-                    <Checkbox isRequired={true} colorScheme='red'>
-                      Remember me
-                    </Checkbox>
-                    <Spacer />
-                    <Link href='/forgetpassword'>Forget Password?</Link>
-                  </Flex>
+                  <Link href='/forgetpassword'>Forget Password?</Link>
                 </FormControl>
                 <hr />
                 <Box my='5'>
                   <Link href='/signup'>Don&apos;t have an account? Signup</Link>
                 </Box>
-                <Button type='submit'>LOGIN</Button>
+                <Button type='submit' loading={isLoading} title='LOADING...'>
+                  LOGIN
+                </Button>
               </form>
             </Box>
           </Container>
@@ -118,7 +114,5 @@ function LoginPage() {
     </Layout>
   )
 }
-
-
 
 export default LoginPage

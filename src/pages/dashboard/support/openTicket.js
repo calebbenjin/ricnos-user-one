@@ -4,18 +4,15 @@ import Layout from '@/components/Layout'
 import Link from '@/components/Link'
 import { TiPlus } from 'react-icons/ti'
 import setting from '@/styles/Settings.module.css'
-import AuthContext from '@/context/AuthContext'
-import PageLoader from '@/components/PageLoader'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/lib/index'
 
-export default function OpenTicket() {
-  const { user } = useContext(AuthContext)
+export default function OpenTicket({ user }) {
 
-  if (user) {
-    return (
-      <Layout>
+  return (
+      <Layout data={user}>
         <Flex>
           <Box width={['100%', '20%']} className={setting.sideNav}>
-            {/* <Container maxWidth='container.xl'> */}
             <nav className={setting.nav}>
               <Link href='/dashboard/support/'>
                 <a fontWeight='bold' className={setting.link}>
@@ -29,7 +26,6 @@ export default function OpenTicket() {
                 <a className={setting.link}>Close Ticket</a>
               </Link>
             </nav>
-            {/* </Container> */}
           </Box>
 
           <Box width={['100%', '80%']}>
@@ -71,7 +67,27 @@ export default function OpenTicket() {
         </Flex>
       </Layout>
     )
-  } else {
-    return <PageLoader />
+}
+
+
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await res.json()
+
+  const { user } = userData.data
+
+  return {
+    props: {
+      user,
+    },
   }
 }

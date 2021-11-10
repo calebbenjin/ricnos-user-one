@@ -40,7 +40,6 @@ import {
 } from '@chakra-ui/react'
 
 export default function Home({ vehicles, regions }) {
-  // const { isLoading, showResult } = useContext(FetchContext)
   const [isLoading, setIsLoading] = useState(false)
   const [showResult, setShowResult] = useState(false)
   const [values, setValues] = useState({
@@ -73,8 +72,6 @@ export default function Home({ vehicles, regions }) {
 
     console.log(resData)
 
-    setIsLoading(true)
-
     if (res.ok) {
       setIsLoading(false)
       setShowResult(true)
@@ -85,6 +82,7 @@ export default function Home({ vehicles, regions }) {
       setIsError(null)
       console.log('Somothing went Wrong')
     }
+    setValues('')
   }
 
   const handleInputChange = (e) => {
@@ -182,19 +180,6 @@ export default function Home({ vehicles, regions }) {
                     <Text as='h4' fontSize='lg' color='white' ml='2'>
                       Get a quote
                     </Text>
-                  </Tab>
-                  <Tab
-                    color='white'
-                    borderColor='white'
-                    py='4'
-                    className={trackStyles.trace_head}
-                  >
-                    <Flex alignItems='center' justify='center'>
-                      <Image src={trackIcon} width='40' alt="trackIcon" height='40' />
-                      <Text as='h4' fontSize='lg' color='white' ml='2'>
-                        Track & Trace
-                      </Text>
-                    </Flex>
                   </Tab>
                 </TabList>
                 <TabPanels
@@ -418,21 +403,6 @@ export default function Home({ vehicles, regions }) {
                         />
                       </Box>
                     </Flex>
-                  </TabPanel>
-                  <TabPanel p='6' className={trackStyles.trace_body}>
-                    <Container maxWidth='container.xl' p='10'>
-                      <Flex alignItems='center' justify='center'>
-                        <Box width={['100%', '70%']} p='8'>
-                          <TrackForm />
-                        </Box>
-                        <Box width={['100%', '30%']}>
-                          {/* <Card
-                      title='Take Your Career To Next Level'
-                      description='We pride ourselves on proving the best transportation and shipping services in Nigeria'
-                    /> */}
-                        </Box>
-                      </Flex>
-                    </Container>
                   </TabPanel>
                 </TabPanels>
               </Tabs>
