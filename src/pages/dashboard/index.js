@@ -22,16 +22,16 @@ import { useRouter } from 'next/router'
 export default function Dashboard({ user }) {
   const [paymentStatus, setPaymentStatus] = useState(false)
 
-const router = useRouter()
+  const router = useRouter()
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      router.push('/login')
     }
-  });
- 
+  })
+
   if (!user) {
-    return null;
+    return null
   }
 
   return (
@@ -67,86 +67,81 @@ const router = useRouter()
               Activities
             </Heading>
             <hr />
-            {user && !user.order ? (
-              <Heading mt='8' color='grey' size='sm' textAlign='center'>
-                You have no available orders
-              </Heading>
-            ) : (
-              <>
-                {user && user.orders.map((order) => (
-                  <>
-                    <Box
-                      p='8'
-                      bg='black'
-                      color='white'
-                      my='6'
-                      borderRadius='md'
-                      key={order.id}
-                    >
-                      <Text textTransform='uppercase'>
-                        {order.reference}
-                        <Badge
-                          variant='solid'
-                          ml='3'
-                          colorScheme='red'
-                          fontWeight='normal'
-                        >
-                          Active Order
-                        </Badge>
-                      </Text>
-                      <Heading mb='3' size='md'>
-                        Office Shifting{' '}
-                      </Heading>
-                      <hr />
-                      <Flex
-                        alignItems='center'
-                        className={styles.location}
-                        mt='6'
+            {/* <Heading mt='8' color='grey' size='sm' textAlign='center'>
+              You have no available orders
+            </Heading> */}
+
+            {user &&
+              user.orders.map((order) => (
+                <>
+                  <Box
+                    p='8'
+                    bg='black'
+                    color='white'
+                    my='6'
+                    borderRadius='md'
+                    key={order.id}
+                  >
+                    <Text textTransform='uppercase'>
+                      {order.reference}
+                      <Badge
+                        variant='solid'
+                        ml='3'
+                        colorScheme='red'
+                        fontWeight='normal'
                       >
-                        <Box className={styles.line}>
-                          <Box className={styles.dotTop}></Box>
-                          <Box className={styles.dotBottom}></Box>
-                        </Box>
-                        <Box>
-                          <Box className={styles.from}>
-                            <Text>From</Text>
-                            <Text textTransform='uppercase'>
-                              {order.departure}
-                            </Text>
-                          </Box>
-                          <Box className={styles.to} mt='8'>
-                            <Text>To</Text>
-                            <Text textTransform='uppercase'>
-                              {order.arrival}
-                            </Text>
-                          </Box>
-                        </Box>
-                      </Flex>
-                    </Box>
-                    <Box
-                      p='3'
-                      bg='white'
-                      color='grey'
-                      border='2px'
-                      borderColor='gray.200'
-                      my='6'
-                      borderRadius='md'
+                        Active Order
+                      </Badge>
+                    </Text>
+                    <Heading mb='3' size='md'>
+                      Office Shifting{' '}
+                    </Heading>
+                    <hr />
+                    <Flex
+                      alignItems='center'
+                      className={styles.location}
+                      mt='6'
                     >
-                      <Text mb='2' textTransform='uppercase'>
-                        {order.reference}
-                        <Badge variant='solid' ml='3' fontWeight='normal'>
-                          {paymentStatus ? 'Completed Order' : 'Pending Order'}
-                        </Badge>
-                      </Text>
-                      <hr />
-                      <Heading my='2' size='md'>
-                        Office Shifting{' '}
-                      </Heading>
-                    </Box>
-                  </>
-                ))}
-              </>
-            )}
+                      <Box className={styles.line}>
+                        <Box className={styles.dotTop}></Box>
+                        <Box className={styles.dotBottom}></Box>
+                      </Box>
+                      <Box>
+                        <Box className={styles.from}>
+                          <Text>From</Text>
+                          <Text textTransform='uppercase'>
+                            {order.departure}
+                          </Text>
+                        </Box>
+                        <Box className={styles.to} mt='8'>
+                          <Text>To</Text>
+                          <Text textTransform='uppercase'>{order.arrival}</Text>
+                        </Box>
+                      </Box>
+                    </Flex>
+                  </Box>
+                  <Box
+                    p='3'
+                    bg='white'
+                    color='grey'
+                    border='2px'
+                    borderColor='gray.200'
+                    my='6'
+                    borderRadius='md'
+                  >
+                    <Text mb='2' textTransform='uppercase'>
+                      {order.reference}
+                      <Badge variant='solid' ml='3' fontWeight='normal'>
+                        {paymentStatus ? 'Completed Order' : 'Pending Order'}
+                      </Badge>
+                    </Text>
+                    <hr />
+                    <Heading my='2' size='md'>
+                      Office Shifting{' '}
+                    </Heading>
+                  </Box>
+                </>
+              ))}
           </Box>
 
           <Box
@@ -234,27 +229,27 @@ const router = useRouter()
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  if(token) {
+  if (token) {
     const res = await fetch(`${API_URL}/user`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-  
+
     const userData = await res.json()
-  
+
     const { user } = userData.data
-  
+
     return {
       props: {
         user,
-        token
+        token,
       },
     }
   } else {
     return {
-      props: {}
+      props: {},
     }
   }
 }
