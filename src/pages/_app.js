@@ -204,15 +204,12 @@ const GlobalStyle = ({ children }) => {
               overflow: scroll;
               font-weight: 900;
               padding: 0;
-              /* position: absolute; */
               width: 1px;
               white-space: nowrap;
             }
 
             table tr {
               border-bottom: 3px solid #ddd;
-              /* display: block; */
-              /* margin-bottom: 0.625em; */
             }
 
             table th {
@@ -223,20 +220,12 @@ const GlobalStyle = ({ children }) => {
             }
 
             table td {
-              /* border-bottom: 1px solid #ddd; */
-              /* display: block; */
               font-size: 0.8em;
-              /* text-align: right; */
               white-space: nowrap;
             }
 
             table td::before {
-              /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
               content: attr(data-label);
-              /* float: left; */
               font-weight: bold;
               text-transform: uppercase;
             }

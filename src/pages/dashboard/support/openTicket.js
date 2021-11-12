@@ -7,9 +7,30 @@ import setting from '@/styles/Settings.module.css'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import { useRouter } from 'next/router'
+import { formatDateForInput } from '@/components/FormatDate'
 
-export default function OpenTicket({ user }) {
+export default function OpenTicket({ user, token }) {
   const router = useRouter()
+  const [ticketData, setTicketDate] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    
+    getTicketData()
+  }, [])
+
+  async function getTicketData() {
+    setIsLoading(true)
+    const response = await fetch(`${API_URL}/support/open`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    const data = await response.json()
+    setTicketDate(data.data)
+    setIsLoading(false)
+  }
 
   useEffect(() => {
     if (!user) {
@@ -56,20 +77,43 @@ export default function OpenTicket({ user }) {
               </Button>
             </Link>
 
-            <Box className={setting.card} borderRadius='md' py='6' px='10'>
-              <Flex justify='space-between' alignItems='center' wrap='wrap'>
-                <Box>
-                  <Heading size='sm'>Title</Heading>
-                  <Text my='4'>RN14273T11222</Text>
-                  <Text>16/11/2021</Text>
-                </Box>
-                <Link href='/'>
-                  <Button variant='outline' color='grey'>
-                    Open
-                  </Button>
-                </Link>
-              </Flex>
-            </Box>
+            {isLoading ? (
+              <h2>Loading...</h2>
+            ) : (
+              <>
+                {ticketData &&
+                  ticketData.supports.map((support) => (
+                    <Box
+                      key={support.id}
+                      className={setting.card}
+                      borderRadius='md'
+                      py='6'
+                      px='10'
+                    >
+                      <Flex
+                        justify='space-between'
+                        alignItems='center'
+                        wrap='wrap'
+                      >
+                        <Box>
+                          <Heading size='sm' textTransform='capitalize'>
+                            {support.subject}
+                          </Heading>
+                          <Text my='4' textTransform='uppercase'>
+                            {support.ticket_no}
+                          </Text>
+                          <Text>{formatDateForInput(support.date)}</Text>
+                        </Box>
+                        <Link href={`/dashboard/support/${support.id}`}>
+                          <Button variant='outline' color='grey'>
+                            Open
+                          </Button>
+                        </Link>
+                      </Flex>
+                    </Box>
+                  ))}
+              </>
+            )}
           </Container>
         </Box>
       </Flex>
@@ -80,27 +124,27 @@ export default function OpenTicket({ user }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  if(token) {
+  if (token) {
     const res = await fetch(`${API_URL}/user`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-  
+
     const userData = await res.json()
-  
+
     const { user } = userData.data
-  
+
     return {
       props: {
         user,
-        token
+        token,
       },
     }
   } else {
     return {
-      props: {}
+      props: {},
     }
   }
 }

@@ -39,14 +39,11 @@ export default function SettingsPage({ user, token }) {
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
-
-    // selectedFile(fileInput.files[0])
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    console.log(formData)
     const res = await fetch(`${API_URL}/support/create`, {
       method: 'POST',
       headers: {

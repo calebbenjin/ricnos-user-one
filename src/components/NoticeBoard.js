@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { Heading, Flex, Box, Avatar, Text } from '@chakra-ui/react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaLongArrowAltRight } from 'react-icons/fa';

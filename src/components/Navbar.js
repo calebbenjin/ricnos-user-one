@@ -35,7 +35,7 @@ export default function Navbar({ className }) {
             <Link href="/login">
                 <a className="navBtn">Request pickup</a>
               </Link>
-            <Drawer />
+            {/* <Drawer /> */}
           </Flex>
         </Container>
         <NavFooter />
