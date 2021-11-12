@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-
 import OrdersTable from '@/components/OrdersTable'
 import Layout from '@/components/Layout'
 import { API_URL } from '@/lib/index'

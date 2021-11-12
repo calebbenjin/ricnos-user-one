@@ -12,10 +12,8 @@ import {
 } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/Settings.module.css'
-import { BsPencil } from 'react-icons/bs'
+import { BsCamera } from 'react-icons/bs'
 import Modal from '@/components/Modal'
-import ImageUpload from '@/components/ImageUpload'
-// import FileUploader from '@/components/FileUploader'
 import Button from '@/components/Button'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
@@ -95,6 +93,10 @@ export default function SettingsPage({ user, token }) {
     // selectedFile(fileInput.files[0])
   }
 
+  const handleAvatar = () => {
+    console.log("Avatar Updated...")
+  }
+
   const router = useRouter()
 
 
@@ -135,13 +137,13 @@ export default function SettingsPage({ user, token }) {
                 >
                   <AvatarBadge
                     className={styles.avatarBadge}
-                    boxSize='0.8em'
                     borderRadius='md'
-                    bg='red.500'
-                    onClick={() => setShowModal(true)}
                   >
                     {' '}
-                    <BsPencil color='white' fontSize='1.5rem' />
+                    <span>
+                      <BsCamera color='white' className={styles.penIcon} fontSize='1.5rem' />
+                      <input type="file" name="file" className={styles.customFileInput} id="file_up" onChange={handleAvatar} />
+                    </span>
                   </AvatarBadge>
                 </Avatar>
               </Box>

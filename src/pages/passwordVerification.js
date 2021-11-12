@@ -3,7 +3,6 @@ import Layout from '@/components/HomeLayout'
 import styles from '@/styles/PinInput.module.css'
 import style from '@/styles/Login.module.css'
 import { Box, Container, Text, Heading } from '@chakra-ui/react'
-// import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 
 export default function PasswordVerificationPage() {

@@ -9,10 +9,10 @@ export default function Button({type, loading, title, children}) {
       {loading ? <div className={style.card}>
       <Spinner
       thickness='3px'
-      speed='0.50s'
+      speed='0.80s'
       emptyColor='gray.200'
       color='gray.800'
-      size='md'
+      size='sm'
     />
       <h2>{title}...</h2>
     </div> : children}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { extendTheme, theme as chakraTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
@@ -37,9 +36,9 @@ const theme = extendTheme({
           boxShadow: "0 0 2px 2px #efdfde",
         },
         // 4. We can override existing variants
-        solid: (props) => ({
-          bg: props.colorMode === "dark" ? "red.300" : "red.500",
-        }),
+        // solid: (props) => ({
+        //   bg: props.colorMode === "dark" ? "red.300" : "red.500",
+        // }),
       },
     },
   },
