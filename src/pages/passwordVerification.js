@@ -6,6 +6,7 @@ import { Box, Container, Text, Heading } from '@chakra-ui/react'
 import Button from '@/components/Button'
 
 export default function PasswordVerificationPage() {
+  const [isLoading, setIsLoading] = useState(false)
   const [inputState, setInputState] = useState(new Array(6).fill(''))
 
   const handleChange = (element, index) => {
@@ -69,7 +70,7 @@ export default function PasswordVerificationPage() {
                   </Box>
                 </Box>
                 <Box mt="10">
-                <Button type='submit'>VERIFY</Button>
+                <Button type='submit' loading={isLoading}>VERIFY</Button>
                 <Text color='white' mt="5" type='submit'>
                   Resend Code
                 </Text>

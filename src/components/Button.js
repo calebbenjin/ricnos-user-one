@@ -14,7 +14,7 @@ export default function Button({type, loading, title, children}) {
       color='gray.800'
       size='sm'
     />
-      <h2>{title}...</h2>
+      <h2>{title ? title : 'Please wait'}...</h2>
     </div> : children}
     </button>
   )

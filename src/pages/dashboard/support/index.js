@@ -219,7 +219,6 @@ export default function SettingsPage({ user, token }) {
                       <Button
                         type='submit'
                         loading={isLoading}
-                        title='SENDING...'
                       >
                         Send
                       </Button>

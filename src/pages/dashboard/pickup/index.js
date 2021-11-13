@@ -528,7 +528,7 @@ export default function PickupPage({ user, token }) {
                 Add more items
               </Text>
 
-              <Button>Checkout</Button>
+              <Button type="submit" loading={isLoading}>Checkout</Button>
             </form>
           )}
         </Box>

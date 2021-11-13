@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import Layout from "@/components/HomeLayout";
 // import Link from 'next/link'
 // import { BsEye } from 'react-icons/bs'
@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 
 export default function ForgetPasswordPage() {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -53,7 +54,7 @@ export default function ForgetPasswordPage() {
                 </FormControl>
                 
 
-                <Button type="submit">SEND</Button>
+                <Button type="submit" loading={isLoading}>SEND</Button>
               </form>
             </Box>
           </Container>

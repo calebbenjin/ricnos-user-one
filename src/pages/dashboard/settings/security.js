@@ -25,7 +25,7 @@ import { useRouter } from 'next/router'
 
 
 export default function SecurityPage({ user }) {
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
 
@@ -158,7 +158,7 @@ export default function SecurityPage({ user }) {
               </Box>
 
               <Box textAlign='right' my='10'>
-                <Button>Save Changes</Button>
+                <Button type="submit" loading={isLoading}>Save Changes</Button>
               </Box>
             </form>
           </Container>

@@ -103,7 +103,7 @@ function LoginPage() {
                 <Box my='5'>
                   <Link href='/signup'>Don&apos;t have an account? Signup</Link>
                 </Box>
-                <Button type='submit' loading={isLoading} title='LOADING...'>
+                <Button type='submit' loading={isLoading}>
                   LOGIN
                 </Button>
               </form>

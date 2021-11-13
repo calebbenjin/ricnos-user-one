@@ -38,7 +38,7 @@ export default function TrackForm() {
           ref={trackIdRef}
           required
         />
-        <Button type="submit" loading={loading} title="Loading...">
+        <Button type="submit" loading={loading}>
           Track item
         </Button>
       </form>

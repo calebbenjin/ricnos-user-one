@@ -305,7 +305,7 @@ export default function SettingsPage({ user, token }) {
                     </Box>
                   </Flex>
                   <Box textAlign='right' mb='20'>
-                    <Button type='submit' title='SAVING...' loading={isLoading}>
+                    <Button type='submit' loading={isLoading}>
                       Save Changes
                     </Button>
                   </Box>

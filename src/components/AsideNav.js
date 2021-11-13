@@ -21,17 +21,17 @@ export default function Aside() {
             <FaChartPie className={styles.icon} /> Dashboard
           </a>
         </Link>
-        <Link href='/dashboard/orders/'>
+        <Link href='/dashboard/orders'>
           <a className={styles.navLink}>
             <FaListUl className={styles.icon} /> Orders
           </a>
         </Link>
-        <Link href='/dashboard/message/'>
+        <Link href='/dashboard/message'>
           <a className={styles.navLink}>
             <SiGooglemessages className={styles.icon} /> Messages
           </a>
         </Link>
-        <Link href='/dashboard/support/'>
+        <Link href='/dashboard/support'>
           <a className={styles.navLink}>
             <FaUsers className={styles.icon} /> Support
           </a>
@@ -42,7 +42,7 @@ export default function Aside() {
           </a>
         </Link>
         <hr />
-        <Link href='/dashboard/settings/'>
+        <Link href='/dashboard/settings'>
           <a className={styles.navLink}>
             <FiSettings className={styles.icon} /> Settings
           </a>
