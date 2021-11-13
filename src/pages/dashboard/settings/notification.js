@@ -21,7 +21,7 @@ import { API_URL } from '@/lib/index'
 import { useRouter } from 'next/router'
 
 export default function NotificationPage({ user }) {
-
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -149,7 +149,7 @@ export default function NotificationPage({ user }) {
             </Flex>
 
             <Box textAlign='right' mt='10'>
-              <Button>Save Changes</Button>
+              <Button type="submit" loading={isLoading}>Save Changes</Button>
             </Box>
           </Container>
         </Box>

@@ -13,7 +13,7 @@ export default function OrdersTable({ orders }) {
     from: order.departure,
     to: order.arrival,
     status: order.status,
-    price: order.amount,
+    price: `NGN ${order.amount}`,
 })))
   const [q, setQ] = useState('')
   const [filterBtn, setFilterBtn] = useState(['A'])

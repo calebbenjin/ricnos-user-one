@@ -170,7 +170,7 @@ export default function SignupPage() {
                   <Link href='/login'>Already have an account? Login</Link>
                 </Box>
 
-                <Button type="submit" title="LOADING..." loading={isLoading}>Sign up</Button>
+                <Button type="submit" loading={isLoading}>Sign up</Button>
               </form>
             </Box>
           </Container>

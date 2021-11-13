@@ -369,9 +369,7 @@ export default function Home({ vehicles, regions }) {
                             </Box>
                           </Flex>
 
-                          <Button type='submit'>
-                            {isLoading ? <LoaderSpinner title="SENDING" /> : 'SEND'}
-                          </Button>
+                          <Button type='submit' loading={isLoading}>SEND</Button>
                         </form> 
 
                         {showResult ? <DisplayCard title='Shippment Quotation Result'>

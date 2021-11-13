@@ -28,11 +28,7 @@ import AuthContext from '@/context/AuthContext'
 
 export default function Layout({
   children,
-  data,
-  name,
-  email,
-  notification,
-  imgProfile,
+  data
 }) {
   const { logout } = useContext(AuthContext)
 

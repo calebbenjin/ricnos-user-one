@@ -24,6 +24,7 @@ export default function SignupPage() {
     formState: { errors },
   } = useForm()
   const [show, setShow] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
 
   const handleClick = () => setShow(!show)
@@ -111,7 +112,7 @@ export default function SignupPage() {
 
                 
 
-                <Button type="submit">VERIFY</Button>
+                <Button type="submit" loading={isLoading}>VERIFY</Button>
               </form>
             </Box>
           </Container>
