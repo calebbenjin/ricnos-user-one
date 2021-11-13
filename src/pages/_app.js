@@ -179,6 +179,23 @@ const GlobalStyle = ({ children }) => {
             display: none;
           }
 
+          .navMobileBtn {
+            display: none;
+          }
+
+          @media screen and (max-width: 1200px) {
+            .navMobileBtn {
+              background: red;
+              padding: 8px;
+              text-transform: uppercase;
+              display: block;
+              color: #fff;
+              border-radius: 6px;
+              /* margin: 0 1rem; */
+              font-size: 0.8rem;
+            }
+          }
+
           @media screen and (max-width: 700px) {
             .displaySm {
               display: none;

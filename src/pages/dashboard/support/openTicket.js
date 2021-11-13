@@ -44,8 +44,8 @@ export default function OpenTicket({ user, token }) {
 
   return (
     <Layout data={user}>
-      <Flex>
-        <Box width={['100%', '20%']} className={setting.sideNav}>
+      <Flex justify='space-between' wrap='wrap'>
+        <Box className={setting.sideNav}>
           <nav className={setting.nav}>
             <Link href='/dashboard/support/'>
               <a fontWeight='bold' className={setting.link}>
@@ -61,13 +61,13 @@ export default function OpenTicket({ user, token }) {
           </nav>
         </Box>
 
-        <Box width={['100%', '80%']}>
-          <Container maxWidth='container.md'>
+        <Box className={setting.profileSetting}>
+          {/* <Container maxWidth='container.md'> */}
             <Text fontWeight='bold' fontSize='md' mt='6' color='grey'>
               Opened Ticket
             </Text>
 
-            <Text color='grey' my='5'>
+            <Text color='grey' my='2'>
               Ticket help you get answer/response directly from our Agents{' '}
             </Text>
 
@@ -88,7 +88,7 @@ export default function OpenTicket({ user, token }) {
                       className={setting.card}
                       borderRadius='md'
                       py='6'
-                      px='10'
+                      px='4'
                     >
                       <Flex
                         justify='space-between'
@@ -105,16 +105,16 @@ export default function OpenTicket({ user, token }) {
                           <Text>{formatDateForInput(support.date)}</Text>
                         </Box>
                         <Link href={`/dashboard/support/${support.id}`}>
-                          <Button variant='outline' color='grey'>
+                          <a className={setting.button}>
                             Open
-                          </Button>
+                          </a>
                         </Link>
                       </Flex>
                     </Box>
                   ))}
               </>
             )}
-          </Container>
+          {/* </Container> */}
         </Box>
       </Flex>
     </Layout>

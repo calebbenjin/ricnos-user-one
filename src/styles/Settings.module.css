@@ -36,7 +36,6 @@
 
 .avatarBadge {
   border: none !important;
-  right: 2rem;
 }
 
 .createBtn {
@@ -46,67 +45,38 @@
   border-radius: 4px;
 }
 
-.avatar {
-  overflow: hidden !important;
+.avatarBox img {
+  border: solid 3px #e00707;
 }
 
 .avatarBadge {
-  width: 200px;
-  height: 60px;
-  overflow: hidden !important;
-  background: #fafafa98;
+  width: 50px;
+  height: 40px;
   position: relative;
-  border: 1px solid #ddd;
-  border-radius: 50%;
   cursor: pointer;
 }
 
-/* .avatarBadge span{
-  position: absolute;
-  bottom: 2rem;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: #fff8;
-  text-align: center;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: rgb(255, 140, 45);
-  transition: 0.3s ease-in-out;
-} */
-
-
-.avatarBadge .customFileInput::-webkit-file-upload-button {
-  /* visibility: hidden; */
-  background: transparent !important;
-  border: none !important;
-  opacity: 1;
-  -webkit-user-select: none;
-  content: '';
-  font-size: 0.4rem;
-}
-.avatarBadge .customFileInput::before {
-  font-size: 0.4rem;
-}
-.avatarBadge .customFileInput::after {
-  display: none;
-  font-size: 0.4rem;
-}
 
 
 
 
 .penIcon {
-  opacity: 1;
-  position: absolute;
-  top: 0.5rem;
-  left: 2rem;
   font-size: 2rem;
 }
 
 .card {
   border: solid 1px #ccc;
   margin: 2rem 0;
+  background: #fff;
+}
+
+.button {
+  display: block;
+  padding: 7px;
+  margin-top: 10px;
+  border: solid 1px #ccc;
+  border-radius: 6px;
+  text-align: center;
 }
 
 
@@ -124,6 +94,22 @@
     border: none;
     width: 100%;
     margin: 0 auto;
+  }
+
+  .card {
+    border: solid 1px #ccc;
+    margin: 2rem 0;
+    background: #fff;
+    text-align: left;
+  }
+
+  .button {
+    display: inline;
+    padding: 7px 20px;
+    margin-top: 10px;
+    border: solid 1px #ccc;
+    border-radius: 6px;
+    text-align: center;
   }
 
   .form {

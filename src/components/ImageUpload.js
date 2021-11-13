@@ -5,24 +5,39 @@ import Button from './Button'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-export default function ImageUpload({ imageUploaded }) {
+export default function ImageUpload({ imageUploaded, token }) {
   const [image, setImage] = useState(null)
   const fileInput = useRef(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const formData = new FormData()
-    
 
-    console.log(formData.append('file', image,  "[PROXY]"))
+    var formdata = new FormData()
+    formdata.append('passport', image, '[PROXY]')
+
+    const res = await fetch(`${API_URL}/user/update_profile_image`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    })
+
+    const resData = await res.json()
+    console.log(resData)
+
+    if(!res.ok) {
+      toast.error('Something went Wrong')
+    } else {
+      // imageUploaded()
+      const resData = await res.json()
+      toast.success('Profile Image Change Successfuly')
+      console.log(resData)
+    }
   }
 
   const handleFileChange = (e) => {
-    setImage(e.target.fileInput.files[0])
-
-    // if (file.size > 1024)
-    //   onFileSelectError({ error: 'File size cannot exceed more than 1MB' })
-    // else onFileSelectSuccess(file)
+    setImage(e.target.files[0])
   }
 
   console.log(image)
@@ -34,7 +49,10 @@ export default function ImageUpload({ imageUploaded }) {
         <FormControl>
           <Input borderColor='grey' type='file' onChange={handleFileChange} />
         </FormControl>
-        <input type="submit" value="UPLOAD" onClick={(e) => fileInput.current && fileInput.current.click()} />
+        <input
+          type='submit'
+          value="UPLOAD"
+        />
       </form>
     </div>
   )
