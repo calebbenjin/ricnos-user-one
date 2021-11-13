@@ -18,6 +18,7 @@ import { FaUsers } from 'react-icons/fa'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { IoNotificationsSharp, IoMailSharp } from 'react-icons/io5'
 import { CgHome } from 'react-icons/cg'
+import { BiSupport } from 'react-icons/bi'
 import { AiOutlineUnorderedList } from 'react-icons/ai'
 import { FiEdit } from 'react-icons/fi'
 import { HiOutlineMail } from 'react-icons/hi'
@@ -115,17 +116,23 @@ export default function Layout({
         <nav className={styles.mobileNav}>
           <Container maxWidth='container.xl'>
             <Flex alignItems='center' justify='space-between'>
-              <Text fontWeight='bold' color='red' fontSize='sm'>
-                {data ? data.name : null}
-              </Text>
+              <Link href='/dashboard/pickup/'>
+                <a className='navMobileBtn'>Request pickup</a>
+              </Link>
               <Menu>
                 <MenuButton>
                   <Flex alignItems='center'>
+                  <Link href='/dashboard/message/'>
+                    <a className={styles.navIconBox}>
+                      <IoNotificationsSharp className={styles.navIcon} />
+                      <div>{data ? data.general_notification : null}</div>
+                    </a>
+                  </Link>
                     <Avatar
                       size='sm'
                       className={styles.avatar}
                       name={data ? data.name : null}
-                      src={data ? data.imgProfile : null}
+                      src={data ? data.passport : null}
                     />
                     <BsThreeDotsVertical className={styles.dot} />
                   </Flex>
@@ -173,12 +180,12 @@ export default function Layout({
           </Link>
           <Link href='/dashboard/message'>
             <a className={styles.mobileIcon}>
-              <FiEdit />
+              <HiOutlineMail />
             </a>
           </Link>
-          <Link href='/dashboard/message/'>
+          <Link href='/dashboard/support/'>
             <a className={styles.mobileIcon}>
-              <HiOutlineMail />
+              <BiSupport />
             </a>
           </Link>
           <Link href='/dashboard/settings/'>
@@ -191,4 +198,3 @@ export default function Layout({
     </div>
   )
 }
-

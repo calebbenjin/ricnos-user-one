@@ -14,6 +14,7 @@ import Layout from '@/components/Layout'
 import styles from '@/styles/Settings.module.css'
 import { BsCamera } from 'react-icons/bs'
 import Modal from '@/components/Modal'
+import ImageUpload from '@/components/ImageUpload'
 import Button from '@/components/Button'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
@@ -22,43 +23,31 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useRouter } from 'next/router'
 
 export default function SettingsPage({ user, token }) {
+  // const [imagePreview, setImagePreview] = useState()
   const [imagePreview, setImagePreview] = useState(
     user && user.passport ? user.passport : null
   )
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null)
   const [values, setValues] = useState({
     passport: '',
     first_name: user && user.first_name,
     last_name: user && user.last_name,
     phone: user && user.phone,
     email: user && user.email,
-    address: '',
-    address_one: '',
-    city: '',
-    state: '',
+    address: user && user.addresses.address,
+    address_one: user && user.addresses.second_address,
+    city: user && user.addresses.city,
+    state: user && user.addresses.state,
     zip_code: user && user.zip_code,
-    country: '',
+    country: user && user.addresses.country,
   })
-  // const [values, setValues] = useState({
-  //   passport: user.passport,
-  //   first_name: user.first_name,
-  //   last_name: user.last_name,
-  //   phone: user.phone,
-  //   email: user.email,
-  //   address: user.addresses.address,
-  //   address_one: user.addresses.second_address,
-  //   city: user.addresses.city,
-  //   state: user.addresses.state,
-  //   zip_code: user.zip_code,
-  //   country: user.addresses.country,
-  // })
 
+  // console.log(imagePreview)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     const res = await fetch(`${API_URL}/user/update_profile`, {
       method: 'POST',
       headers: {
@@ -73,48 +62,46 @@ export default function SettingsPage({ user, token }) {
     } else {
       const userData = await res.json()
       toast.success('Changes Saved')
-      console.log(userData)
+      // console.log(userData)
     }
-  }
-
-  const handleFileInput = (e) => {
-    // handle validations
-    setSelectedFile(e.target.files[0])
-
-    // if (file.size > 1024)
-    //   onFileSelectError({ error: 'File size cannot exceed more than 1MB' })
-    // else onFileSelectSuccess(file)
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
-
-    // selectedFile(fileInput.files[0])
   }
 
-  const handleAvatar = () => {
-    console.log("Avatar Updated...")
+ const imageUploaded = async () => {
+  const res = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const imageData = await res.json()
+  // setImagePreview()
+  console.log(imageData)
+ }
+
+  const closeModal = () => {
+    setShowModal(false)
   }
 
   const router = useRouter()
 
-
   useEffect(() => {
-    if(!user) {
+    if (!user) {
       router.push('/login')
     }
   })
 
-  if(!user) {
+  if (!user) {
     return null
   }
 
   return (
-    <Layout
-      title='My Profile'
-      data={user}
-    >
+    <Layout title='My Profile' data={user}>
       <Flex justify='space-between' wrap='wrap'>
         <SideNav />
 
@@ -128,24 +115,32 @@ export default function SettingsPage({ user, token }) {
               <hr />
 
               <Box textAlign='center' className={styles.avatarBox}>
-                <Avatar
-                  size='2xl'
-                  mt='10'
-                  className={styles.avatar}
-                  name={user && user.name}
-                  src={user && user.passport}
-                >
-                  <AvatarBadge
-                    className={styles.avatarBadge}
-                    borderRadius='md'
+                  <Avatar
+                    size='2xl'
+                    mt='10'
+                    className={styles.avatar}
+                    name={user && user.name}
+                    src={imagePreview}
                   >
-                    {' '}
-                    <span>
-                      <BsCamera color='white' className={styles.penIcon} fontSize='1.5rem' />
-                      <input type="file" name="file" className={styles.customFileInput} id="file_up" onChange={handleAvatar} />
-                    </span>
-                  </AvatarBadge>
-                </Avatar>
+                    <AvatarBadge
+                      className={styles.avatarBadge}
+                      borderRadius='md'
+                      bg="red"
+                      onClick={() => setShowModal(true)}
+                    >
+                      {' '}
+                      <span>
+                        <BsCamera
+                          color='white'
+                          className={styles.penIcon}
+                          fontSize='1.5rem'
+                        />
+                      </span>
+                    </AvatarBadge>
+                  </Avatar>
+                  <Modal show={showModal} onClose={closeModal} title="Upload Profile">
+                    <ImageUpload token={token} imageUploaded={imageUploaded} />
+                  </Modal>
               </Box>
 
               <Box>
@@ -294,7 +289,7 @@ export default function SettingsPage({ user, token }) {
                       </FormControl>
                     </Box>
                     <Box mb='4' width={['100%', '47%']}>
-                      {/* <FormControl>
+                      <FormControl>
                         <FormLabel fontWeight='normal'>Country</FormLabel>
                         <Input
                           borderColor='grey'
@@ -306,32 +301,18 @@ export default function SettingsPage({ user, token }) {
                           value={values.country}
                           onChange={() => handleChange}
                         />
-                      </FormControl> */}
+                      </FormControl>
                     </Box>
                   </Flex>
-                  <Box mb='4' width={['100%', '100%']}>
-                    {/* <FileUploader
-                      onFileSelectSuccess={(file) => setSelectedFile(file)}
-                      onFileSelectError={({ error }) => alert(error)}
-                    /> */}
-                    {/* <input type='file' name="passport" value={values.passport}
-                          onChange={() => handleChange} /> */}
-                  </Box>
                   <Box textAlign='right' mb='20'>
-                    <Button>Save Changes</Button>
+                    <Button type='submit' title='SAVING...' loading={isLoading}>
+                      Save Changes
+                    </Button>
                   </Box>
                 </form>
               </Box>
             </div>
           </div>
-
-          <Modal show={showModal} onClose={() => setShowModal(false)}>
-            {/* <ImageUpload imageUploaded={imageUploaded} /> */}
-            {/* <FileUploaded
-              onFileSelectSuccess={(file) => setSelectedFile(file)}
-              onFileSelectError={({ error }) => alert(error)}
-            /> */}
-          </Modal>
         </Box>
       </Flex>
     </Layout>
@@ -341,29 +322,27 @@ export default function SettingsPage({ user, token }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  if(token) {
+  if (token) {
     const resUser = await fetch(`${API_URL}/user`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-  
+
     const userData = await resUser.json()
-  
+
     const { user } = userData.data
-  
+
     return {
       props: {
         user,
-        token
+        token,
       },
     }
   } else {
     return {
-      props: {}
+      props: {},
     }
   }
 }
-
-

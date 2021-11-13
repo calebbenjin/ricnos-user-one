@@ -14,13 +14,11 @@ import {
 
 import Layout from '@/components/Layout'
 import Button from '@/components/Button'
-import AuthContext from '@/context/AuthContext'
 import { API_URL } from '@/lib/index'
 import { parseCookies } from '@/helpers/index'
 import Loading from '@/components/Loader'
 
-export default function PickupPage({ token }) {
-  const { user } = useContext(AuthContext)
+export default function PickupPage({ user, token }) {
   const [userDetails, setUserDetails] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const [processingOrder, setProcessingOrder] = useState(false)
@@ -200,7 +198,7 @@ export default function PickupPage({ token }) {
   }
 
   return (
-    <Layout title='Request for Pickup'>
+    <Layout title='Request for Pickup' data={user}>
       <Container maxWidth='container.lg'>
         <Box>
           <Heading size='lg' my='10'>
@@ -530,7 +528,7 @@ export default function PickupPage({ token }) {
                 Add more items
               </Text>
 
-              <Button> Checkout</Button>
+              <Button>Checkout</Button>
             </form>
           )}
         </Box>

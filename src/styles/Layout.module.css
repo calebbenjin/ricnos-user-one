@@ -76,7 +76,7 @@
 
 .navIconBox {
   position: relative;
-  margin-right: 2rem;
+  margin-right: 1.5rem;
 }
 .navIconBox div {
   position: absolute;
@@ -99,13 +99,8 @@
   display: none;
 }
 
-.mainBody {
-  /* padding: 0 1rem !important; */
-  /* background: #f8f8f8; */
-}
-
 .mobileNav {
-  padding: 10px 0;
+  padding: 14px 0;
   background: #131313;
 }
 
@@ -159,11 +154,6 @@
     /* padding: 20px; */
     color: #fff;
     display: block !important;
-  }
-
-  .mainBody {
-    /* padding: 0 3rem !important; */
-    /* background: #fbfbfb; */
   }
 
 }
