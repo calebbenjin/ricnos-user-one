@@ -29,22 +29,19 @@ export default function SettingsPage({ user, token }) {
   )
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [selectedFile, setSelectedFile] = useState(null)
   const [values, setValues] = useState({
     passport: '',
-    first_name: user && user.first_name,
-    last_name: user && user.last_name,
-    phone: user && user.phone,
-    email: user && user.email,
-    address: user && user.addresses.address,
-    address_one: user && user.addresses.second_address,
-    city: user && user.addresses.city,
-    state: user && user.addresses.state,
-    zip_code: user && user.zip_code,
-    country: user && user.addresses.country,
+    first_name: user && user?.first_name,
+    last_name: user && user?.last_name,
+    phone: user && user?.phone,
+    email: user && user?.email,
+    address: user && user.addresses?.address,
+    address_one: user && user.addresses?.second_address,
+    city: user && user.addresses?.city,
+    state: user && user.addresses?.state,
+    zip_code: user && user?.zip_code,
+    country: user && user.addresses?.country,
   })
-
-  // console.log(imagePreview)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
