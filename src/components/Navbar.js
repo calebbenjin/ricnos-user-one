@@ -1,22 +1,22 @@
-import { Container, Flex, Spacer } from '@chakra-ui/react'
-import Link from 'next/link'
-import styled, { keyframes } from 'styled-components'
-import Logo from '@/components/Logo'
-import logoImage from '@/asset/logo.svg'
-import Drawer from './Drawer'
-import Button from './Button'
-import NavFooter from './NavFooter'
+import { Container, Flex, Spacer } from '@chakra-ui/react';
+import Link from 'next/link';
+import styled, { keyframes } from 'styled-components';
+import Logo from '@/components/Logo';
+import logoImage from '@/asset/logo.svg';
+import Drawer from './Drawer';
+import Button from './Button';
+import NavFooter from './NavFooter';
 
 export default function Navbar({ className }) {
   return (
     <>
       <Header className={className}>
-        <Container maxWidth='container.xl' className='header'>
+        <Container maxWidth="container.xl" className="header">
           <Flex>
             <Logo src={logoImage} />
-              
+
             <Spacer />
-            <Flex as='nav' alignItems='alignItems'>
+            <Flex as="nav" alignItems="alignItems">
               <Link href="/">
                 <a>Home</a>
               </Link>
@@ -26,22 +26,22 @@ export default function Navbar({ className }) {
               <Link href="/contact">
                 <a>Contact</a>
               </Link>
-              <Link href="/login">
+              <Link href="/dashboard/pickup">
                 <a>
                   <Button>Request pickup</Button>
                 </a>
               </Link>
             </Flex>
             <Link href="/login">
-                <a className="navBtn">Request pickup</a>
-              </Link>
+              <a className="navBtn">Request pickup</a>
+            </Link>
             <Drawer />
           </Flex>
         </Container>
         <NavFooter />
       </Header>
     </>
-  )
+  );
 }
 
 const positionAnim = keyframes`
@@ -55,7 +55,7 @@ const positionAnim = keyframes`
       opacity: 1;
       transition: all 0.4s ease;
     }
-`
+`;
 
 const Header = styled.header`
   color: #fff;
@@ -113,4 +113,4 @@ const Header = styled.header`
       }
     }
   }
-`
+`;

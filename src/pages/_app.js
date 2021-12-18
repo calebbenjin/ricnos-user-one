@@ -1,15 +1,16 @@
-import customTheme from '../styles/theme'
-import Head from 'next/head'
-import { ChakraProvider, CSSReset } from '@chakra-ui/react'
-import { Global, css } from '@emotion/react'
-import { AuthProvider } from '../context/AuthContext'
-import { FetchProvider } from '../context/FetchContext'
+import customTheme from '../styles/theme';
+import Head from 'next/head';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
+import { Global, css } from '@emotion/react';
+import { AuthProvider } from '../context/AuthContext';
+import { FetchProvider } from '../context/FetchContext';
+import { MessageProvider } from '@/context/MessageContext';
 
 const GlobalStyle = ({ children }) => {
   return (
     <>
       <Head>
-        <meta content='width=device-width, initial-scale=1' name='viewport' />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       <CSSReset />
       <Global
@@ -133,7 +134,6 @@ const GlobalStyle = ({ children }) => {
             background: #fff;
           }
 
-
           table caption {
             font-size: 1.5em;
             margin: 0.5em 0 0.75em;
@@ -255,20 +255,22 @@ const GlobalStyle = ({ children }) => {
       />
       {children}
     </>
-  )
-}
+  );
+};
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <FetchProvider>
-        <ChakraProvider theme={customTheme}>
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </ChakraProvider>
+        <MessageProvider>
+          <ChakraProvider theme={customTheme}>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </MessageProvider>
       </FetchProvider>
     </AuthProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

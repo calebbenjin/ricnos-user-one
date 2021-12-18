@@ -1,111 +1,210 @@
-// import { useState } from 'react'
-import Layout from '@/components/Layout'
-// import { Flex, Box} from '@chakra-ui/react'
-// import NoticeBoard from '@/components/NoticeBoard'
-// import styles from '@/styles/Chats.module.css'
-// import { BsThreeDots } from 'react-icons/bs'
+import { useState, useContext } from 'react';
 
-// const usersData = [
-//   {
-//     id: 1,
-//     img: 'image',
-//     name: 'John Snow',
-//     time: '3mins',
-//   },
-//   {
-//     id: 2,
-//     img: 'image',
-//     name: 'John Snow',
-//     time: '3mins',
-//   },
-//   {
-//     id: 3,
-//     img: 'image',
-//     name: 'John Snow',
-//     time: '3mins',
-//   },
-//   {
-//     id: 4,
-//     img: 'image',
-//     name: 'Mike Grey',
-//     time: '3mins',
-//   },
-//   {
-//     id: 5,
-//     img: 'image',
-//     name: 'Honnesy Roese',
-//     time: '3mins',
-//   },
-//   {
-//     id: 6,
-//     img: 'image',
-//     name: 'Mally Goerge',
-//     time: '3mins',
-//   },
-//   {
-//     id: 7,
-//     img: 'image',
-//     name: 'John Snow',
-//     time: '3mins',
-//   },
-// ]
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function MessagePage() {
-  // const [users, setUsers] = useState(usersData)
+import Layout from '@/components/Layout';
+import { Box } from '@chakra-ui/react';
+import styles from '@/styles/Chats.module.css';
+import Link from 'next/link';
+import { MdAttachFile } from 'react-icons/md';
+import { RiSendPlaneFill } from 'react-icons/ri';
+import Image from 'next/image';
+import AuthContext from '@/context/AuthContext';
+import navs from '@/styles/Settings.module.css';
+import { parseCookies } from '@/helpers/index';
+
+export default function MessagePage({ support, token }) {
+  const { user } = useContext(AuthContext);
+  const [message, setMessage] = useState();
+  const [discussions, setDiscussions] = useState(support.discussions);
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append('Accept', 'application/vnd.api+json');
+    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+      body: message,
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(
+      `https://alpha.ricnoslogistics.com/api/support/discussion/${support.ticket_no}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          setMessage('');
+          toast.success(result.message);
+          setDiscussions(result.data.support.discussions);
+        }
+      })
+      .catch((error) => console.log('error', error));
+  };
 
   return (
     <Layout>
-      <div>
-        {/* <Flex>
-          <Box width={['100%', '75%']} p='2'>
-            <Box p='5' borderRadius='md'>
-              <Flex>
-                <div className={styles.activeUsers}>
-                  <input
-                    type='text'
-                    className={styles.search}
-                    placeholder='Search'
-                  />
-                  <div className={styles.header}>
-                    <p>My Chat</p>
-                    <BsThreeDots />
-                  </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={8000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <div className={styles.chatFlexContainer}>
+        <Box className={navs.sideNav}>
+          <nav className={navs.nav}>
+            <Link href="/dashboard/support/">
+              <a fontWeight="bold" className={navs.link}>
+                Send Message
+              </a>
+            </Link>
+            <Link href="/dashboard/support/openTicket">
+              <a className={navs.link}>Open Ticket</a>
+            </Link>
+            <Link href="/dashboard/support/closeTicket">
+              <a className={navs.link}>Close Ticket</a>
+            </Link>
+          </nav>
+        </Box>
 
-                  <ul className={styles.userList}>
-                    {users.map((user) => (
-                      <li key={user.id}>
-                        <h2>
-                          {user.img}{' '}
-                          <span className={styles.notification}></span>
-                        </h2>
-                        <h4>{user.name}</h4>
-                        <p>{user.time}</p>
-                      </li>
-                    ))}
-                  </ul>
+        <div className={styles.chatBody}>
+          <div className={styles.heading}>
+            <h2>{support.subject}</h2>
+            {/* <Flex justify="center" alignItems="center">
+              <p className={styles.not}></p>
+              <h4>Active Now</h4>
+            </Flex> */}
+          </div>
+
+          <div className={styles.chats}>
+            <>
+              {discussions.length > 0 ? (
+                <ul>
+                  {discussions.map((discussion) => (
+                    <div key={discussion.id}>
+                      {discussion.from !== '0' ? (
+                        <li className={styles.chatContainer}>
+                          <Image
+                            src={discussion.photo}
+                            alt="User"
+                            width="100"
+                            height="100"
+                          />
+                          <div className={styles.agent}>
+                            <>
+                              <p>{discussion.message}</p>
+                              <small>{discussion.time}</small>
+                            </>
+                          </div>
+                        </li>
+                      ) : (
+                        <li className={styles.replyChat}>
+                          <div className={styles.reply}>
+                            <>
+                              <p>{discussion.message}</p>
+                              <small>{discussion.time}</small>
+                            </>
+                          </div>
+                          <Image
+                            src={discussion.photo}
+                            alt="User"
+                            width="100"
+                            height="100"
+                            // placeholder="blur"
+                          />
+                        </li>
+                      )}
+                    </div>
+                  ))}
+                </ul>
+              ) : (
+                <p
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  No response for this discussion yet
+                </p>
+              )}
+
+              <form onSubmit={(e) => handleSendMessage(e)}>
+                <div className={styles.messageInput}>
+                  <div className={styles.input}>
+                    <Image
+                      src={user.passport}
+                      alt="User"
+                      width="100"
+                      height="100"
+                      // placeholder="blur"
+                    />
+
+                    <textarea
+                      onChange={(e) => setMessage(e.currentTarget.value)}
+                      value={message}
+                      placeholder="Type a message here..."
+                    ></textarea>
+                  </div>
+                  <MdAttachFile className={styles.file} />
+                  <button>
+                    <RiSendPlaneFill className={styles.button} />
+                  </button>
                 </div>
-
-                <div className={styles.chatBody}>
-                  <div className={styles.heading}>
-                    <h2>Mr Jude Odege</h2>
-                    <Flex justify="center" alignItems='center'>
-                      <p className={styles.not}></p>
-                      <h4>Active Now</h4>
-                    </Flex>
-                  </div>
-
-                  <div className={styles.chats}>
-                    
-                  </div>
-                </div>
-              </Flex>
-            </Box>
-          </Box>
-          <Box width={['100%', '25%']} p='2' mt='2'>
-            <NoticeBoard />
-          </Box>
-        </Flex> */}
+              </form>
+            </>
+          </div>
+        </div>
       </div>
     </Layout>
-  )
+  );
+}
+
+export async function getServerSideProps({ req, query }) {
+  const { token } = parseCookies(req);
+  const { id } = query;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+  const res = await fetch(
+    `https://alpha.ricnoslogistics.com/api/support/show/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const supportData = await res.json();
+
+  return {
+    props: {
+      support: supportData.data.support,
+      token,
+    },
+  };
 }
