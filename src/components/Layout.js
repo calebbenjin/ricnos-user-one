@@ -1,4 +1,6 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Box,
   Container,
@@ -9,69 +11,87 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-} from '@chakra-ui/react'
-import styles from '@/styles/Layout.module.css'
-import Link from '@/components/Link'
-import AsideNav from '@/components/AsideNav'
-import { FiSettings, FiLogOut } from 'react-icons/fi'
-import { FaUsers } from 'react-icons/fa'
-import { BsThreeDotsVertical } from 'react-icons/bs'
-import { IoNotificationsSharp, IoMailSharp } from 'react-icons/io5'
-import { CgHome } from 'react-icons/cg'
-import { BiSupport } from 'react-icons/bi'
-import { AiOutlineUnorderedList } from 'react-icons/ai'
-import { FiEdit } from 'react-icons/fi'
-import { HiOutlineMail } from 'react-icons/hi'
-import { RiUserLine } from 'react-icons/ri'
-import Button from '@/components/Button'
-import AuthContext from '@/context/AuthContext'
+} from '@chakra-ui/react';
+import styles from '@/styles/Layout.module.css';
+import Link from '@/components/Link';
+import AsideNav from '@/components/AsideNav';
+import { FiSettings, FiLogOut } from 'react-icons/fi';
+import { FaUsers } from 'react-icons/fa';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { IoNotificationsSharp, IoMailSharp } from 'react-icons/io5';
+import { CgHome } from 'react-icons/cg';
+import { BiSupport } from 'react-icons/bi';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { FiEdit } from 'react-icons/fi';
+import { HiOutlineMail } from 'react-icons/hi';
+import { RiUserLine } from 'react-icons/ri';
+import Button from '@/components/Button';
+import AuthContext from '@/context/AuthContext';
+import MessageContext from '@/context/MessageContext';
 
-export default function Layout({
-  children,
-  data
-}) {
-  const { logout } = useContext(AuthContext)
+export default function Layout({ children, data }) {
+  const { logout, user } = useContext(AuthContext);
+  const { messageNotification, setMessageNotification } =
+    useContext(MessageContext);
+
+  useEffect(() => {
+    if (messageNotification) {
+      toast.info('You have a new message');
+      setMessageNotification(false);
+    }
+  }, [messageNotification]);
 
   return (
     <div className={styles.body}>
       <AsideNav />
       <main className={styles.main}>
-        <header className={styles.header} position='fixed' top='0'>
-          <Container maxWidth='container.xl'>
-            <Flex justify='space-between' alignItems='center'>
-              <Link href='/dashboard/pickup/'>
+        <ToastContainer
+          position="top-center"
+          autoClose={false}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <header className={styles.header} position="fixed" top="0">
+          <Container maxWidth="container.xl">
+            <Flex justify="space-between" alignItems="center">
+              <Link href="/dashboard/pickup/">
                 <a>
                   <Button>Request pickup</Button>
                 </a>
               </Link>
 
-              <Box as='nav'>
-                <Flex alignItems='center'>
-                  <Link href='/dashboard/message/'>
+              <Box as="nav">
+                <Flex alignItems="center">
+                  <Link href="/dashboard/message/">
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
-                      <div>{data ? data.general_notification : null}</div>
+                      <div>{user ? user.general_notification : null}</div>
                     </a>
                   </Link>
                   <Box>
-                    <Flex alignItems='center'>
-                      <Box mr='3' color='white' textAlign='left'>
-                        <Text fontWeight='bold' fontSize='sm'>
-                          {data ? data.name : null}
+                    <Flex alignItems="center">
+                      <Box mr="3" color="white" textAlign="left">
+                        <Text fontWeight="bold" fontSize="sm">
+                          {user ? user.name : null}
                         </Text>
                         <Text
-                          as='small'
-                          fontSize='sm'
-                          color='white'
+                          as="small"
+                          fontSize="sm"
+                          color="white"
                           isTruncated
                         >
-                          {data ? data.email : null}
+                          {user ? user.email : null}
                         </Text>
                       </Box>
                       <Avatar
-                        size='md'
-                        name={data ? data.name : null}
-                        src={data ? data.passport : null}
+                        size="md"
+                        name={user ? user.name : null}
+                        src={user ? user.passport : null}
                       />
                     </Flex>
                   </Box>
@@ -81,7 +101,7 @@ export default function Layout({
                     </MenuButton>
                     <MenuList>
                       <MenuItem>
-                        <Link href='/dashboard/settings'>
+                        <Link href="/dashboard/settings">
                           <a className={styles.menuLink}>
                             <FiSettings className={styles.icon} /> Settings
                           </a>
@@ -89,7 +109,7 @@ export default function Layout({
                       </MenuItem>
                       <hr />
                       <MenuItem>
-                        <Link href='/dashboard/support'>
+                        <Link href="/dashboard/support">
                           <a className={styles.menuLink}>
                             <FaUsers className={styles.icon} /> Support
                           </a>
@@ -110,32 +130,32 @@ export default function Layout({
         </header>
 
         <nav className={styles.mobileNav}>
-          <Container maxWidth='container.xl'>
-            <Flex alignItems='center' justify='space-between'>
-              <Link href='/dashboard/pickup/'>
-                <a className='navMobileBtn'>Request pickup</a>
+          <Container maxWidth="container.xl">
+            <Flex alignItems="center" justify="space-between">
+              <Link href="/dashboard/pickup/">
+                <a className="navMobileBtn">Request pickup</a>
               </Link>
               <Menu>
                 <MenuButton>
-                  <Flex alignItems='center'>
-                  <Link href='/dashboard/message/'>
-                    <a className={styles.navIconBox}>
-                      <IoNotificationsSharp className={styles.navIcon} />
-                      <div>{data ? data.general_notification : null}</div>
-                    </a>
-                  </Link>
+                  <Flex alignItems="center">
+                    <Link href="/dashboard/message/">
+                      <a className={styles.navIconBox}>
+                        <IoNotificationsSharp className={styles.navIcon} />
+                        <div>{user ? user.general_notification : null}</div>
+                      </a>
+                    </Link>
                     <Avatar
-                      size='sm'
+                      size="sm"
                       className={styles.avatar}
-                      name={data ? data.name : null}
-                      src={data ? data.passport : null}
+                      name={user ? user.name : null}
+                      src={user ? user.passport : null}
                     />
                     <BsThreeDotsVertical className={styles.dot} />
                   </Flex>
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link href='/'>
+                    <Link href="/">
                       <a className={styles.menuLink}>
                         <FiSettings className={styles.icon} /> Settings
                       </a>
@@ -143,7 +163,7 @@ export default function Layout({
                   </MenuItem>
                   <hr />
                   <MenuItem>
-                    <Link href='/'>
+                    <Link href="/">
                       <a className={styles.menuLink}>
                         <FaUsers className={styles.icon} /> Support
                       </a>
@@ -164,27 +184,27 @@ export default function Layout({
         <Box className={styles.mainBody}>{children}</Box>
 
         <footer className={styles.mobileFooter}>
-          <Link href='/dashboard'>
+          <Link href="/dashboard">
             <a className={styles.mobileIcon}>
               <CgHome />
             </a>
           </Link>
-          <Link href='/dashboard/orders'>
+          <Link href="/dashboard/orders">
             <a className={styles.mobileIcon}>
               <AiOutlineUnorderedList />
             </a>
           </Link>
-          <Link href='/dashboard/message'>
+          <Link href="/dashboard/message">
             <a className={styles.mobileIcon}>
               <HiOutlineMail />
             </a>
           </Link>
-          <Link href='/dashboard/support/'>
+          <Link href="/dashboard/support/">
             <a className={styles.mobileIcon}>
               <BiSupport />
             </a>
           </Link>
-          <Link href='/dashboard/settings/'>
+          <Link href="/dashboard/settings/">
             <a className={styles.mobileIcon}>
               <RiUserLine />
             </a>
@@ -192,5 +212,5 @@ export default function Layout({
         </footer>
       </main>
     </div>
-  )
+  );
 }

@@ -22,9 +22,11 @@ import Button from '@/components/Button'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function SecurityPage({ user }) {
+export default function SecurityPage({ user, token }) {
   const [isLoading, setIsLoading] = useState(false)
   const [show, setShow] = useState(false)
   const [confirmShow, setConfirmShow] = useState(false)
@@ -39,8 +41,44 @@ export default function SecurityPage({ user }) {
   const confirmHandleClick = () => setConfirmShow(!confirmShow)
 
   const onSubmit = (data) => {
-    console.log(data)
-  }
+    setIsLoading(true);
+    if (data.newPassword !== data.confirmPassword) {
+      toast.error('Your Passwords did not match');
+      setIsLoading(false);
+      return;
+    }
+    var myHeaders = new Headers();
+    myHeaders.append('Accept', 'application/json');
+    myHeaders.append('Authorization', `Bearer ${token}`);
+
+    var formdata = new FormData();
+    formdata.append('password', data.newPassword);
+    formdata.append('password_confirmation', data.confirmPassword);
+    formdata.append('current_password', data.currentPassword);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow',
+    };
+
+    fetch(
+      'https://alpha.ricnoslogistics.com/api/user/change_password',
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          toast.success(result.message);
+        } else {
+          toast.error(result.message);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => console.log('error', error));
+    // setLoading(false);
+  };
 
   const router = useRouter()
 
@@ -56,6 +94,17 @@ export default function SecurityPage({ user }) {
 
   return (
     <Layout title="Security Settings" data={user}>
+      <ToastContainer
+        position="top-center"
+        autoClose={8000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Flex bg='white'>
         <SideNav />
 

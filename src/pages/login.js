@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from 'react'
-import Layout from '@/components/HomeLayout'
-import Link from 'next/link'
-import { BsEye } from 'react-icons/bs'
-import styles from '@/styles/Login.module.css'
+import { useState, useContext, useEffect } from 'react';
+import Layout from '@/components/HomeLayout';
+import Link from 'next/link';
+import { BsEye } from 'react-icons/bs';
+import styles from '@/styles/Login.module.css';
 import {
   Box,
   FormControl,
@@ -16,72 +16,70 @@ import {
   Checkbox,
   Spacer,
   Heading,
-} from '@chakra-ui/react'
-import { useForm } from 'react-hook-form'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { useRouter } from 'next/router'
-import Button from '@/components/Button'
-import AuthContext from '@/context/AuthContext'
-import Loading from '@/components/Loader'
+} from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router';
+import Button from '@/components/Button';
+import AuthContext from '@/context/AuthContext';
+import Loading from '@/components/Loader';
 
 function LoginPage() {
-  const { login, isError } = useContext(AuthContext)
-  const [isLoading, setIsLoading] = useState(false)
+  const { login, isError, isLoading } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
-  const [show, setShow] = useState(false)
+  } = useForm();
+  const [show, setShow] = useState(false);
 
-  const handleClick = () => setShow(!show)
+  const handleClick = () => setShow(!show);
 
-  useEffect(() => isError && toast.error(isError))
+  useEffect(() => isError && toast.error(isError));
 
   const onSubmit = (data, e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    const { email, password } = data
-    login({ email, password })
+    e.preventDefault();
+    const { email, password } = data;
+    login({ email, password });
 
     // setIsLoading(false)
-  }
+  };
 
   return (
     <Layout>
       <Box className={styles.cardBg}>
         <ToastContainer />
         <Box className={styles.form}>
-          <Container maxWidth='container.xl'>
+          <Container maxWidth="container.xl">
             <Box width={['100%', '50%']}></Box>
             <Box>
-              <Heading mt='20' mb='10' size='lg'>
+              <Heading mt="20" mb="10" size="lg">
                 Login
               </Heading>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isInvalid={errors.email}>
-                  <FormLabel fontWeight='normal'>Email</FormLabel>
+                  <FormLabel fontWeight="normal">Email</FormLabel>
                   <Input
-                    type='email'
-                    id='email'
-                    placeholder='Enter Email'
-                    borderColor='grey'
+                    type="email"
+                    id="email"
+                    placeholder="Enter Email"
+                    borderColor="grey"
                     {...register('email', { required: 'Email is required' })}
                   />
                   <FormErrorMessage>
                     {errors.email && errors.email.message}
                   </FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={errors.password} my='5'>
-                  <FormLabel fontWeight='normal'>Password</FormLabel>
+                <FormControl isInvalid={errors.password} my="5">
+                  <FormLabel fontWeight="normal">Password</FormLabel>
                   <InputGroup>
                     <Input
-                      borderColor='grey'
-                      pr='2rem'
+                      borderColor="grey"
+                      pr="2rem"
                       type={show ? 'text' : 'password'}
-                      placeholder='Enter password'
+                      placeholder="Enter password"
                       {...register('password', {
                         required: 'Password is Required',
                       })}
@@ -96,14 +94,14 @@ function LoginPage() {
                     {errors.password && errors.password.message}
                   </FormErrorMessage>
                 </FormControl>
-                <FormControl mb='5'>
-                  <Link href='/forgetpassword'>Forget Password?</Link>
+                <FormControl mb="5">
+                  <Link href="/forgetpassword">Forget Password?</Link>
                 </FormControl>
                 <hr />
-                <Box my='5'>
-                  <Link href='/signup'>Don&apos;t have an account? Signup</Link>
+                <Box my="5">
+                  <Link href="/signup">Don&apos;t have an account? Signup</Link>
                 </Box>
-                <Button type='submit' loading={isLoading}>
+                <Button type="submit" loading={isLoading}>
                   LOGIN
                 </Button>
               </form>
@@ -112,7 +110,7 @@ function LoginPage() {
         </Box>
       </Box>
     </Layout>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

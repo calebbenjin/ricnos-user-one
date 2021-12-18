@@ -1,9 +1,9 @@
-import { API_URL } from '@/lib/index'
-import cookie from 'cookie'
+import { API_URL } from '@/lib/index';
+import cookie from 'cookie';
 
 const login = async (req, res) => {
-  if(req.method === 'POST') {
-    const { email, password } = req.body
+  if (req.method === 'POST') {
+    const { email, password } = req.body;
 
     const apiRes = await fetch(`${API_URL}/login`, {
       method: 'POST',
@@ -14,15 +14,13 @@ const login = async (req, res) => {
         email,
         password,
       }),
-    })
+    });
 
-    const apiData = await apiRes.json()
-
-    console.log(apiData.data.token)
+    const apiData = await apiRes.json();
 
     if (apiRes.ok) {
       // Set Cookie
-      
+
       res.setHeader(
         'Set-Cookie',
         cookie.serialize('token', String(apiData.data.token), {
@@ -30,20 +28,18 @@ const login = async (req, res) => {
           secure: process.env.NODE_ENV !== 'development',
           maxAge: 60 * 60 * 24 * 7, // 1 week
           sameSite: 'strict',
-          path: '/'
+          path: '/',
         })
-      )
+      );
 
-      res.status(200).json({ user: apiData.user })
+      res.status(200).json({ user: apiData.user });
     } else {
-      res.status(500).json({message: apiData.message})
+      res.status(500).json({ message: apiData.message });
     }
   } else {
-    res.setHeader('Allow', ['POST'])
-    res.status(405).json({ message: `Method ${req.method} not allowed` })
+    res.setHeader('Allow', ['POST']);
+    res.status(405).json({ message: `Method ${req.method} not allowed` });
   }
-}
+};
 
-
-
-export default login
+export default login;

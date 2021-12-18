@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import { Heading, Flex, Box, Avatar, Text } from '@chakra-ui/react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaLongArrowAltRight } from 'react-icons/fa';
@@ -12,9 +12,7 @@ import logoImg from '@/asset/logo1.svg';
 import AuthContext from '@/context/AuthContext';
 
 export default function MessagePage() {
-  const { user } = useContext(AuthContext)
-
-  const userData = user.data.user
+  const { user } = useContext(AuthContext);
 
   return (
     <Box p="5" boxShadow="md" borderRadius="md" backgroundColor="white">
@@ -26,8 +24,13 @@ export default function MessagePage() {
       <Flex justify="space-between" alignItems="center" mt="8">
         <Box my="4">
           <Flex alignItems="center" wrap="wrap">
-            <Avatar size="sm" name={userData.name} mr="4" src={userData?userData.passport : null} />
-            <Text isTruncated>{userData.name}</Text>
+            <Avatar
+              size="sm"
+              name={user.name}
+              mr="4"
+              src={user ? user.passport : null}
+            />
+            <Text isTruncated>{user.name}</Text>
           </Flex>
         </Box>
         <Link href="/dashboard/settings">
@@ -57,18 +60,18 @@ export default function MessagePage() {
 
         <Flex alignItems="center" my="10">
           <GoMail className={styles.calander} />
-          <Text>{userData.email}</Text>
+          <Text>{user.email}</Text>
         </Flex>
         <Flex alignItems="center">
           <FiPhone className={styles.calander} />
-          <Text>{userData.phone}</Text>
+          <Text>{user.phone}</Text>
         </Flex>
       </Box>
 
       <hr />
       {/* <Box mt="4">
         <Heading size="sm">Shipping Address</Heading>
-        <Text mt="6">{userData.order.reciever_name}</Text>
+        <Text mt="6">{user.order.reciever_name}</Text>
         <Text my="4">{order.reciever_phone}</Text>
 
         <Text>{order.address}</Text>
@@ -80,9 +83,9 @@ export default function MessagePage() {
       <hr />
       <Box mt="4">
         <Heading size="sm">Billing Address</Heading>
-        <Text mt="6">{userData.name}</Text>
-        <Text my="4">{userData.phone}</Text>        
-        <Text>{userData.addresses.address}</Text>
+        <Text mt="6">{user.name}</Text>
+        <Text my="4">{user.phone}</Text>
+        <Text>{user.addresses?.address}</Text>
         <Text my="4">Port Harcourt,Rivers State</Text>
       </Box>
       <hr />
@@ -99,4 +102,3 @@ export default function MessagePage() {
     </Box>
   );
 }
-
