@@ -1,56 +1,38 @@
-import { useEffect } from 'react'
-import OrdersTable from '@/components/OrdersTable'
-import Layout from '@/components/Layout'
-import { API_URL } from '@/lib/index'
-import { parseCookies } from '@/helpers/index'
-import { useRouter } from 'next/router'
+import { useState, useEffect, useContext } from 'react';
+import OrdersTable from '@/components/OrdersTable';
+import Layout from '@/components/Layout';
+import { API_URL } from '@/lib/index';
+import { parseCookies } from '@/helpers/index';
+import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
 
-export default function OrdersPage({ user }) {
-  const router = useRouter()
-
-  useEffect(() => {
-    if(!user) {
-      router.push('/login')
-    }
-  })
-
-  if(!user) {
-    return null
-  }
+export default function OrdersPage() {
+  const [filterBtn, setFilterBtn] = useState('all');
+  const { user } = useContext(AuthContext);
+  const router = useRouter();
 
   return (
-    <Layout
-      title='Shipments orders'
-      data={user}
-    >
-      <OrdersTable orders={user && user.orders} />
+    <Layout title="Shipments orders">
+      <OrdersTable orders={user.orders} />
     </Layout>
-  )
+  );
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req)
+  const { token } = parseCookies(req);
 
-  if(token) {
-    const resUser = await fetch(`${API_URL}/user`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  
-    const userData = await resUser.json()
-  
-    const { user } = userData.data
-  
+  if (!token) {
     return {
-      props: {
-        user,
+      redirect: {
+        destination: '/login',
+        permanent: false,
       },
-    }
-  } else {
-    return {
-      props: {}
-    }
+    };
   }
+
+  return {
+    props: {
+      data: null,
+    },
+  };
 }
