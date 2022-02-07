@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useContext } from 'react';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   Box,
@@ -18,28 +18,27 @@ import AsideNav from '@/components/AsideNav';
 import { FiSettings, FiLogOut } from 'react-icons/fi';
 import { FaUsers } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IoNotificationsSharp, IoMailSharp } from 'react-icons/io5';
+import { IoNotificationsSharp } from 'react-icons/io5';
 import { CgHome } from 'react-icons/cg';
 import { BiSupport } from 'react-icons/bi';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { FiEdit } from 'react-icons/fi';
 import { HiOutlineMail } from 'react-icons/hi';
 import { RiUserLine } from 'react-icons/ri';
 import Button from '@/components/Button';
 import AuthContext from '@/context/AuthContext';
-import MessageContext from '@/context/MessageContext';
+// import MessageContext from '@/context/MessageContext';
 
 export default function Layout({ children, data }) {
   const { logout, user } = useContext(AuthContext);
-  const { messageNotification, setMessageNotification } =
-    useContext(MessageContext);
+  // const { messageNotification, setMessageNotification } =
+  //   useContext(MessageContext);
 
-  useEffect(() => {
-    if (messageNotification) {
-      toast.info('You have a new message');
-      setMessageNotification(false);
-    }
-  }, [messageNotification]);
+  // useEffect(() => {
+  //   if (messageNotification) {
+  //     toast.info('You have a new message');
+  //     setMessageNotification(false);
+  //   }
+  // }, [messageNotification]);
 
   return (
     <div className={styles.body}>

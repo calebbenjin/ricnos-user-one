@@ -14,10 +14,6 @@ export default function OrdersPage({ user }) {
     }
   })
 
-  if(!user) {
-    return null
-  }
-
   return (
     <Layout
       title='Shipments orders'

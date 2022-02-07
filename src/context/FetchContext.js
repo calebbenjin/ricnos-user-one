@@ -50,8 +50,6 @@ export const FetchProvider = ({ children }) => {
 
     const quote = await res.json()
 
-    console.log(quote)
-
     if (res.ok) {
       setIsLoading(true)
       setShowResult(true)

@@ -425,8 +425,6 @@ export async function getStaticProps() {
 
   const quoteData = await res.json()
 
-  // console.log(quoteData.data)
-
   const { vehicles, regions } = quoteData.data
 
   return {

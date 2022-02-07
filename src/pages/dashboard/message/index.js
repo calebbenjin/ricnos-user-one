@@ -9,7 +9,6 @@ import { BsThreeDots } from 'react-icons/bs';
 import { MdAttachFile } from 'react-icons/md';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import Image from 'next/image';
-import userImg from '@/asset/user4.jpg';
 import { parseCookies } from '@/helpers/index';
 import AuthContext from '@/context/AuthContext';
 
@@ -70,6 +69,7 @@ export default function MessagePage({ riders, token }) {
     return () => {
       pusher.unsubscribe('chat');
     };
+
   }, [selectedChat, fetchMessages]);
 
   const handleSendMessage = async (e) => {

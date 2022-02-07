@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DataTable from './DataTable'
-import { Heading, Input } from '@chakra-ui/react'
-import styles from '@/styles/Table.module.css'
+import { BiPrinter, BiSearchAlt } from 'react-icons/bi';
+import { Flex, Stack, Button, Input, Heading, InputLeftElement, InputGroup } from '@chakra-ui/react'
 
 export default function OrdersTable({ orders }) {
-  const columns = ['id', 'trackNo', 'date', 'agent', 'item', 'from', 'to', 'status', 'price'];
+  const columns = ['id', 'trackNo', 'agent', 'item', 'from', 'to', 'status', 'price'];
   const [newData, setNewData] = useState(orders.map(order => ({
     id: order.id,
     trackNo: `#${order.tracking_id}`,
@@ -14,12 +14,9 @@ export default function OrdersTable({ orders }) {
     to: order.arrival,
     status: order.status,
     price: `NGN ${order.amount}`,
-})))
+})));
   const [q, setQ] = useState('')
-  const [filterBtn, setFilterBtn] = useState(['A'])
-  const [loading, setLoading] = useState(true)
-
-  
+  const [filterBtn, setFilterBtn] = useState('all')
 
   function search(rows) {
     // const columns = rows[0] && Object.keys(rows[0])
@@ -28,11 +25,6 @@ export default function OrdersTable({ orders }) {
     )
   }
 
-  // function search(rows) {
-  //   // Filtering by trackingID
-  //   // console.log(rows)
-  //   return rows.filter((row) => row.tracking_id.toLowerCase().includes(q.toLowerCase()) || row.items?.filter(item => item.item.toLowerCase().includes(q.toLowerCase())).length);
-  // }
 
   return (
     <>
@@ -40,15 +32,27 @@ export default function OrdersTable({ orders }) {
         <Heading size='lg' mt='' mb='10'>
           My Orders
         </Heading>
-        <input
-          className={styles.search}
-          type='text'
-          placeholder='Search for Items'
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
+        <Flex>
+          <InputGroup mr="4" bg="white">
+            <InputLeftElement pointerEvents='none'>
+            <BiSearchAlt style={{ fontSize: "1.2rem", color: "gray"}} />
+            </InputLeftElement>
+            <Input type='text' _focus={{paddingLeft: "2.2rem"}} value={q} onChange={(e) => setQ(e.target.value)} placeholder='Search' />
+          </InputGroup>
+          <Stack spacing={0} direction='row' align='center'>
+            <Button borderRadius='0' variant='outline' bg="white" leftIcon={<BiPrinter />} onClick={() => setFilterBtn('all')}>All</Button>
+            <Button borderRadius='0' variant='outline' bg="white" leftIcon={<BiPrinter />} onClick={() => setFilterBtn('from')}>From</Button>
+            <Button borderRadius='0' variant='outline' bg="white" leftIcon={<BiPrinter />} onClick={() => setFilterBtn('phone')}>Phone</Button>
+            <Button borderRadius='0' variant='outline' bg="white" leftIcon={<BiPrinter />} onClick={() => setFilterBtn('date')}>
+              Date
+            </Button>
+            <Button borderRadius='0' variant='outline' bg="white" leftIcon={<BiPrinter />} onClick={() => setFilterBtn('email')}>
+              Email
+            </Button>
+          </Stack>
+        </Flex>
       </div>
-      {newData && <DataTable columns={columns} data={search(newData)} />}
+      <DataTable columns={columns} data={search(newData)} />
     </>
   )
 }

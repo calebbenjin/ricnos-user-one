@@ -35,8 +35,6 @@ const quote = async (req, res) => {
     })
 
     const apiData = await apiRes.json()
-
-    console.log(apiData)
   } else {
     res.setHeader('Allow', ['POST'])
     res.status(405).json({ message: `Method ${req.method} not allowed` })

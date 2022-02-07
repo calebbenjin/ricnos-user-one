@@ -3,8 +3,6 @@ import {
   useState,
   useEffect,
   useContext,
-  useRef,
-  useCallback,
 } from 'react';
 import Pusher from 'pusher-js';
 import { useRouter } from 'next/router';

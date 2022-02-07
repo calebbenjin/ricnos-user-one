@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/Showcase.module.css'
 import {
@@ -18,9 +18,13 @@ import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import ButtonDark from '@/components/ButtonDark'
 import { useRouter } from 'next/router'
+import PageLoader from '@/components/PageLoader'
+import AuthContext from '@/context/AuthContext'
 
-export default function Dashboard({ user }) {
+export default function Dashboard({user}) {
   const [paymentStatus, setPaymentStatus] = useState(false)
+
+  // const { user } = useContext(AuthContext)
 
   const router = useRouter()
 
@@ -31,7 +35,7 @@ export default function Dashboard({ user }) {
   })
 
   if (!user) {
-    return null
+    return <PageLoader />
   }
 
   return (
@@ -72,15 +76,15 @@ export default function Dashboard({ user }) {
             </Heading> */}
 
             {user &&
-              user.orders.map((order) => (
-                <>
+              user.orders.map((order, i) => (
+                <fragment key={order.id}>
                   <Box
                     p='8'
                     bg='black'
                     color='white'
                     my='6'
                     borderRadius='md'
-                    key={order.id}
+                    
                   >
                     <Text textTransform='uppercase'>
                       {order.reference}
@@ -140,7 +144,7 @@ export default function Dashboard({ user }) {
                       Office Shifting{' '}
                     </Heading>
                   </Box>
-                </>
+                </fragment>
               ))}
           </Box>
 
@@ -228,6 +232,7 @@ export default function Dashboard({ user }) {
 
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
+  
 
   if (token) {
     const res = await fetch(`${API_URL}/user`, {
@@ -247,6 +252,13 @@ export async function getServerSideProps({ req }) {
         token,
       },
     }
+  } if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
   } else {
     return {
       props: {},
