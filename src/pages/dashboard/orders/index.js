@@ -11,6 +11,10 @@ export default function OrdersPage() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <Layout title="Shipments orders">
       <OrdersTable orders={user.orders} />

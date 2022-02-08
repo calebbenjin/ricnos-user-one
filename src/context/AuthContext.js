@@ -123,7 +123,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{ user, isError, logout, signup, login, isLoading }}
     >
-      {initialLoading ? <PageLoader /> : children}
+      {children}
     </AuthContext.Provider>
   );
 };

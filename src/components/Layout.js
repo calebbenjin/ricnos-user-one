@@ -31,15 +31,15 @@ import MessageContext from '@/context/MessageContext';
 
 export default function Layout({ children, data }) {
   const { logout, user } = useContext(AuthContext);
-  const { messageNotification, setMessageNotification } =
-    useContext(MessageContext);
+  // const { messageNotification, setMessageNotification } =
+  // useContext(MessageContext);
 
-  useEffect(() => {
-    if (messageNotification) {
-      toast.info('You have a new message');
-      setMessageNotification(false);
-    }
-  }, [messageNotification]);
+  // useEffect(() => {
+  //   if (messageNotification) {
+  //     toast.info('You have a new message');
+  //     setMessageNotification(false);
+  //   }
+  // }, [messageNotification]);
 
   return (
     <div className={styles.body}>

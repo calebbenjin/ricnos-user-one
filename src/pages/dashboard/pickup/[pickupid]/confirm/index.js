@@ -54,6 +54,9 @@ export default function ConfirmOrderPage({ token, order }) {
       if (data.payment.response === 'successful') {
         toast.success('Payment successfully recieved');
         setLoading(false);
+        setTimeout(() => {
+          router.reload(window.location.pathname);
+        }, 3000);
       } else {
         toast.error('An Error occured processing your Payment, Try again');
         setLoading(false);
@@ -71,9 +74,9 @@ export default function ConfirmOrderPage({ token, order }) {
   //   }
   // });
 
-  // if (!user) {
-  //   return null;
-  // }
+  if (!user) {
+    return null;
+  }
 
   return (
     <Layout>
