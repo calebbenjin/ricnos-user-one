@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Pusher from 'pusher-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,10 +10,13 @@ import { useRouter } from 'next/router';
 
 import { API_URL } from '@/lib/index';
 import { parseCookies } from '@/helpers/index';
+import AuthContext from '@/context/AuthContext';
 
-export default function ConfirmOrderPage({ token, user, order }) {
+export default function ConfirmOrderPage({ token, order }) {
   const [toggleItem, setToggleItem] = useState(true);
   const [loading, setLoading] = useState(false);
+
+  const { user } = useContext(AuthContext);
 
   const router = useRouter();
 
@@ -29,7 +32,10 @@ export default function ConfirmOrderPage({ token, user, order }) {
       redirect: 'follow',
     };
 
-    const res = await fetch(`${API_URL}/user/order/pay/1`, requestOptions);
+    const res = await fetch(
+      `${API_URL}/user/order/pay/${order.id}`,
+      requestOptions
+    );
     const data = await res.json();
 
     const paymentURL = data.data.payment.data.link;
@@ -48,6 +54,9 @@ export default function ConfirmOrderPage({ token, user, order }) {
       if (data.payment.response === 'successful') {
         toast.success('Payment successfully recieved');
         setLoading(false);
+        setTimeout(() => {
+          router.reload(window.location.pathname);
+        }, 3000);
       } else {
         toast.error('An Error occured processing your Payment, Try again');
         setLoading(false);
@@ -59,18 +68,18 @@ export default function ConfirmOrderPage({ token, user, order }) {
     };
   }, []);
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/login');
-    }
-  });
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push('/login');
+  //   }
+  // });
 
   if (!user) {
     return null;
   }
 
   return (
-    <Layout data={user}>
+    <Layout>
       <ToastContainer
         position="top-center"
         autoClose={false}
@@ -263,11 +272,13 @@ export default function ConfirmOrderPage({ token, user, order }) {
                 <Heading size="lg">N{order.amount}</Heading>
               </Flex>
             </Box>
-            <div onClick={handlePayment}>
-              <Button disabled={loading} loading={loading} title="Processing">
-                Proceed to Payment
-              </Button>
-            </div>
+            {order.status === 'pending' && (
+              <div onClick={handlePayment}>
+                <Button disabled={loading} loading={loading} title="Processing">
+                  Proceed to Payment
+                </Button>
+              </div>
+            )}
           </Box>
           <Box width={['100%', '30%']} p="2" mt="5" className="displaySm">
             <Box textAlign="right" my="4">
@@ -285,35 +296,73 @@ export async function getServerSideProps({ req, query }) {
   const { token } = parseCookies(req);
   const { pickupid } = query;
 
-  if (token) {
-    var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
-
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow',
-    };
-
-    const res = await fetch(
-      `${API_URL}/user/order/order/${pickupid}`,
-      requestOptions
-    );
-    const data = await res.json();
-
-    // console.log(data);
-
+  if (!token) {
     return {
-      props: {
-        token,
-        user: data.data.user,
-        order: data.data.order,
+      redirect: {
+        destination: '/login',
+        permanent: false,
       },
     };
-  } else {
-    return {
-      props: null,
-    };
   }
+
+  var myHeaders = new Headers();
+  myHeaders.append('Accept', 'application/json');
+  myHeaders.append('Authorization', `Bearer ${token}`);
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow',
+  };
+
+  const response = await fetch(
+    `${API_URL}/user/order/order/${pickupid}`,
+    requestOptions
+  );
+
+  const result = await response.json();
+
+  return {
+    props: {
+      order: result.data.order,
+      token,
+    },
+  };
 }
+
+// export async function getServerSideProps({ req, query }) {
+//   const { token } = parseCookies(req);
+//   const { pickupid } = query;
+
+//   if (token) {
+//     var myHeaders = new Headers();
+//     myHeaders.append('Accept', 'application/json');
+//     myHeaders.append('Authorization', `Bearer ${token}`);
+
+//     var requestOptions = {
+//       method: 'GET',
+//       headers: myHeaders,
+//       redirect: 'follow',
+//     };
+
+//     const res = await fetch(
+//       `${API_URL}/user/order/order/${pickupid}`,
+//       requestOptions
+//     );
+//     const data = await res.json();
+
+//     // console.log(data);
+
+//     return {
+//       props: {
+//         token,
+//         user: data.data.user,
+//         order: data.data.order,
+//       },
+//     };
+//   } else {
+//     return {
+//       props: null,
+//     };
+//   }
+// }

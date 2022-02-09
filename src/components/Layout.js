@@ -31,7 +31,7 @@ import AuthContext from '@/context/AuthContext';
 export default function Layout({ children, data }) {
   const { logout, user } = useContext(AuthContext);
   // const { messageNotification, setMessageNotification } =
-  //   useContext(MessageContext);
+  // useContext(MessageContext);
 
   // useEffect(() => {
   //   if (messageNotification) {

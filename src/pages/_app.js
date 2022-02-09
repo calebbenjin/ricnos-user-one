@@ -262,12 +262,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <FetchProvider>
-        {/* //<MessageProvider> */}
-          <ChakraProvider theme={customTheme}>
-            <GlobalStyle />
-            <Component {...pageProps} />
-          </ChakraProvider>
-        {/* //</MessageProvider> */}
+        {/* <MessageProvider> */}
+        <ChakraProvider theme={customTheme}>
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </ChakraProvider>
+        {/* </MessageProvider> */}
       </FetchProvider>
     </AuthProvider>
   );
