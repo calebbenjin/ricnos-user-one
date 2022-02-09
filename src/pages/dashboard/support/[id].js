@@ -1,10 +1,8 @@
 import { useState, useContext } from 'react';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import Layout from '@/components/Layout';
-import { Box } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import styles from '@/styles/Chats.module.css';
 import Link from 'next/link';
 import { MdAttachFile } from 'react-icons/md';
@@ -53,7 +51,7 @@ export default function MessagePage({ support, token }) {
   };
 
   return (
-    <Layout>
+    <Layout data={user}>
       <ToastContainer
         position="top-center"
         autoClose={8000}
@@ -84,7 +82,7 @@ export default function MessagePage({ support, token }) {
 
         <div className={styles.chatBody}>
           <div className={styles.heading}>
-            <h2>{support.subject}</h2>
+            <Heading fontSize="md" my="4">{support.subject}</Heading>
             {/* <Flex justify="center" alignItems="center">
               <p className={styles.not}></p>
               <h4>Active Now</h4>
@@ -93,22 +91,22 @@ export default function MessagePage({ support, token }) {
 
           <div className={styles.chats}>
             <>
-              {discussions.length > 0 ? (
+              {discussions?.length > 0 ? (
                 <ul>
                   {discussions.map((discussion) => (
-                    <div key={discussion.id}>
-                      {discussion.from !== '0' ? (
+                    <div key={discussion?.id}>
+                      {discussion?.from !== '0' ? (
                         <li className={styles.chatContainer}>
-                          <Image
-                            src={discussion.photo}
+                          {/* <Image
+                            src={discussion?.photo}
                             alt="User"
                             width="100"
                             height="100"
-                          />
+                          /> */}
                           <div className={styles.agent}>
                             <>
-                              <p>{discussion.message}</p>
-                              <small>{discussion.time}</small>
+                              <p>{discussion?.message}</p>
+                              <small>{discussion?.time}</small>
                             </>
                           </div>
                         </li>
@@ -116,17 +114,16 @@ export default function MessagePage({ support, token }) {
                         <li className={styles.replyChat}>
                           <div className={styles.reply}>
                             <>
-                              <p>{discussion.message}</p>
-                              <small>{discussion.time}</small>
+                              <p>{discussion?.message}</p>
+                              <small>{discussion?.time}</small>
                             </>
                           </div>
-                          <Image
-                            src={discussion.photo}
+                          {/* <Image
+                            src={discussion?.photo}
                             alt="User"
                             width="100"
                             height="100"
-                            // placeholder="blur"
-                          />
+                          /> */}
                         </li>
                       )}
                     </div>
@@ -149,13 +146,12 @@ export default function MessagePage({ support, token }) {
               <form onSubmit={(e) => handleSendMessage(e)}>
                 <div className={styles.messageInput}>
                   <div className={styles.input}>
-                    <Image
-                      src={user.passport}
-                      alt="User"
+                    {/* <Image
+                      src={user?.passport}
+                      alt="UserImage"
                       width="100"
                       height="100"
-                      // placeholder="blur"
-                    />
+                    /> */}
 
                     <textarea
                       onChange={(e) => setMessage(e.currentTarget.value)}
@@ -163,7 +159,7 @@ export default function MessagePage({ support, token }) {
                       placeholder="Type a message here..."
                     ></textarea>
                   </div>
-                  <MdAttachFile className={styles.file} />
+                  {/* <MdAttachFile className={styles.file} /> */}
                   <button>
                     <RiSendPlaneFill className={styles.button} />
                   </button>

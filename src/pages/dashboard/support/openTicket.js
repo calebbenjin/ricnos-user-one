@@ -99,7 +99,7 @@ export default function OpenTicket({ user, token }) {
                           <Heading size='sm' textTransform='capitalize'>
                             {support.subject}
                           </Heading>
-                          <Text my='4' textTransform='uppercase'>
+                          <Text my='2' textTransform='uppercase'>
                             {support.ticket_no}
                           </Text>
                           <Text>{formatDateForInput(support.date)}</Text>

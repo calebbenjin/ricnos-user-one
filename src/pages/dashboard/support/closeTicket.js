@@ -6,6 +6,7 @@ import setting from '@/styles/Settings.module.css'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/lib/index'
 import { useRouter } from 'next/router'
+import { formatDateForInput } from '@/components/FormatDate'
 
 export default function OpenTicket({ user, token }) {
   const router = useRouter()

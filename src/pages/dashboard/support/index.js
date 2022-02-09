@@ -52,7 +52,6 @@ export default function SettingsPage({ user, token }) {
     });
 
     const data = await res.json();
-    console.log(data);
 
     if (!res.ok) {
       setIsLoading(false);

@@ -11,6 +11,8 @@ export default function OrdersPage() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
+  
+  
   if (!user) {
     return null;
   }

@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { NEXT_URL } from '@/lib/index';
-import PageLoader from '@/components/PageLoader';
 
 const AuthContext = createContext();
 
@@ -64,7 +63,6 @@ export const AuthProvider = ({ children }) => {
 
     if (res.ok) {
       setUser(data.user);
-      setIsLoading(false);
       router.push('/dashboard/');
     } else {
       setIsLoading(false);

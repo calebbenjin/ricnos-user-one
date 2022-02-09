@@ -38,11 +38,6 @@ export default function OrdersTable({ orders }) {
   //   )
   // }
 
-  // function search(rows) {
-  //   // Filtering by trackingID
-  //   // console.log(rows)
-  //   return rows.filter((row) => row.tracking_id.toLowerCase().includes(q.toLowerCase()) || row.items?.filter(item => item.item.toLowerCase().includes(q.toLowerCase())).length);
-  // }
 
   return (
     <>

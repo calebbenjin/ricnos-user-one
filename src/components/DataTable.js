@@ -35,7 +35,6 @@ export default function DataTable({ data }) {
             </th>
           </tr>
         </thead>
-
         <tbody>
           {data.map((order) => (
             <tr key={order.id}>

@@ -21,8 +21,6 @@ const register = async (req, res) => {
 
     const resData = await apiRes.json()
 
-    // console.log(resData.data.token)
-
     if (apiRes.ok) {
       // Set Cookie
       res.setHeader(
