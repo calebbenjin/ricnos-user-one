@@ -1,20 +1,25 @@
-import { useState, useEffect, useContext } from 'react';
-import OrdersTable from '@/components/OrdersTable';
-import Layout from '@/components/Layout';
-import { API_URL } from '@/lib/index';
-import { parseCookies } from '@/helpers/index';
-import { useRouter } from 'next/router';
-import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from "react";
+import OrdersTable from "@/components/OrdersTable";
+import Layout from "@/components/Layout";
+import { API_URL } from "@/lib/index";
+import { parseCookies } from "@/helpers/index";
+import { useRouter } from "next/router";
+import AuthContext from "@/context/AuthContext";
+import PageLoader from "@/components/PageLoader";
 
 export default function OrdersPage() {
-  const [filterBtn, setFilterBtn] = useState('all');
+  const [filterBtn, setFilterBtn] = useState("all");
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
-  
-  
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //   }
+  // });
+
   if (!user) {
-    return null;
+    return <PageLoader />;
   }
 
   return (
@@ -30,7 +35,7 @@ export async function getServerSideProps({ req }) {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };

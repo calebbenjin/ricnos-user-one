@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import {
   Box,
   Container,
@@ -10,13 +10,14 @@ import {
   Flex,
   Stack,
   Checkbox,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import Layout from '@/components/Layout';
-import Button from '@/components/Button';
-import { API_URL } from '@/lib/index';
-import { parseCookies } from '@/helpers/index';
-import Loading from '@/components/Loader';
+import Layout from "@/components/Layout";
+import Button from "@/components/Button";
+import { API_URL } from "@/lib/index";
+import { parseCookies } from "@/helpers/index";
+import Loading from "@/components/Loader";
+import PageLoader from "@/components/PageLoader";
 
 export default function PickupPage({ user, token }) {
   const [userDetails, setUserDetails] = useState();
@@ -24,15 +25,27 @@ export default function PickupPage({ user, token }) {
   const [processingOrder, setProcessingOrder] = useState(false);
   const [itemsList, setItemsList] = useState([
     {
-      item: '',
-      quantity: '',
-      value: '',
-      image: '',
-      weight: '',
+      item: "",
+      quantity: "",
+      value: "",
+      image: "",
+      weight: "",
     },
   ]);
   const [regions, setRegions] = useState([]);
   const [vehicles, setVehicles] = useState([]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  });
+
+  if (!user) {
+    return <PageLoader />;
+  }
 
   const getItemNames = () => {
     return itemsList?.map((item) => item.item);
@@ -60,9 +73,9 @@ export default function PickupPage({ user, token }) {
 
   const getQuoteData = useCallback(async () => {
     const res = await fetch(`${API_URL}/quote_data`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
+        Accept: "application/json",
       },
     });
 
@@ -72,20 +85,20 @@ export default function PickupPage({ user, token }) {
     setVehicles(quote_data.data.vehicles);
   }, []);
 
-  const [state, setState] = useState('');
-  const [city, setCity] = useState('');
-  const [address, setAddress] = useState('');
-  const [delivery_method, setDeliveryMethod] = useState('');
-  const [sender_address, setSenderAddress] = useState('');
-  const [region, setRegionID] = useState('');
-  const [vehicle_id, setVehicleID] = useState('');
-  const [collector_name, setCollectorName] = useState('');
-  const [collector_phone, setCollectorPhone] = useState('');
-  const [collector_email, setCollectorEmail] = useState('');
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [delivery_method, setDeliveryMethod] = useState("");
+  const [sender_address, setSenderAddress] = useState("");
+  const [region, setRegionID] = useState("");
+  const [vehicle_id, setVehicleID] = useState("");
+  const [collector_name, setCollectorName] = useState("");
+  const [collector_phone, setCollectorPhone] = useState("");
+  const [collector_email, setCollectorEmail] = useState("");
 
-  const [description, setDescription] = useState('');
-  const [departure, setDeparture] = useState('');
-  const [arrival, setArrival] = useState('');
+  const [description, setDescription] = useState("");
+  const [departure, setDeparture] = useState("");
+  const [arrival, setArrival] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -106,34 +119,34 @@ export default function PickupPage({ user, token }) {
 
   const handleCreateOrder = async () => {
     var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var formdata = new FormData();
 
-    formdata.append('state', state);
-    formdata.append('city', city);
-    formdata.append('address', address);
-    formdata.append('delivery_method', delivery_method);
-    formdata.append('collector_phone', collector_phone);
-    formdata.append('collector_email', collector_email);
-    formdata.append('collector_name', collector_name);
-    formdata.append('vehicle_id', vehicle_id);
-    formdata.append('description', description);
-    formdata.append('region', region);
-    formdata.append('sender_address', sender_address);
+    formdata.append("state", state);
+    formdata.append("city", city);
+    formdata.append("address", address);
+    formdata.append("delivery_method", delivery_method);
+    formdata.append("collector_phone", collector_phone);
+    formdata.append("collector_email", collector_email);
+    formdata.append("collector_name", collector_name);
+    formdata.append("vehicle_id", vehicle_id);
+    formdata.append("description", description);
+    formdata.append("region", region);
+    formdata.append("sender_address", sender_address);
 
-    getItemNames().map((item) => formdata.append('item[]', item));
-    getItemQuantities().map((item) => formdata.append('quantity[]', item));
-    getItemImages().map((item) => formdata.append('image[]', item, '[PROXY]'));
-    getItemWeights().map((item) => formdata.append('weight[]', item));
-    getItemValues().map((item) => formdata.append('value[]', item));
+    getItemNames().map((item) => formdata.append("item[]", item));
+    getItemQuantities().map((item) => formdata.append("quantity[]", item));
+    getItemImages().map((item) => formdata.append("image[]", item, "[PROXY]"));
+    getItemWeights().map((item) => formdata.append("weight[]", item));
+    getItemValues().map((item) => formdata.append("value[]", item));
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: formdata,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     try {
@@ -179,18 +192,18 @@ export default function PickupPage({ user, token }) {
     setItemsList((prev) => [
       ...prev,
       {
-        item: '',
-        quantity: '',
-        value: '',
-        image: '',
-        weight: '',
+        item: "",
+        quantity: "",
+        value: "",
+        image: "",
+        weight: "",
       },
     ]);
   };
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      router.push("/login");
     }
   });
 
@@ -212,16 +225,16 @@ export default function PickupPage({ user, token }) {
             <form
               onSubmit={handleSubmit}
               style={{
-                background: '#fff',
-                padding: '20px',
-                marginBottom: '5rem',
+                background: "#fff",
+                padding: "20px",
+                marginBottom: "5rem",
               }}
             >
               <Text textAlign="left" mb="4" mt="7" fontWeight="bold">
                 Personal Data
               </Text>
               <Flex wrap="wrap" justify="space-between">
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl cursor="not-allowed">
                     <input
                       type="text"
@@ -233,7 +246,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl cursor="not-allowed">
                     <input
                       type="email"
@@ -245,7 +258,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl cursor="not-allowed">
                     <input
                       type="text"
@@ -259,7 +272,7 @@ export default function PickupPage({ user, token }) {
                 </Box>
               </Flex>
 
-              <Box mb="3" mt="5" width={['100%', '100%']}>
+              <Box mb="3" mt="5" width={["100%", "100%"]}>
                 <FormControl>
                   <input
                     type="text"
@@ -276,7 +289,7 @@ export default function PickupPage({ user, token }) {
                 Shipping Data
               </Text>
               <Flex wrap="wrap" justify="space-between">
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -288,7 +301,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <input
                       type="email"
@@ -300,7 +313,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -313,7 +326,7 @@ export default function PickupPage({ user, token }) {
                   </FormControl>
                 </Box>
               </Flex>
-              <Box mb="3" width={['100%', '100%']}>
+              <Box mb="3" width={["100%", "100%"]}>
                 <FormControl>
                   <input
                     type="text"
@@ -326,7 +339,7 @@ export default function PickupPage({ user, token }) {
                 </FormControl>
               </Box>
               <Flex wrap="wrap" justify="space-between" mt="4">
-                <Box mb="3" width={['100%', '45%']}>
+                <Box mb="3" width={["100%", "45%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -338,7 +351,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '45%']}>
+                <Box mb="3" width={["100%", "45%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -352,7 +365,7 @@ export default function PickupPage({ user, token }) {
                 </Box>
               </Flex>
               <Flex wrap="wrap" justify="space-between" mt="4">
-                <Box mb="3" width={['100%', '65%']}>
+                <Box mb="3" width={["100%", "65%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -364,7 +377,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -378,7 +391,7 @@ export default function PickupPage({ user, token }) {
                 </Box>
               </Flex>
               <Flex wrap="wrap" justify="space-between" mt="4">
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <input
                       type="text"
@@ -390,7 +403,7 @@ export default function PickupPage({ user, token }) {
                     />
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <select
                       placeholder="Region"
@@ -408,7 +421,7 @@ export default function PickupPage({ user, token }) {
                     </select>
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <select
                       placeholder="vehicles"
@@ -426,7 +439,7 @@ export default function PickupPage({ user, token }) {
                     </select>
                   </FormControl>
                 </Box>
-                <Box mb="3" width={['100%', '30%']}>
+                <Box mb="3" width={["100%", "30%"]}>
                   <FormControl>
                     <select
                       placeholder="Delivery Method"
@@ -449,7 +462,7 @@ export default function PickupPage({ user, token }) {
                     Items (item {i + 1})
                   </Text>
                   <Flex wrap="wrap" justify="space-between">
-                    <Box mb="3" width={['100%', '30%']}>
+                    <Box mb="3" width={["100%", "30%"]}>
                       <FormControl>
                         <input
                           type="text"
@@ -461,7 +474,7 @@ export default function PickupPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="3" width={['50%', '15%']}>
+                    <Box mb="3" width={["50%", "15%"]}>
                       <FormControl>
                         <input
                           type="text"
@@ -473,7 +486,7 @@ export default function PickupPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="3" width={['100%', '30%']}>
+                    <Box mb="3" width={["100%", "30%"]}>
                       <FormControl>
                         <input
                           type="text"
@@ -487,7 +500,7 @@ export default function PickupPage({ user, token }) {
                     </Box>
                   </Flex>
                   <Flex wrap="wrap" justify="space-between">
-                    <Box mb="3" width={['100%', '15%']}>
+                    <Box mb="3" width={["100%", "15%"]}>
                       <FormControl>
                         <input
                           type="text"
@@ -499,7 +512,7 @@ export default function PickupPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="3" width={['100%', '50%']}>
+                    <Box mb="3" width={["100%", "50%"]}>
                       <FormControl>
                         <input
                           type="file"
@@ -510,7 +523,7 @@ export default function PickupPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Stack spacing={5} direction={['column', 'row']} my="6">
+                    <Stack spacing={5} direction={["column", "row"]} my="6">
                       <Checkbox colorScheme="red">Fragile</Checkbox>
                     </Stack>
                   </Flex>
@@ -545,7 +558,7 @@ export async function getServerSideProps({ req }) {
 
   if (token) {
     const res = await fetch(`${API_URL}/user`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },

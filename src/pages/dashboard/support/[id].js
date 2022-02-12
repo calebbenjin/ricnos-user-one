@@ -1,38 +1,52 @@
-import { useState, useContext } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Layout from '@/components/Layout';
-import { Box, Heading } from '@chakra-ui/react';
-import styles from '@/styles/Chats.module.css';
-import Link from 'next/link';
-import { MdAttachFile } from 'react-icons/md';
-import { RiSendPlaneFill } from 'react-icons/ri';
-import Image from 'next/image';
-import AuthContext from '@/context/AuthContext';
-import navs from '@/styles/Settings.module.css';
-import { parseCookies } from '@/helpers/index';
+import { useState, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Layout from "@/components/Layout";
+import { Box, Heading } from "@chakra-ui/react";
+import styles from "@/styles/Chats.module.css";
+import Link from "next/link";
+import { MdAttachFile } from "react-icons/md";
+import { RiSendPlaneFill } from "react-icons/ri";
+import Image from "next/image";
+import AuthContext from "@/context/AuthContext";
+import navs from "@/styles/Settings.module.css";
+import { parseCookies } from "@/helpers/index";
+import { useRouter } from "next/router";
+import PageLoader from "@/components/PageLoader";
 
 export default function MessagePage({ support, token }) {
   const { user } = useContext(AuthContext);
   const [message, setMessage] = useState();
   const [discussions, setDiscussions] = useState(support.discussions);
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  });
+
+  if (!user) {
+    return <PageLoader />;
+  }
+
   const handleSendMessage = (e) => {
     e.preventDefault();
     var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/vnd.api+json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
-    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append("Accept", "application/vnd.api+json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
       body: message,
     });
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     fetch(
@@ -42,12 +56,12 @@ export default function MessagePage({ support, token }) {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          setMessage('');
+          setMessage("");
           toast.success(result.message);
           setDiscussions(result.data.support.discussions);
         }
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => console.log("error", error));
   };
 
   return (
@@ -82,7 +96,9 @@ export default function MessagePage({ support, token }) {
 
         <div className={styles.chatBody}>
           <div className={styles.heading}>
-            <Heading fontSize="md" my="4">{support.subject}</Heading>
+            <Heading fontSize="md" my="4">
+              {support.subject}
+            </Heading>
             {/* <Flex justify="center" alignItems="center">
               <p className={styles.not}></p>
               <h4>Active Now</h4>
@@ -95,7 +111,7 @@ export default function MessagePage({ support, token }) {
                 <ul>
                   {discussions.map((discussion) => (
                     <div key={discussion?.id}>
-                      {discussion?.from !== '0' ? (
+                      {discussion?.from !== "0" ? (
                         <li className={styles.chatContainer}>
                           {/* <Image
                             src={discussion?.photo}
@@ -132,11 +148,11 @@ export default function MessagePage({ support, token }) {
               ) : (
                 <p
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   No response for this discussion yet
@@ -180,7 +196,7 @@ export async function getServerSideProps({ req, query }) {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };
@@ -188,7 +204,7 @@ export async function getServerSideProps({ req, query }) {
   const res = await fetch(
     `https://alpha.ricnoslogistics.com/api/support/show/${id}`,
     {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
