@@ -39,13 +39,9 @@ export default function PickupPage({ user, token }) {
 
   useEffect(() => {
     if (!user) {
-      router.push("/login");
+      return <PageLoader />;
     }
   });
-
-  if (!user) {
-    return <PageLoader />;
-  }
 
   const getItemNames = () => {
     return itemsList?.map((item) => item.item);
@@ -199,15 +195,15 @@ export default function PickupPage({ user, token }) {
     ]);
   };
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  });
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //   }
+  // });
 
-  if (!user) {
-    return null;
-  }
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <Layout title="Request for Pickup" data={user}>
