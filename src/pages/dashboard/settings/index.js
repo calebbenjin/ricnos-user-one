@@ -96,7 +96,7 @@ export default function SettingsPage({ user, token }) {
 
     const imageData = await res.json();
     // setImagePreview()
-    console.log(imageData);
+    // console.log(imageData);
   };
 
   const handlePassportUpload = async (e) => {
@@ -133,17 +133,15 @@ export default function SettingsPage({ user, token }) {
     setShowModal(false);
   };
 
-  const router = useRouter();
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //   }
+  // });
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  });
-
-  if (!user) {
-    return null;
-  }
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <Layout title="My Profile" data={user}>
