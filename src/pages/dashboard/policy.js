@@ -1,29 +1,32 @@
-import { useState, useEffect } from 'react'
-import { Box, Heading, Text, Flex, List, ListItem } from '@chakra-ui/react'
-import Layout from '@/components/Layout'
-import styles from '@/styles/Policy.module.css'
-import { parseCookies } from '@/helpers/index'
-import { API_URL } from '@/lib/index'
-import { useRouter } from 'next/router'
+import { useState, useEffect } from "react";
+import { Box, Heading, Text, Flex, List, ListItem } from "@chakra-ui/react";
+import Layout from "@/components/Layout";
+import styles from "@/styles/Policy.module.css";
+import { parseCookies } from "@/helpers/index";
+import { API_URL } from "@/lib/index";
+import { useRouter } from "next/router";
+import PageLoader from "@/components/PageLoader";
 
 export default function PolicyPage({ user }) {
-  const router = useRouter()
+  // const { user } = useContext(AuthContext)
+
+  const router = useRouter();
 
   useEffect(() => {
     if (!user) {
-      router.push('/login')
+      router.push("/login");
     }
-  })
+  });
 
   if (!user) {
-    return null
+    return <PageLoader />;
   }
 
   return (
     <Layout data={user}>
-      <div className='container'>
+      <div className="container">
         <Box className={styles.showcase}>
-          <Box width={['100%', '70%']}>
+          <Box width={["100%", "70%"]}>
             <Heading className={styles.title}>
               Customers are the focus of everything
             </Heading>
@@ -33,11 +36,11 @@ export default function PolicyPage({ user }) {
           </Box>
         </Box>
 
-        <Box my='10'>
-          <Flex justify='space-between' wrap='wrap'>
-            <Box width={['100%', '47%']}>
+        <Box my="10">
+          <Flex justify="space-between" wrap="wrap">
+            <Box width={["100%", "47%"]}>
               <Box>
-                <p className='justify'>
+                <p className="justify">
                   This privacy policy will help you understand how RICNO
                   LOGISTICS uses and protects the data you provide to us when
                   you visit and use web Application. We reserve the right to
@@ -47,14 +50,14 @@ export default function PolicyPage({ user }) {
                   visit this page.
                 </p>
               </Box>
-              <Box my='5'>
-                <Heading fontSize='md' mb='3'>
+              <Box my="5">
+                <Heading fontSize="md" mb="3">
                   What User Data We Collect
                 </Heading>
                 <p>
                   When you visit the website, we may collect the following data:
                 </p>
-                <List pl='4'>
+                <List pl="4">
                   <ListItem>Your IP address.</ListItem>
                   <ListItem>
                     Your contact information and email address.
@@ -67,12 +70,12 @@ export default function PolicyPage({ user }) {
                   </ListItem>
                 </List>
               </Box>
-              <Box my='5'>
-                <Heading fontSize='md' mb='3'>
+              <Box my="5">
+                <Heading fontSize="md" mb="3">
                   Why We Collect Your Data
                 </Heading>
                 <Text>We are collecting your data for several reasons:</Text>
-                <List pl='4'>
+                <List pl="4">
                   <ListItem>To better understand your needs.</ListItem>
                   <ListItem>To improve our services and products.</ListItem>
                   <ListItem>
@@ -89,11 +92,11 @@ export default function PolicyPage({ user }) {
                   </ListItem>
                 </List>
               </Box>
-              <Box my='5'>
-                <Heading fontSize='md' mb='3'>
+              <Box my="5">
+                <Heading fontSize="md" mb="3">
                   Safeguarding and Securing the Data
                 </Heading>
-                <p className='justify'>
+                <p className="justify">
                   RICNO LOGISTICS is committed to securing your data and keeping
                   it confidential. RICNO LOGISTICS has done all in its power to
                   prevent data theft, unauthorized access, and disclosure by
@@ -102,12 +105,12 @@ export default function PolicyPage({ user }) {
                 </p>
               </Box>
             </Box>
-            <Box width={['100%', '47%']}>
-              <Box my='5'>
-                <Heading fontSize='md' mb='3'>
+            <Box width={["100%", "47%"]}>
+              <Box my="5">
+                <Heading fontSize="md" mb="3">
                   Our Cookie Policy
                 </Heading>
-                <p className='justify'>
+                <p className="justify">
                   Once you agree to allow our website to use cookies, you also
                   agree to use the data it collects regarding your online
                   behaviour analyse web traffic, web pages you spend the most
@@ -121,14 +124,14 @@ export default function PolicyPage({ user }) {
                   experience for you. If you want to disable cookies, you can do
                   it by accessing the settings of your internet browser.
                   (Provide links for cookie settings for major internet
-                  browsers).{' '}
+                  browsers).{" "}
                 </p>
               </Box>
-              <Box my='5'>
-                <Heading fontSize='md' mb='3'>
+              <Box my="5">
+                <Heading fontSize="md" mb="3">
                   Restricting the Collection of your Personal Data
                 </Heading>
-                <p className='justify'>
+                <p className="justify">
                   At some point, you might wish to restrict the use and
                   collection of your personal data. You can achieve this by
                   doing the following: When you are filling the forms on the
@@ -149,33 +152,33 @@ export default function PolicyPage({ user }) {
         </Box>
       </div>
     </Layout>
-  )
+  );
 }
 
 export async function getServerSideProps({ req }) {
-  const { token } = parseCookies(req)
+  const { token } = parseCookies(req);
 
   if (token) {
     const res = await fetch(`${API_URL}/user`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
 
-    const userData = await res.json()
+    const userData = await res.json();
 
-    const { user } = userData.data
+    const { user } = userData.data;
 
     return {
       props: {
         user,
         token,
       },
-    }
+    };
   } else {
     return {
       props: {},
-    }
+    };
   }
 }

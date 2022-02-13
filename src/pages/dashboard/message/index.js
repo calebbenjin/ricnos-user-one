@@ -1,16 +1,18 @@
-import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
-import Pusher from 'pusher-js';
-import * as dayjs from 'dayjs';
-import Layout from '@/components/Layout';
-import { Flex, Box } from '@chakra-ui/react';
-import styles from '@/styles/Chats.module.css';
-import { BsThreeDots } from 'react-icons/bs';
-import { MdAttachFile } from 'react-icons/md';
-import { RiSendPlaneFill } from 'react-icons/ri';
-import Image from 'next/image';
-import { parseCookies } from '@/helpers/index';
-import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
+import Pusher from "pusher-js";
+import * as dayjs from "dayjs";
+import Layout from "@/components/Layout";
+import { Flex, Box } from "@chakra-ui/react";
+import styles from "@/styles/Chats.module.css";
+import { BsThreeDots } from "react-icons/bs";
+import { MdAttachFile } from "react-icons/md";
+import { RiSendPlaneFill } from "react-icons/ri";
+import Image from "next/image";
+import { parseCookies } from "@/helpers/index";
+import AuthContext from "@/context/AuthContext";
+import { NEXT_PUSHER_KEY } from "@/lib/index";
+import PageLoader from "@/components/PageLoader";
 
 export default function MessagePage({ riders, token }) {
   const { user } = useContext(AuthContext);
@@ -21,15 +23,19 @@ export default function MessagePage({ riders, token }) {
 
   const router = useRouter();
 
+  // if (!user) {
+  //   return <PageLoader />;
+  // }
+
   const fetchMessages = async (rider) => {
     var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: myHeaders,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     const res = await fetch(
@@ -54,50 +60,49 @@ export default function MessagePage({ riders, token }) {
   }, [selectedChat]);
 
   useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
-      cluster: 'eu',
+    const pusher = new Pusher(NEXT_PUSHER_KEY, {
+      cluster: "eu",
     });
 
-    const channel = pusher.subscribe('chat');
+    const channel = pusher.subscribe("chat");
 
-    channel.bind('App\\Events\\MessageSent', (data) => {
+    channel.bind("App\\Events\\MessageSent", (data) => {
       fetchMessages(selectedChat).then((data) => {
         setMessages(data.data.chat);
       });
     });
 
     return () => {
-      pusher.unsubscribe('chat');
+      pusher.unsubscribe("chat");
     };
-
   }, [selectedChat, fetchMessages]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
     var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var formdata = new FormData();
-    formdata.append('message', message);
-    formdata.append('receiver_id', selectedChat.long_id);
+    formdata.append("message", message);
+    formdata.append("receiver_id", selectedChat.long_id);
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: formdata,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     const res = await fetch(
-      'https://alpha.ricnoslogistics.com/api/chat/send',
+      "https://alpha.ricnoslogistics.com/api/chat/send",
       requestOptions
     );
     const data = await res.json();
 
     setMessages(data.data.chat);
 
-    setMessage('');
+    setMessage("");
   };
 
   return (
@@ -164,13 +169,13 @@ export default function MessagePage({ riders, token }) {
                       {messages ? (
                         messages?.map((message) => (
                           <>
-                            {message.sender === 'user' ? (
+                            {message.sender === "user" ? (
                               <li className={styles.replyChat} key={message.id}>
                                 <div className={styles.reply}>
                                   <p>{message.message}</p>
                                   <small>
                                     {dayjs(message.created_at).format(
-                                      'DD/MM/YYYY h:m'
+                                      "DD/MM/YYYY h:m"
                                     )}
                                   </small>
                                 </div>
@@ -201,7 +206,7 @@ export default function MessagePage({ riders, token }) {
                                   <p>{message.message}</p>
                                   <small>
                                     {dayjs(message.created_at).format(
-                                      'DD/MM/YYYY h:m'
+                                      "DD/MM/YYYY h:m"
                                     )}
                                   </small>
                                 </div>
@@ -258,7 +263,7 @@ export async function getServerSideProps({ req }) {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };
@@ -266,7 +271,7 @@ export async function getServerSideProps({ req }) {
   const res = await fetch(
     `https://alpha.ricnoslogistics.com/api/chat/my_chat_user`,
     {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },

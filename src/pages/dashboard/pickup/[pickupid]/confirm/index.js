@@ -1,16 +1,17 @@
-import { useState, useEffect, useContext } from 'react';
-import Pusher from 'pusher-js';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Layout from '@/components/Layout';
-import NoticeBoard from '@/components/NoticeBoard';
-import Button from '@/components/Button';
-import { Box, Container, Text, Flex, Heading } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { useState, useEffect, useContext } from "react";
+import Pusher from "pusher-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Layout from "@/components/Layout";
+import NoticeBoard from "@/components/NoticeBoard";
+import Button from "@/components/Button";
+import { Box, Container, Text, Flex, Heading } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
-import { API_URL } from '@/lib/index';
-import { parseCookies } from '@/helpers/index';
-import AuthContext from '@/context/AuthContext';
+import { API_URL, NEXT_PUSHER_KEY } from "@/lib/index";
+import { parseCookies } from "@/helpers/index";
+import AuthContext from "@/context/AuthContext";
+import PageLoader from "@/components/PageLoader";
 
 export default function ConfirmOrderPage({ token, order }) {
   const [toggleItem, setToggleItem] = useState(true);
@@ -23,13 +24,13 @@ export default function ConfirmOrderPage({ token, order }) {
   const handlePayment = async () => {
     setLoading(true);
     var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     const res = await fetch(
@@ -40,31 +41,31 @@ export default function ConfirmOrderPage({ token, order }) {
 
     const paymentURL = data.data.payment.data.link;
 
-    window.open(paymentURL, '_blank');
+    window.open(paymentURL, "_blank");
   };
 
   useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
-      cluster: 'eu',
+    const pusher = new Pusher(NEXT_PUSHER_KEY, {
+      cluster: "eu",
     });
 
-    const channel = pusher.subscribe('payment');
+    const channel = pusher.subscribe("payment");
 
-    channel.bind('App\\Events\\MessageSent', (data) => {
-      if (data.payment.response === 'successful') {
-        toast.success('Payment successfully recieved');
+    channel.bind("App\\Events\\MessageSent", (data) => {
+      if (data.payment.response === "successful") {
+        toast.success("Payment successfully recieved");
         setLoading(false);
         setTimeout(() => {
           router.reload(window.location.pathname);
         }, 3000);
       } else {
-        toast.error('An Error occured processing your Payment, Try again');
+        toast.error("An Error occured processing your Payment, Try again");
         setLoading(false);
       }
     });
 
     return () => {
-      pusher.unsubscribe('payment');
+      pusher.unsubscribe("payment");
     };
   }, []);
 
@@ -75,7 +76,7 @@ export default function ConfirmOrderPage({ token, order }) {
   // });
 
   if (!user) {
-    return null;
+    return <PageLoader />;
   }
 
   return (
@@ -93,7 +94,7 @@ export default function ConfirmOrderPage({ token, order }) {
       />
       <Container maxWidth="container.xl">
         <Flex justify="space-between" wrap="wrap">
-          <Box width={['100%', '68%']} p="2" mt="10" mb="20">
+          <Box width={["100%", "68%"]} p="2" mt="10" mb="20">
             <Flex justify="space-between" alignItems="center" mb="4">
               <Heading size="lg">{order.reference}</Heading>
               <span>{order?.date}</span>
@@ -103,19 +104,19 @@ export default function ConfirmOrderPage({ token, order }) {
 
               <Box mt="5">
                 <Flex justify="space-between" wrap="wrap">
-                  <Box width={['100%', '30%']}>
+                  <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
                       Name
                     </Text>
                     <Text>{order.sender_detail?.name}</Text>
                   </Box>
-                  <Box width={['100%', '30%']}>
+                  <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
                       Email
                     </Text>
                     <Text>{order.sender_detail?.email}</Text>
                   </Box>
-                  <Box width={['100%', '30%']}>
+                  <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
                       Phone Number
                     </Text>
@@ -136,19 +137,19 @@ export default function ConfirmOrderPage({ token, order }) {
                 Shippment Data
               </Heading>
               <Flex justify="space-between" wrap="wrap">
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Recievers Name
                   </Text>
                   <Text>{order.reciever_name}</Text>
                 </Box>
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Email
                   </Text>
                   <Text>{order.reciever_email}</Text>
                 </Box>
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Phone Number
                   </Text>
@@ -156,19 +157,19 @@ export default function ConfirmOrderPage({ token, order }) {
                 </Box>
               </Flex>
               <Flex justify="space-between" wrap="wrap" mt="4">
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Description
                   </Text>
                   <Text>{order.description}</Text>
                 </Box>
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Departure
                   </Text>
                   <Text>{order.departure}</Text>
                 </Box>
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Arrival
                   </Text>
@@ -176,19 +177,19 @@ export default function ConfirmOrderPage({ token, order }) {
                 </Box>
               </Flex>
               <Flex justify="space-between" wrap="wrap" mt="4">
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     Address
                   </Text>
                   <Text>{order.address}</Text>
                 </Box>
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     City
                   </Text>
                   <Text>{order.city}</Text>
                 </Box>
-                <Box width={['100%', '30%']}>
+                <Box width={["100%", "30%"]}>
                   <Text color="red" fontWeight="bold">
                     State
                   </Text>
@@ -196,13 +197,13 @@ export default function ConfirmOrderPage({ token, order }) {
                 </Box>
               </Flex>
               <Flex justify="space-between" wrap="wrap" mt="4">
-                <Box width={['100%', '50%']}>
+                <Box width={["100%", "50%"]}>
                   <Text color="red" fontWeight="bold">
                     Delivery Method
                   </Text>
                   <Text>{order.delivery_method}</Text>
                 </Box>
-                <Box width={['100%', '50%']}>
+                <Box width={["100%", "50%"]}>
                   <Text color="red" fontWeight="bold">
                     Selected Ride
                   </Text>
@@ -215,19 +216,19 @@ export default function ConfirmOrderPage({ token, order }) {
 
               {order.items.map((item) => (
                 <Flex key={item.id} justify="space-between" wrap="wrap" mt="4">
-                  <Box width={['100%', '30%']}>
+                  <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
                       Item Name
                     </Text>
                     <Text>{item.item}</Text>
                   </Box>
-                  <Box width={['100%', '30%']}>
+                  <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
                       Quantity
                     </Text>
                     <Text>{item.quantity}</Text>
                   </Box>
-                  <Box width={['100%', '30%']}>
+                  <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
                       Weight
                     </Text>
@@ -272,7 +273,7 @@ export default function ConfirmOrderPage({ token, order }) {
                 <Heading size="lg">N{order.amount}</Heading>
               </Flex>
             </Box>
-            {order.status === 'pending' && (
+            {order.status === "pending" && (
               <div onClick={handlePayment}>
                 <Button disabled={loading} loading={loading} title="Processing">
                   Proceed to Payment
@@ -280,7 +281,7 @@ export default function ConfirmOrderPage({ token, order }) {
               </div>
             )}
           </Box>
-          <Box width={['100%', '30%']} p="2" mt="5" className="displaySm">
+          <Box width={["100%", "30%"]} p="2" mt="5" className="displaySm">
             <Box textAlign="right" my="4">
               <Button>Edit</Button>
             </Box>
@@ -299,20 +300,20 @@ export async function getServerSideProps({ req, query }) {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };
   }
 
   var myHeaders = new Headers();
-  myHeaders.append('Accept', 'application/json');
-  myHeaders.append('Authorization', `Bearer ${token}`);
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
 
   var requestOptions = {
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
-    redirect: 'follow',
+    redirect: "follow",
   };
 
   const response = await fetch(

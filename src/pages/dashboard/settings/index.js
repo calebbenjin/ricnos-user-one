@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import SideNav from '@/components/SideNav';
+import { useState, useEffect } from "react";
+import SideNav from "@/components/SideNav";
 import {
   Box,
   Flex,
@@ -9,18 +9,19 @@ import {
   FormControl,
   Input,
   Heading,
-} from '@chakra-ui/react';
-import Layout from '@/components/Layout';
-import styles from '@/styles/Settings.module.css';
-import { BsCamera } from 'react-icons/bs';
-import Modal from '@/components/Modal';
-import ImageUpload from '@/components/ImageUpload';
-import Button from '@/components/Button';
-import { parseCookies } from '@/helpers/index';
-import { API_URL } from '@/lib/index';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/router';
+} from "@chakra-ui/react";
+import Layout from "@/components/Layout";
+import styles from "@/styles/Settings.module.css";
+import { BsCamera } from "react-icons/bs";
+import Modal from "@/components/Modal";
+import ImageUpload from "@/components/ImageUpload";
+import Button from "@/components/Button";
+import { parseCookies } from "@/helpers/index";
+import { API_URL } from "@/lib/index";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+import PageLoader from "@/components/PageLoader";
 
 export default function SettingsPage({ user, token }) {
   // const [imagePreview, setImagePreview] = useState()
@@ -31,39 +32,51 @@ export default function SettingsPage({ user, token }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [values, setValues] = useState({
-    passport: '',
-    first_name: user?.first_name ? user?.first_name : '',
-    last_name: user?.last_name ? user?.last_name : '',
-    phone: user?.phone ? user?.phone : '',
-    email: user?.email ? user?.email : '',
-    address: user?.addresses?.address ? user?.addresses?.address : '',
+    passport: "",
+    first_name: user?.first_name ? user?.first_name : "",
+    last_name: user?.last_name ? user?.last_name : "",
+    phone: user?.phone ? user?.phone : "",
+    email: user?.email ? user?.email : "",
+    address: user?.addresses?.address ? user?.addresses?.address : "",
     address_one: user?.addresses?.second_address
       ? user?.addresses?.second_address
-      : '',
-    city: user?.addresses?.city ? user?.addresses?.city : '',
-    state: user?.addresses?.state ? user?.addresses?.state : '',
-    zip_code: user?.zip_code ? user?.zip_code : '',
-    country: user?.addresses?.country ? user?.addresses?.country : '',
+      : "",
+    city: user?.addresses?.city ? user?.addresses?.city : "",
+    state: user?.addresses?.state ? user?.addresses?.state : "",
+    zip_code: user?.zip_code ? user?.zip_code : "",
+    country: user?.addresses?.country ? user?.addresses?.country : "",
   });
 
   // console.log(imagePreview)
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  });
+
+  if (!user) {
+    return <PageLoader />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch(`${API_URL}/user/update_profile`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
     });
 
     if (!res.ok) {
-      toast.error('Something went Wrong');
+      toast.error("Something went Wrong");
     } else {
       const userData = await res.json();
-      toast.success('Changes Saved');
+      toast.success("Changes Saved");
       // console.log(userData)
     }
   };
@@ -75,7 +88,7 @@ export default function SettingsPage({ user, token }) {
 
   const imageUploaded = async () => {
     const res = await fetch(`${API_URL}/user`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -89,24 +102,24 @@ export default function SettingsPage({ user, token }) {
   const handlePassportUpload = async (e) => {
     setSelectedFile(e.target.files[0]);
     var myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var formdata = new FormData();
-    formdata.append('passport', e.target.files[0], '[PROXY]');
+    formdata.append("passport", e.target.files[0], "[PROXY]");
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: formdata,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     fetch(`${API_URL}/user/update_profile_image`, requestOptions)
       .then((result) => result.json())
       .then((data) => {
         if (data.success) {
-          toast.success('Profile Image updated successfully');
+          toast.success("Profile Image updated successfully");
         } else {
           toast.error(data.message);
         }
@@ -124,7 +137,7 @@ export default function SettingsPage({ user, token }) {
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      router.push("/login");
     }
   });
 
@@ -166,13 +179,13 @@ export default function SettingsPage({ user, token }) {
                     bg="red"
                     // onClick={() => setShowModal(true)}
                   >
-                    {' '}
+                    {" "}
                     <input
                       accept="image/*"
                       onChange={handlePassportUpload}
                       required
                       type="file"
-                      style={{ opacity: '0', position: 'absolute' }}
+                      style={{ opacity: "0", position: "absolute" }}
                     />
                     <span>
                       <BsCamera
@@ -195,7 +208,7 @@ export default function SettingsPage({ user, token }) {
               <Box>
                 <form onSubmit={handleSubmit}>
                   <Flex wrap="wrap" justify="space-between" mt="10">
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">Firstname</FormLabel>
                         <Input
@@ -210,7 +223,7 @@ export default function SettingsPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">Lastname</FormLabel>
                         <Input
@@ -227,7 +240,7 @@ export default function SettingsPage({ user, token }) {
                     </Box>
                   </Flex>
                   <Flex wrap="wrap" justify="space-between">
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">Phone</FormLabel>
                         <Input
@@ -242,7 +255,7 @@ export default function SettingsPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">Email Address</FormLabel>
                         <Input
@@ -258,7 +271,7 @@ export default function SettingsPage({ user, token }) {
                       </FormControl>
                     </Box>
                   </Flex>
-                  <Box mb="4" width={['100%']}>
+                  <Box mb="4" width={["100%"]}>
                     <FormControl>
                       <FormLabel fontWeight="normal">Address 1</FormLabel>
                       <Input
@@ -273,7 +286,7 @@ export default function SettingsPage({ user, token }) {
                       />
                     </FormControl>
                   </Box>
-                  <Box mb="4" width={['100%']}>
+                  <Box mb="4" width={["100%"]}>
                     <FormControl>
                       <FormLabel fontWeight="normal">Address 2</FormLabel>
                       <Input
@@ -290,7 +303,7 @@ export default function SettingsPage({ user, token }) {
                   </Box>
 
                   <Flex wrap="wrap" justify="space-between">
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">City</FormLabel>
                         <Input
@@ -305,7 +318,7 @@ export default function SettingsPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">State</FormLabel>
                         <Input
@@ -322,7 +335,7 @@ export default function SettingsPage({ user, token }) {
                     </Box>
                   </Flex>
                   <Flex wrap="wrap" justify="space-between">
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">Zip Code</FormLabel>
                         <Input
@@ -337,7 +350,7 @@ export default function SettingsPage({ user, token }) {
                         />
                       </FormControl>
                     </Box>
-                    <Box mb="4" width={['100%', '47%']}>
+                    <Box mb="4" width={["100%", "47%"]}>
                       <FormControl>
                         <FormLabel fontWeight="normal">Country</FormLabel>
                         <Input
@@ -373,7 +386,7 @@ export async function getServerSideProps({ req }) {
 
   if (token) {
     const resUser = await fetch(`${API_URL}/user`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
