@@ -115,8 +115,6 @@ export default function PickupPage({ user, token }) {
     getQuoteData();
   }, [getQuoteData]);
 
-  const router = useRouter();
-
   const handleCreateOrder = async () => {
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
