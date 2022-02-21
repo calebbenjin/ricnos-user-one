@@ -1,43 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import DataTable from './DataTable';
-import { Heading, Input, Button } from '@chakra-ui/react';
-import styles from '@/styles/Table.module.css';
+import React, { useMemo, useContext } from "react";
+import { useRouter } from "next/router";
+import { useTable, useGlobalFilter, usePagination } from "react-table";
+import { Box, Text, Select, Button, Flex, Heading } from "@chakra-ui/react";
+import AuthContext from "@/context/AuthContext";
+import { COLUMNS } from "@/localData/orderColumn";
+import { OrdersTableFilter } from "@/components/OrdersTableFilter";
+import styles from "@/styles/Table.module.css";
 
-export default function OrdersTable({ orders }) {
-  // const columns = ['id', 'trackNo', 'date', 'agent', 'item', 'from', 'to', 'status', 'price'];
-  //   const [newData, setNewData] = useState(orders.map(order => ({
-  //     id: order.id,
-  //     trackNo: `#${order.tracking_id}`,
-  //     agent: order.admins.pickup_agent,
-  //     item: order.items.length > 1 ? order.items.reduce((prev, cur) => `${prev.item}, ${cur.item},`) : order?.items?.[0]?.item || "",
-  //     from: order.departure,
-  //     to: order.arrival,
-  //     status: order.status,
-  //     price: `NGN ${order.amount}`,
-  // })))
-  const [q, setQ] = useState('');
-  const [filterBtn, setFilterBtn] = useState('all');
-  const [loading, setLoading] = useState(true);
+export default function OrdersTable() {
+  const { user } = useContext(AuthContext);
 
-  const [orderData, setOrderData] = useState(orders);
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => user?.orders, [user?.orders]);
 
-  useEffect(() => {
-    if (filterBtn === 'all') {
-      setOrderData(orders);
-    } else if (filterBtn === 'pending') {
-      setOrderData(orders.filter((order) => order.integer_status === '-1'));
-    } else if (filterBtn === 'pending/paid') {
-      setOrderData(orders.filter((order) => order.integer_status === '0'));
-    }
-  }, [filterBtn]);
+  const router = useRouter();
 
-  // function search(rows) {
-  //   // const columns = rows[0] && Object.keys(rows[0])
-  //   return rows.filter((row) => columns.some((column) => row[column].toString().toLowerCase().includes(q.toLowerCase())
-  //   )
-  //   )
-  // }
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    state,
+    setGlobalFilter,
+    page,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    setPageSize,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useGlobalFilter,
+    usePagination
+  );
 
+  const { globalFilter, pageIndex, pageSize } = state;
 
   return (
     <>
@@ -45,52 +48,110 @@ export default function OrdersTable({ orders }) {
         <Heading size="lg" mt="" mb="10">
           My Orders
         </Heading>
-        <input
-          className={styles.search}
-          type="text"
-          placeholder="Search for Items"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            padding: '8px 0',
-          }}
+        <OrdersTableFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      </div>
+      <Box my="5">
+        <Box
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
+          justifyContent="space-between"
+          alignItems="center"
+          mx="5"
+          gap="3"
+        >
+          <Text fontSize="sm">
+            Showing {page[0]?.index + 1} - {page[page.length - 1]?.index + 1} of{" "}
+            {data.length} results
+          </Text>
+          <Box
+            display="flex"
+            w="fit-content"
+            alignItems="center"
+            gap="2"
+            mb="2"
+          >
+            <Text fontSize="sm">Results per page: </Text>
+            <Select
+              size="sm"
+              w="15"
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+            >
+              {[10, 25, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
+            </Select>
+          </Box>
+        </Box>
+        <table {...getTableProps()} cellPadding={0} cellSpacing={0}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th key={column.id} {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  key={row.id}
+                  {...row.getRowProps()}
+                  onClick={() =>
+                    router.push(`/dashboard/pickup/${row.original.id}/confirm`)
+                  }
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <td key={cell.id} {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          gap="3"
+          my="2"
+          mx="5"
+          alignItems="center"
         >
           <Button
-            colorScheme={filterBtn === 'all' ? 'red' : 'blackAlpha'}
-            mt="4"
-            ml="8"
-            mr="4"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
             size="sm"
-            onClick={() => setFilterBtn('all')}
+            variant="ghost"
           >
-            All
+            Previous
           </Button>
+          <Flex>
+            <p>
+              <span style={{ fontWeight: "bold" }}>{pageIndex + 1} </span> of{" "}
+              <span style={{ fontWeight: "bold" }}>{pageOptions.length}</span>
+            </p>
+          </Flex>
           <Button
-            colorScheme={filterBtn === 'pending' ? 'red' : 'blackAlpha'}
-            mt="4"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
             size="sm"
-            mr="4"
-            onClick={() => setFilterBtn('pending')}
+            variant="ghost"
           >
-            Pending
+            Next
           </Button>
-          <Button
-            colorScheme={filterBtn === 'pending/paid' ? 'red' : 'blackAlpha'}
-            mt="4"
-            size="sm"
-            mr="4"
-            onClick={() => setFilterBtn('pending/paid')}
-          >
-            Paid
-          </Button>
-        </div>
-      </div>
-      <DataTable data={orderData} />
+        </Box>
+      </Box>
     </>
   );
 }

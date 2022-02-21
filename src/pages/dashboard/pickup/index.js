@@ -11,6 +11,7 @@ import {
   Stack,
   Checkbox,
 } from "@chakra-ui/react";
+import { toast } from "react-toastify";
 
 import Layout from "@/components/Layout";
 import Button from "@/components/Button";
@@ -149,7 +150,9 @@ export default function PickupPage({ user, token }) {
         requestOptions
       );
       const data = await res.json();
-      console.log(data);
+      if (!data.success) {
+        toast.error(data.message);
+      }
       return data;
     } catch (err) {
       return err;

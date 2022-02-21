@@ -6,11 +6,10 @@ import { parseCookies } from "@/helpers/index";
 import { useRouter } from "next/router";
 import AuthContext from "@/context/AuthContext";
 import PageLoader from "@/components/PageLoader";
+import BlankMessageLayout from "@/components/BlankMessageLayout";
 
 export default function OrdersPage() {
-  const [filterBtn, setFilterBtn] = useState("all");
   const { user } = useContext(AuthContext);
-  const router = useRouter();
 
   // useEffect(() => {
   //   if (!user) {
@@ -23,8 +22,12 @@ export default function OrdersPage() {
   }
 
   return (
-    <Layout title="Shipments orders">
-      <OrdersTable orders={user.orders} />
+    <Layout title="Shipment Orders">
+      {user.orders?.length > 0 ? (
+        <OrdersTable />
+      ) : (
+        <BlankMessageLayout error={true} message="You don't have any orders" />
+      )}
     </Layout>
   );
 }
