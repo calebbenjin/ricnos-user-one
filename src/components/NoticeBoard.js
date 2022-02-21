@@ -1,15 +1,15 @@
-import { useContext } from 'react';
-import { Heading, Flex, Box, Avatar, Text } from '@chakra-ui/react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { FaLongArrowAltRight } from 'react-icons/fa';
-import { FiPhone } from 'react-icons/fi';
-import { VscCalendar } from 'react-icons/vsc';
-import { GoMail } from 'react-icons/go';
-import styles from '@/styles/Message.module.css';
-import Link from 'next/link';
-import Logo from './Logo';
-import logoImg from '@/asset/logo1.svg';
-import AuthContext from '@/context/AuthContext';
+import { useContext } from "react";
+import { Heading, Flex, Box, Avatar, Text } from "@chakra-ui/react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { FiPhone } from "react-icons/fi";
+import { VscCalendar } from "react-icons/vsc";
+import { GoMail } from "react-icons/go";
+import styles from "@/styles/Message.module.css";
+import Link from "next/link";
+import Logo from "./Logo";
+import logoImg from "@/asset/logo1.svg";
+import AuthContext from "@/context/AuthContext";
 
 export default function MessagePage() {
   const { user } = useContext(AuthContext);
@@ -44,7 +44,7 @@ export default function MessagePage() {
         <Box my="4">
           <Flex alignItems="center">
             <VscCalendar className={styles.calander} />
-            <Text>5 Orders</Text>
+            <Text>{user.order_count} Orders</Text>
           </Flex>
         </Box>
         <Link href="/orders">
@@ -86,7 +86,9 @@ export default function MessagePage() {
         <Text mt="6">{user.name}</Text>
         <Text my="4">{user.phone}</Text>
         <Text>{user.addresses?.address}</Text>
-        <Text my="4">Port Harcourt,Rivers State</Text>
+        <Text my="4">
+          {user.addresses?.city}, {user.addresses?.state}
+        </Text>
       </Box>
       <hr />
 

@@ -1,10 +1,10 @@
-import customTheme from '../styles/theme';
-import Head from 'next/head';
-import { ChakraProvider, CSSReset } from '@chakra-ui/react';
-import { Global, css } from '@emotion/react';
-import { AuthProvider } from '../context/AuthContext';
-import { FetchProvider } from '../context/FetchContext';
-import { MessageProvider } from '@/context/MessageContext';
+import customTheme from "../styles/theme";
+import Head from "next/head";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { Global, css } from "@emotion/react";
+import { AuthProvider } from "../context/AuthContext";
+import { FetchProvider } from "../context/FetchContext";
+import { MessageProvider } from "@/context/MessageContext";
 
 const GlobalStyle = ({ children }) => {
   return (
@@ -78,7 +78,7 @@ const GlobalStyle = ({ children }) => {
             margin: 10px;
           }
 
-          .radio-toolbar input[type='radio'] {
+          .radio-toolbar input[type="radio"] {
             opacity: 0;
             position: fixed;
             width: 0;
@@ -98,7 +98,7 @@ const GlobalStyle = ({ children }) => {
             background-color: #dfd;
           }
 
-          .radio-toolbar input[type='radio']:checked + label {
+          .radio-toolbar input[type="radio"]:checked + label {
             background-color: #bfb;
             border-color: #4c4;
           }
@@ -166,17 +166,16 @@ const GlobalStyle = ({ children }) => {
             padding: 20px;
           }
 
-          table td:nth-of-type(2) {
+          tbody tr:hover {
+            cursor: pointer;
+            background-color: #eee;
+          }
+
+          table td:nth-of-type(1) {
             font-weight: 900;
           }
           table td:nth-of-type(8) {
             color: green;
-          }
-          table td:first-of-type {
-            display: none;
-          }
-          table th:first-of-type {
-            display: none;
           }
 
           .navMobileBtn {

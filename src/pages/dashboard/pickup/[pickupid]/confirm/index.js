@@ -39,9 +39,13 @@ export default function ConfirmOrderPage({ token, order }) {
     );
     const data = await res.json();
 
-    const paymentURL = data.data.payment.data.link;
-
-    window.open(paymentURL, "_blank");
+    if (data.success) {
+      const paymentURL = data.data.payment.data.link;
+      window.open(paymentURL, "_blank");
+    } else {
+      toast.error(data.message);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
