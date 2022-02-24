@@ -3,26 +3,17 @@ import OrdersTable from "@/components/OrdersTable";
 import Layout from "@/components/Layout";
 import { API_URL } from "@/lib/index";
 import { parseCookies } from "@/helpers/index";
-import { useRouter } from "next/router";
-import AuthContext from "@/context/AuthContext";
 import PageLoader from "@/components/PageLoader";
 import BlankMessageLayout from "@/components/BlankMessageLayout";
 
-export default function OrdersPage() {
-  const { user } = useContext(AuthContext);
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/login");
-  //   }
-  // });
+export default function OrdersPage({ user }) {
 
   if (!user) {
     return <PageLoader />;
   }
 
   return (
-    <Layout title="Shipment Orders">
+    <Layout title="Shipment Orders" data={user}>
       {user.orders?.length > 0 ? (
         <OrdersTable />
       ) : (
@@ -35,18 +26,34 @@ export default function OrdersPage() {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req);
 
-  if (!token) {
+  if (token) {
+    const res = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    const userData = await res.json()
+
+    const { user } = userData.data
+
+    return {
+      props: {
+        user,
+        token,
+      },
+    }
+  } if (!token) {
     return {
       redirect: {
-        destination: "/login",
+        destination: '/login',
         permanent: false,
       },
     };
+  } else {
+    return {
+      props: {},
+    }
   }
-
-  return {
-    props: {
-      data: null,
-    },
-  };
 }

@@ -13,11 +13,9 @@ import { parseCookies } from "@/helpers/index";
 import AuthContext from "@/context/AuthContext";
 import PageLoader from "@/components/PageLoader";
 
-export default function ConfirmOrderPage({ token, order }) {
+export default function ConfirmOrderPage({ token, order, user }) {
   const [toggleItem, setToggleItem] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  const { user } = useContext(AuthContext);
 
   const router = useRouter();
 
@@ -84,7 +82,7 @@ export default function ConfirmOrderPage({ token, order }) {
   }
 
   return (
-    <Layout>
+    <Layout data={user}>
       <ToastContainer
         position="top-center"
         autoClose={false}
@@ -327,10 +325,22 @@ export async function getServerSideProps({ req, query }) {
 
   const result = await response.json();
 
+  const resUser = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await resUser.json()
+
+  const { user } = userData.data
+
   return {
     props: {
       order: result.data.order,
       token,
+      user
     },
   };
 }

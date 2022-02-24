@@ -74,22 +74,16 @@ export const AuthProvider = ({ children }) => {
   // Check if user is logged in
   // ================================================
   const checkUserLoggedIn = useCallback(async () => {
-    setInitialLoading(true);
-    try {
-      const res = await fetch(`${NEXT_URL}/api/user`);
-      const data = await res.json();
+    
+    const res = await fetch(`${NEXT_URL}/api/user`);
+    const data = await res.json();
+
+    if(res.ok) {
       setUser(data.user.data.user);
-      setInitialLoading(false);
-    } catch (error) {
-      fetch(`${NEXT_URL}/api/logout`, {
-        method: 'POST',
-      })
-        .then((res) => {
-          setUser(null);
-          setInitialLoading(false);
-        })
-        .catch((err) => console.error('Error removing bad token'));
+    } else {
+      setUser(null);
     }
+    
   }, []);
 
   // Logout user

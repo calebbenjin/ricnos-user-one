@@ -29,7 +29,7 @@ import AuthContext from '@/context/AuthContext';
 // import MessageContext from '@/context/MessageContext';
 
 export default function Layout({ children, data }) {
-  const { logout, user } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   // const { messageNotification, setMessageNotification } =
   // useContext(MessageContext);
 
@@ -69,14 +69,14 @@ export default function Layout({ children, data }) {
                   <Link href="/dashboard/message/">
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
-                      <div>{user ? user.general_notification : null}</div>
+                      <div>{data ? data.general_notification : null}</div>
                     </a>
                   </Link>
                   <Box>
                     <Flex alignItems="center">
                       <Box mr="3" color="white" textAlign="left">
                         <Text fontWeight="bold" fontSize="sm">
-                          {user ? user.name : null}
+                          {data ? data.name : null}
                         </Text>
                         <Text
                           as="small"
@@ -84,13 +84,13 @@ export default function Layout({ children, data }) {
                           color="white"
                           isTruncated
                         >
-                          {user ? user.email : null}
+                          {data ? data.email : null}
                         </Text>
                       </Box>
                       <Avatar
                         size="md"
-                        name={user ? user.name : null}
-                        src={user ? user.passport : null}
+                        name={data ? data.name : null}
+                        src={data ? data.passport : null}
                       />
                     </Flex>
                   </Box>
@@ -140,14 +140,14 @@ export default function Layout({ children, data }) {
                     <Link href="/dashboard/message/">
                       <a className={styles.navIconBox}>
                         <IoNotificationsSharp className={styles.navIcon} />
-                        <div>{user ? user.general_notification : null}</div>
+                        <div>{data ? data.general_notification : null}</div>
                       </a>
                     </Link>
                     <Avatar
                       size="sm"
                       className={styles.avatar}
-                      name={user ? user.name : null}
-                      src={user ? user.passport : null}
+                      name={data ? data.name : null}
+                      src={data ? data.passport : null}
                     />
                     <BsThreeDotsVertical className={styles.dot} />
                   </Flex>

@@ -1,21 +1,18 @@
-import { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "@/components/Layout";
 import { Box, Heading } from "@chakra-ui/react";
 import styles from "@/styles/Chats.module.css";
 import Link from "next/link";
-import { MdAttachFile } from "react-icons/md";
 import { RiSendPlaneFill } from "react-icons/ri";
-import Image from "next/image";
-import AuthContext from "@/context/AuthContext";
 import navs from "@/styles/Settings.module.css";
 import { parseCookies } from "@/helpers/index";
 import { useRouter } from "next/router";
+import { API_URL } from "@/lib/index";
 import PageLoader from "@/components/PageLoader";
 
-export default function MessagePage({ support, token }) {
-  const { user } = useContext(AuthContext);
+export default function MessagePage({ support, token, user }) {
   const [message, setMessage] = useState();
   const [discussions, setDiscussions] = useState(support.discussions);
 
@@ -210,13 +207,25 @@ export async function getServerSideProps({ req, query }) {
       },
     }
   );
-
   const supportData = await res.json();
+
+  const resUser = await fetch(`${API_URL}/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const userData = await resUser.json();
+
+  const { user } = userData.data;
+
 
   return {
     props: {
       support: supportData.data.support,
       token,
+      user
     },
   };
 }

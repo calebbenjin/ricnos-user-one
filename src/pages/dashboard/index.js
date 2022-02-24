@@ -19,12 +19,9 @@ import { API_URL } from '@/lib/index'
 import ButtonDark from '@/components/ButtonDark'
 import { useRouter } from 'next/router'
 import PageLoader from '@/components/PageLoader'
-import AuthContext from '@/context/AuthContext'
 
 export default function Dashboard({user}) {
   const [paymentStatus, setPaymentStatus] = useState(false)
-
-  // const { user } = useContext(AuthContext)
 
   const router = useRouter()
 
@@ -76,8 +73,8 @@ export default function Dashboard({user}) {
             </Heading> */}
 
             {user &&
-              user.orders.map((order, i) => (
-                <fragment key={order.id}>
+              user?.orders.map((order, i) => (
+                <fragment key={order?.id}>
                   <Box
                     p='8'
                     bg='black'
@@ -87,7 +84,7 @@ export default function Dashboard({user}) {
                     
                   >
                     <Text textTransform='uppercase'>
-                      {order.reference}
+                      {order?.reference}
                       <Badge
                         variant='solid'
                         ml='3'

@@ -11,11 +11,10 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import Image from "next/image";
 import { parseCookies } from "@/helpers/index";
 import AuthContext from "@/context/AuthContext";
-import { NEXT_PUSHER_KEY } from "@/lib/index";
+import { NEXT_PUSHER_KEY, API_URL } from "@/lib/index";
 import PageLoader from "@/components/PageLoader";
 
-export default function MessagePage({ riders, token }) {
-  const { user } = useContext(AuthContext);
+export default function MessagePage({ riders, token, user }) {
   const [selectedChat, setSelectedChat] = useState();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
@@ -278,13 +277,25 @@ export async function getServerSideProps({ req }) {
     }
   );
 
-  const userData = await res.json();
-  const { riders } = userData.data;
+  const riderData = await res.json();
+  const { riders } = riderData.data;
+
+  const resUser = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const userData = await resUser.json()
+
+  const { user } = userData.data
 
   return {
     props: {
       riders,
       token,
+      user
     },
   };
 }
