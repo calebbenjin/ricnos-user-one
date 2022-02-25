@@ -7,15 +7,16 @@ import PageLoader from "@/components/PageLoader";
 import BlankMessageLayout from "@/components/BlankMessageLayout";
 
 export default function OrdersPage({ user }) {
-
   if (!user) {
     return <PageLoader />;
   }
 
+  console.log(user.orders);
+
   return (
     <Layout title="Shipment Orders" data={user}>
       {user.orders?.length > 0 ? (
-        <OrdersTable />
+        <OrdersTable orderData={user.orders} />
       ) : (
         <BlankMessageLayout error={true} message="You don't have any orders" />
       )}
@@ -28,32 +29,33 @@ export async function getServerSideProps({ req }) {
 
   if (token) {
     const res = await fetch(`${API_URL}/user`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
 
-    const userData = await res.json()
+    const userData = await res.json();
 
-    const { user } = userData.data
+    const { user } = userData.data;
 
     return {
       props: {
         user,
         token,
       },
-    }
-  } if (!token) {
+    };
+  }
+  if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };
   } else {
     return {
       props: {},
-    }
+    };
   }
 }

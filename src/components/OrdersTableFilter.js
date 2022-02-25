@@ -2,6 +2,8 @@ import { Box, Flex, Button, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useAsyncDebounce } from "react-table";
 
+import regeneratorRuntime from "regenerator-runtime";
+
 import styles from "@/styles/Table.module.css";
 
 export const OrdersTableFilter = ({ filter, setFilter }) => {

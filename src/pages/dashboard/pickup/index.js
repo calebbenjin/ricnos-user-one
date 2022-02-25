@@ -100,7 +100,7 @@ export default function PickupPage({ user, token }) {
   useEffect(() => {
     if (user) {
       setUserDetails(user);
-      setSenderAddress(user.addresses.address);
+      setSenderAddress(user.addresses ? user.addresses.address : "");
       setIsLoading(false);
     }
   }, [user]);
@@ -237,7 +237,7 @@ export default function PickupPage({ user, token }) {
                       type="text"
                       id="name"
                       placeholder="Name"
-                      value={`${userDetails?.name}`}
+                      value={userDetails.name ? userDetails.name : ""}
                       required
                       disabled
                     />

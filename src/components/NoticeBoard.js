@@ -26,11 +26,11 @@ export default function MessagePage() {
           <Flex alignItems="center" wrap="wrap">
             <Avatar
               size="sm"
-              name={user.name}
+              name={user?.name}
               mr="4"
               src={user ? user.passport : null}
             />
-            <Text isTruncated>{user.name}</Text>
+            <Text isTruncated>{user?.name}</Text>
           </Flex>
         </Box>
         <Link href="/dashboard/settings">
@@ -44,7 +44,7 @@ export default function MessagePage() {
         <Box my="4">
           <Flex alignItems="center">
             <VscCalendar className={styles.calander} />
-            <Text>{user.order_count} Orders</Text>
+            <Text>{user?.order_count} Orders</Text>
           </Flex>
         </Box>
         <Link href="/orders">
@@ -60,11 +60,11 @@ export default function MessagePage() {
 
         <Flex alignItems="center" my="10">
           <GoMail className={styles.calander} />
-          <Text>{user.email}</Text>
+          <Text>{user?.email}</Text>
         </Flex>
         <Flex alignItems="center">
           <FiPhone className={styles.calander} />
-          <Text>{user.phone}</Text>
+          <Text>{user?.phone}</Text>
         </Flex>
       </Box>
 
@@ -83,11 +83,11 @@ export default function MessagePage() {
       <hr />
       <Box mt="4">
         <Heading size="sm">Billing Address</Heading>
-        <Text mt="6">{user.name}</Text>
-        <Text my="4">{user.phone}</Text>
-        <Text>{user.addresses?.address}</Text>
+        <Text mt="6">{user?.name}</Text>
+        <Text my="4">{user?.phone}</Text>
+        <Text>{user?.addresses?.address}</Text>
         <Text my="4">
-          {user.addresses?.city}, {user.addresses?.state}
+          {user?.addresses?.city}, {user?.addresses?.state}
         </Text>
       </Box>
       <hr />

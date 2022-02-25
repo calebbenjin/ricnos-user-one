@@ -83,17 +83,6 @@ export default function ConfirmOrderPage({ token, order, user }) {
 
   return (
     <Layout data={user}>
-      <ToastContainer
-        position="top-center"
-        autoClose={false}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <Container maxWidth="container.xl">
         <Flex justify="space-between" wrap="wrap">
           <Box width={["100%", "68%"]} p="2" mt="10" mb="20">
@@ -110,7 +99,9 @@ export default function ConfirmOrderPage({ token, order, user }) {
                     <Text color="red" fontWeight="bold">
                       Name
                     </Text>
-                    <Text>{order.sender_detail?.name}</Text>
+                    <Text>
+                      {order.sender_detail.name ? order.sender_detail.name : ""}
+                    </Text>
                   </Box>
                   <Box width={["100%", "30%"]}>
                     <Text color="red" fontWeight="bold">
@@ -122,7 +113,11 @@ export default function ConfirmOrderPage({ token, order, user }) {
                     <Text color="red" fontWeight="bold">
                       Phone Number
                     </Text>
-                    <Text>{order.sender_detail?.phone}</Text>
+                    <Text>
+                      {order.sender_detail.phone
+                        ? order.sender_detail.phone
+                        : ""}
+                    </Text>
                   </Box>
                 </Flex>
               </Box>
@@ -326,21 +321,21 @@ export async function getServerSideProps({ req, query }) {
   const result = await response.json();
 
   const resUser = await fetch(`${API_URL}/user`, {
-    method: 'GET',
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
+  });
 
-  const userData = await resUser.json()
+  const userData = await resUser.json();
 
-  const { user } = userData.data
+  const { user } = userData.data;
 
   return {
     props: {
       order: result.data.order,
       token,
-      user
+      user,
     },
   };
 }
