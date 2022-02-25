@@ -7,11 +7,11 @@ import { COLUMNS } from "@/localData/orderColumn";
 import { OrdersTableFilter } from "@/components/OrdersTableFilter";
 import styles from "@/styles/Table.module.css";
 
-export default function OrdersTable() {
+export default function OrdersTable({ orderData }) {
   const { user } = useContext(AuthContext);
 
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => user?.orders, [user?.orders]);
+  const data = useMemo(() => orderData, []);
 
   const router = useRouter();
 
