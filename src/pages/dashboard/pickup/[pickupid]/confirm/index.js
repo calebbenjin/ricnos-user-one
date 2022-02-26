@@ -47,6 +47,7 @@ export default function ConfirmOrderPage({ token, order, user }) {
   };
 
   useEffect(() => {
+    console.log("running");
     const pusher = new Pusher(NEXT_PUSHER_KEY, {
       cluster: "eu",
     });
