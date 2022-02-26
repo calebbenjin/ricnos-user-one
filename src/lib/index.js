@@ -5,4 +5,4 @@ export const NEXT_URL =
   process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
 
 export const NEXT_PUSHER_KEY =
-  process.env.NEXT_PUBLIC_PUSHER_KEY || "7963772355a15t9ea371";
+  process.env.NEXT_PUBLIC_PUSHER_KEY || "7963772355a15f9ea371";
