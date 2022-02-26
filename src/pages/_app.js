@@ -166,6 +166,19 @@ const GlobalStyle = ({ children }) => {
             padding: 20px;
           }
 
+          table td:nth-of-type(2) {
+            font-weight: 900;
+          }
+          /* table td:nth-of-type(7) {
+            color: green;
+          } */
+          table td:first-of-type {
+            display: none;
+          }
+          table th:first-of-type {
+            display: none;
+          }
+
           tbody tr:hover {
             cursor: pointer;
             background-color: #eee;
