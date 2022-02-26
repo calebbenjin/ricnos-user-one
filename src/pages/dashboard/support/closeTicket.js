@@ -45,7 +45,7 @@ export default function OpenTicket({ user, token }) {
 
   return (
     <Layout data={user}>
-      <Flex>
+      <Flex justify="space-between" wrap="wrap">
         <Box width={["100%", "20%"]} className={setting.sideNav}>
           <nav className={setting.nav}>
             <Link href="/dashboard/support/">
