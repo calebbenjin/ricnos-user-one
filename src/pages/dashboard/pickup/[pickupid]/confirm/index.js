@@ -248,20 +248,23 @@ export default function ConfirmOrderPage({ token, order, user }) {
                 <Text>
                   <b>Subtotal</b> (all items)
                 </Text>
-                <Text>N{order.shipment_fee}</Text>
+                <Text>
+                  N{parseFloat(order.amount) - parseFloat(order.shipment_fee)}
+                  .00
+                </Text>
               </Flex>
               <hr />
               <Flex justify="space-between" alignItems="center" mt="6" mb="2">
                 <Text>
                   <b>Tax</b> PDV20%(include)
                 </Text>
-                <Text>N2000.00</Text>
+                <Text>N{order.tax}</Text>
               </Flex>
               <Flex justify="space-between" alignItems="center" mt="6" mb="2">
                 <Text>
-                  <b>Shipping Discount</b> (all items)
+                  <b>Shipment Fee</b> (all items)
                 </Text>
-                <Text>N00.00</Text>
+                <Text>N{order.shipment_fee}</Text>
               </Flex>
               <Flex justify="space-between" alignItems="center" mt="6" mb="2">
                 <Heading size="lg">
