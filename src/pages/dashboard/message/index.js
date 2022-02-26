@@ -74,7 +74,7 @@ export default function MessagePage({ riders, token, user }) {
     return () => {
       pusher.unsubscribe("chat");
     };
-  }, [selectedChat, fetchMessages]);
+  }, []);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -281,21 +281,21 @@ export async function getServerSideProps({ req }) {
   const { riders } = riderData.data;
 
   const resUser = await fetch(`${API_URL}/user`, {
-    method: 'GET',
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
+  });
 
-  const userData = await resUser.json()
+  const userData = await resUser.json();
 
-  const { user } = userData.data
+  const { user } = userData.data;
 
   return {
     props: {
       riders,
       token,
-      user
+      user,
     },
   };
 }
