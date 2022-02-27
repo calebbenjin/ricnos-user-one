@@ -88,7 +88,7 @@ export default function ConfirmOrderPage({ token, order, user }) {
         <Flex justify="space-between" wrap="wrap">
           <Box width={["100%", "68%"]} p="2" mt="10" mb="20">
             <Flex justify="space-between" alignItems="center" mb="4">
-              <Heading size="lg">{order.reference}</Heading>
+              <Heading size="lg">{order.tracking_id}</Heading>
               <span>{order?.date}</span>
             </Flex>
             <Box p="7" boxShadow="md" borderRadius="md" backgroundColor="white">
@@ -257,13 +257,13 @@ export default function ConfirmOrderPage({ token, order, user }) {
               <hr />
               <Flex justify="space-between" alignItems="center" mt="6" mb="2">
                 <Text>
-                  <b>Tax</b> PDV20%(include)
+                  <b>Tax</b>
                 </Text>
                 <Text>N{order.tax}</Text>
               </Flex>
               <Flex justify="space-between" alignItems="center" mt="6" mb="2">
                 <Text>
-                  <b>Shipment Fee</b> (all items)
+                  <b>Shipping Fee</b> (all items)
                 </Text>
                 <Text>N{order.shipment_fee}</Text>
               </Flex>

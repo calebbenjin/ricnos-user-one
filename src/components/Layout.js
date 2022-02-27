@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
   Container,
@@ -11,21 +11,21 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-} from '@chakra-ui/react';
-import styles from '@/styles/Layout.module.css';
-import Link from '@/components/Link';
-import AsideNav from '@/components/AsideNav';
-import { FiSettings, FiLogOut } from 'react-icons/fi';
-import { FaUsers } from 'react-icons/fa';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IoNotificationsSharp } from 'react-icons/io5';
-import { CgHome } from 'react-icons/cg';
-import { BiSupport } from 'react-icons/bi';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { HiOutlineMail } from 'react-icons/hi';
-import { RiUserLine } from 'react-icons/ri';
-import Button from '@/components/Button';
-import AuthContext from '@/context/AuthContext';
+} from "@chakra-ui/react";
+import styles from "@/styles/Layout.module.css";
+import Link from "@/components/Link";
+import AsideNav from "@/components/AsideNav";
+import { FiSettings, FiLogOut } from "react-icons/fi";
+import { FaUsers } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { IoNotificationsSharp } from "react-icons/io5";
+import { CgHome } from "react-icons/cg";
+import { BiSupport } from "react-icons/bi";
+import { AiOutlineUnorderedList } from "react-icons/ai";
+import { HiOutlineMail } from "react-icons/hi";
+import { RiUserLine } from "react-icons/ri";
+import Button from "@/components/Button";
+import AuthContext from "@/context/AuthContext";
 // import MessageContext from '@/context/MessageContext';
 
 export default function Layout({ children, data }) {
@@ -137,7 +137,7 @@ export default function Layout({ children, data }) {
               <Menu>
                 <MenuButton>
                   <Flex alignItems="center">
-                    <Link href="/dashboard/message/">
+                    <Link href="/dashboard/message">
                       <a className={styles.navIconBox}>
                         <IoNotificationsSharp className={styles.navIcon} />
                         <div>{data ? data.general_notification : null}</div>
@@ -154,7 +154,7 @@ export default function Layout({ children, data }) {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link href="/">
+                    <Link href="/dashboard/settings">
                       <a className={styles.menuLink}>
                         <FiSettings className={styles.icon} /> Settings
                       </a>
@@ -162,7 +162,7 @@ export default function Layout({ children, data }) {
                   </MenuItem>
                   <hr />
                   <MenuItem>
-                    <Link href="/">
+                    <Link href="/dashboard/support">
                       <a className={styles.menuLink}>
                         <FaUsers className={styles.icon} /> Support
                       </a>

@@ -2,31 +2,31 @@ export default [
   {
     id: 1,
     path: "/",
-    label: "Home"
+    label: "Home",
   },
   {
     id: 2,
     path: "/about",
-    label: "About"
+    label: "About",
   },
   {
     id: 3,
     path: "/contact",
-    label: "Contact"
+    label: "Contact",
   },
   {
     id: 4,
     path: "/login",
-    label: "Login"
+    label: "Login",
   },
   {
     id: 5,
     path: "/signup",
-    label: "Sign Up"
+    label: "Sign Up",
   },
   {
     id: 6,
-    path: "/login",
-    label: "Request for pickup"
-  }
-]
+    path: "/dashboard/pickup",
+    label: "Request for pickup",
+  },
+];
