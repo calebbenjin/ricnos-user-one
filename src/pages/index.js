@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useCallback } from "react";
 import BannerCard from "@/components/BannerCard";
 import Layout from "@/components/HomeLayout";
 import CustomerSection from "@/components/CustomerSection";
@@ -18,7 +18,7 @@ import TrackForm from "@/components/TrackForm";
 import Image from "next/image";
 import Button from "@/components/Button";
 import LoaderSpinner from "@/components/LoaderSpinner";
-import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import DisplayCard from "@/components/DisplayCard";
 // import FetchContext from '@/context/FetchContext'
 import { API_URL } from "@/lib/index";
@@ -43,55 +43,44 @@ export default function Home({ vehicles, regions }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [resultData, setResultData] = useState();
-  const [values, setValues] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    weight: "",
-    value: "",
-    vehicle: "",
-    region: "",
-    description: "",
-    departure: "",
-    arrival: "",
-  });
+  const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
+  const quoteHandler = useCallback(async (data) => {
     setIsLoading(true);
-
-    const res = await fetch(`${API_URL}/get_quote`, {
+    setError(null);
+    fetch(`${API_URL}/get_quote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(values),
-    });
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          setResultData(result.data);
+          toast.success(result.message);
+          setShowResult(true);
+          reset();
+        } else {
+          toast.error(result.message);
+          setError(result.message);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
 
-    const resData = await res.json();
-
-    // console.log(resData)
-
-    if (res.ok) {
-      setIsLoading(false);
-      if (resData.success) {
-        setResultData(resData.data);
-        setShowResult(true);
-      }
-    } else {
-      setIsLoading(false);
-      setShowResult(false);
-      setIsError(data.message);
-      setIsError(null);
-      // console.log('Somothing went Wrong')
-    }
-    setValues("");
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+  const handleQuote = (data, e) => {
+    e.preventDefault();
+    quoteHandler(data);
   };
 
   return (
@@ -172,7 +161,6 @@ export default function Home({ vehicles, regions }) {
           {/* <TrackTrace /> */}
 
           <div className={trackStyles.trackForm}>
-            <ToastContainer />
             <Container
               maxWidth="container.xl"
               className={trackStyles.traceBody}
@@ -200,7 +188,7 @@ export default function Home({ vehicles, regions }) {
                     <Flex mb={3} justify="space-between" wrap="wrap">
                       <Box width={["100%", "75%"]}>
                         <div className={quoteStyles.formCard}>
-                          <form onSubmit={handleSubmit}>
+                          <form onSubmit={handleSubmit(handleQuote)}>
                             <Text mb="2" fontWeight="bold">
                               Personal Data
                             </Text>
@@ -216,9 +204,10 @@ export default function Home({ vehicles, regions }) {
                                     id="name"
                                     placeholder="Name"
                                     name="name"
-                                    value={values.name}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("name", {
+                                      required: "Name is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -229,9 +218,10 @@ export default function Home({ vehicles, regions }) {
                                     id="email"
                                     placeholder="Email"
                                     name="email"
-                                    value={values.email}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("email", {
+                                      required: "Email is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -242,9 +232,10 @@ export default function Home({ vehicles, regions }) {
                                     id="phone"
                                     placeholder="Phone Number"
                                     name="phone"
-                                    value={values.phone}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("phone", {
+                                      required: "Phone is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -261,9 +252,10 @@ export default function Home({ vehicles, regions }) {
                                   id="description"
                                   placeholder="Item Description"
                                   name="description"
-                                  value={values.description}
-                                  onChange={handleInputChange}
                                   required
+                                  {...register("description", {
+                                    required: "Description is required",
+                                  })}
                                 />
                               </FormControl>
                             </Box>
@@ -275,9 +267,10 @@ export default function Home({ vehicles, regions }) {
                                     id="departure"
                                     placeholder="Departure"
                                     name="departure"
-                                    value={values.departure}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("departure", {
+                                      required: "Departure is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -288,9 +281,10 @@ export default function Home({ vehicles, regions }) {
                                     id="arrival"
                                     placeholder="Arrival"
                                     name="arrival"
-                                    value={values.arrival}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("arrival", {
+                                      required: "Arrival is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -301,9 +295,10 @@ export default function Home({ vehicles, regions }) {
                                   <select
                                     id="region"
                                     name="region"
-                                    value={values.region}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("region", {
+                                      required: "Region is required",
+                                    })}
                                   >
                                     <option>Region</option>
                                     {regions.map((item) => (
@@ -322,9 +317,10 @@ export default function Home({ vehicles, regions }) {
                                   <select
                                     id="vehicle"
                                     name="vehicle"
-                                    value={values.vehicle}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("vehicle", {
+                                      required: "Vehicle is required",
+                                    })}
                                   >
                                     <option>Select vehicles</option>
                                     {vehicles.map((item) => (
@@ -342,9 +338,10 @@ export default function Home({ vehicles, regions }) {
                                     id="weight"
                                     placeholder="Weight"
                                     name="weight"
-                                    value={values.weight}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("weight", {
+                                      required: "Weight is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -355,9 +352,10 @@ export default function Home({ vehicles, regions }) {
                                     id="value"
                                     name="value"
                                     placeholder="Item value"
-                                    value={values.value}
-                                    onChange={handleInputChange}
                                     required
+                                    {...register("value", {
+                                      required: "Value is required",
+                                    })}
                                   />
                                 </FormControl>
                               </Box>
@@ -372,7 +370,7 @@ export default function Home({ vehicles, regions }) {
                                 >
                                   <Checkbox colorScheme="red">Fragile</Checkbox>
                                   <Checkbox colorScheme="red">
-                                    Expres Delivery
+                                    Express Delivery
                                   </Checkbox>
                                 </Stack>
                               </Box>

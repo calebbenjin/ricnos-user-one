@@ -1,11 +1,11 @@
-import { Container, Flex, Spacer } from '@chakra-ui/react';
-import Link from 'next/link';
-import styled, { keyframes } from 'styled-components';
-import Logo from '@/components/Logo';
-import logoImage from '@/asset/logo.svg';
-import Drawer from './Drawer';
-import Button from './Button';
-import NavFooter from './NavFooter';
+import { Container, Flex, Spacer } from "@chakra-ui/react";
+import Link from "next/link";
+import styled, { keyframes } from "styled-components";
+import Logo from "@/components/Logo";
+import logoImage from "@/asset/logo.svg";
+import Drawer from "./Drawer";
+import Button from "./Button";
+import NavFooter from "./NavFooter";
 
 export default function Navbar({ className }) {
   return (
@@ -32,7 +32,7 @@ export default function Navbar({ className }) {
                 </a>
               </Link>
             </Flex>
-            <Link href="/login">
+            <Link href="/dashboard/pickup">
               <a className="navBtn">Request pickup</a>
             </Link>
             <Drawer />

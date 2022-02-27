@@ -73,7 +73,7 @@ export default function Dashboard({ user }) {
               <fragment>
                 <Box p="8" bg="black" color="white" my="6" borderRadius="md">
                   <Text textTransform="uppercase">
-                    {user.orders[0].reference}
+                    {user.orders[0].tracking_id}
                     <Badge
                       variant="solid"
                       ml="3"
@@ -130,7 +130,7 @@ export default function Dashboard({ user }) {
                     borderRadius="md"
                   >
                     <Text mb="2" textTransform="uppercase">
-                      {user.orders[0].reference}
+                      {user.orders[0].tracking_id}
                       <Badge variant="solid" ml="3" fontWeight="normal">
                         {user.orders[0].status}
                       </Badge>
