@@ -105,7 +105,7 @@ export default function SecurityPage({ user, token }) {
         draggable
         pauseOnHover
       />
-      <Flex bg="white">
+      <Flex bg="white" justify="space-between" wrap="wrap">
         <SideNav />
 
         <Box className={styles.profileSetting}>
@@ -216,15 +216,15 @@ export default function SecurityPage({ user, token }) {
 
           <hr />
 
-          <Container maxWidth="container.md" my="10">
-            <Flex justify="space-between">
+          <Container maxWidth="container.lg" my="10">
+            <Flex justify="space-between" wrap="wrap">
               <Box maxWidth={["100%", "45%"]}>
                 <Heading fontSize="sm" colorScheme="grey">
                   TWO FACTOR AUTHENTICATION
                 </Heading>
                 <Text color="red">RECOMMENDED</Text>
               </Box>
-              <Box maxWidth={["100%", "50%"]}>
+              <Box maxWidth={["100%", "45%"]}>
                 <FormControl display="flex" alignItems="center">
                   <Switch id="email-alerts" colorScheme="red" mr="3" />
                   <FormLabel
