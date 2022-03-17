@@ -22,7 +22,7 @@ import { parseCookies } from "@/helpers/index";
 import { NEXT_PUSHER_KEY, API_URL } from "@/lib/index";
 import ChatList from "@/components/ChatList";
 
-function mychat({ user, riders, token }) {
+function Message({ user, riders, token }) {
   const [selectedContact, setSelectedContact] = useState(null);
   const [fetchingMessages, setFetchingMessages] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -111,10 +111,9 @@ function mychat({ user, riders, token }) {
         <div className={styles.contacts}>
           <div className={styles.searchContainer}>
             <InputGroup rounded="full">
-              <InputRightElement
-                pointerEvents="none"
-                children={<BiSearch color="gray.300" />}
-              />
+              <InputRightElement pointerEvents="none">
+                <BiSearch color="gray.300" />
+              </InputRightElement>
               <Input
                 bgColor="white"
                 rounded="full"
@@ -209,7 +208,7 @@ function mychat({ user, riders, token }) {
   );
 }
 
-export default mychat;
+export default Message;
 
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req);
