@@ -15,7 +15,8 @@
   background: #b60202;
 }
 
-.btnDark {
+.btnDark,
+.btnTrack {
   color: #fff;
   padding: 10px 20px;
   background: #000;
@@ -31,12 +32,9 @@
   transition: all 0.5s ease;
 }
 
-
-
-
-
-
-
+.btnTrack {
+  background: rgba(0, 0, 0, 0.7);
+}
 
 @media screen and (max-width: 768px) {
   .btn {
@@ -53,11 +51,11 @@
     transition: all 0.4s linear;
     text-transform: uppercase;
   }
-  
+
   .button:hover {
     background: #b60202;
   }
-  
+
   .btnDark {
     color: #fff;
     padding: 10px;

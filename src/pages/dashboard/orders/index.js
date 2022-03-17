@@ -11,8 +11,6 @@ export default function OrdersPage({ user }) {
     return <PageLoader />;
   }
 
-  console.log(user.orders);
-
   return (
     <Layout title="Shipment Orders" data={user}>
       {user.orders?.length > 0 ? (

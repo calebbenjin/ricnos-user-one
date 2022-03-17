@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import { Box, Heading } from "@chakra-ui/react";
 import styles from "@/styles/Chats.module.css";
 import Link from "next/link";
+import Image from "next/image";
 import { RiSendPlaneFill } from "react-icons/ri";
 import navs from "@/styles/Settings.module.css";
 import { parseCookies } from "@/helpers/index";
@@ -93,9 +94,7 @@ export default function MessagePage({ support, token, user }) {
 
         <div className={styles.chatBody}>
           <div className={styles.heading}>
-            <Heading fontSize="md" my="4">
-              {support.subject}
-            </Heading>
+            <h2>{support.subject}</h2>
             {/* <Flex justify="center" alignItems="center">
               <p className={styles.not}></p>
               <h4>Active Now</h4>
@@ -104,22 +103,22 @@ export default function MessagePage({ support, token, user }) {
 
           <div className={styles.chats}>
             <>
-              {discussions?.length > 0 ? (
+              {discussions.length > 0 ? (
                 <ul>
                   {discussions.map((discussion) => (
-                    <div key={discussion?.id}>
-                      {discussion?.from !== "0" ? (
+                    <div key={discussion.id}>
+                      {discussion.from !== "0" ? (
                         <li className={styles.chatContainer}>
-                          {/* <Image
-                            src={discussion?.photo}
+                          <Image
+                            src={discussion.photo}
                             alt="User"
                             width="100"
                             height="100"
-                          /> */}
+                          />
                           <div className={styles.agent}>
                             <>
-                              <p>{discussion?.message}</p>
-                              <small>{discussion?.time}</small>
+                              <p>{discussion.message}</p>
+                              <small>{discussion.time}</small>
                             </>
                           </div>
                         </li>
@@ -127,16 +126,16 @@ export default function MessagePage({ support, token, user }) {
                         <li className={styles.replyChat}>
                           <div className={styles.reply}>
                             <>
-                              <p>{discussion?.message}</p>
-                              <small>{discussion?.time}</small>
+                              <p>{discussion.message}</p>
+                              <small>{discussion.time}</small>
                             </>
                           </div>
-                          {/* <Image
-                            src={discussion?.photo}
+                          <Image
+                            src={discussion.photo}
                             alt="User"
                             width="100"
                             height="100"
-                          /> */}
+                          />
                         </li>
                       )}
                     </div>
@@ -160,8 +159,8 @@ export default function MessagePage({ support, token, user }) {
                 <div className={styles.messageInput}>
                   <div className={styles.input}>
                     {/* <Image
-                      src={user?.passport}
-                      alt="UserImage"
+                      src={user.passport}
+                      alt="User"
                       width="100"
                       height="100"
                     /> */}
@@ -220,12 +219,11 @@ export async function getServerSideProps({ req, query }) {
 
   const { user } = userData.data;
 
-
   return {
     props: {
       support: supportData.data.support,
       token,
-      user
+      user,
     },
   };
 }

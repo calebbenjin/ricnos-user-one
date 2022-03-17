@@ -85,72 +85,76 @@ export default function OrdersTable({ orderData }) {
             </Select>
           </Box>
         </Box>
-        <table {...getTableProps()} cellPadding={0} cellSpacing={0}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th key={column.id} {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <tr
-                  key={row.id}
-                  {...row.getRowProps()}
-                  onClick={() =>
-                    router.push(`/dashboard/pickup/${row.original.id}/confirm`)
-                  }
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td key={cell.id} {...cell.getCellProps()}>
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
+        <div className="resTable">
+          <table {...getTableProps()} cellPadding={0} cellSpacing={0}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th key={column.id} {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          gap="3"
-          my="2"
-          mx="5"
-          alignItems="center"
-        >
-          <Button
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-            size="sm"
-            variant="ghost"
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    key={row.id}
+                    {...row.getRowProps()}
+                    onClick={() =>
+                      router.push(
+                        `/dashboard/pickup/${row.original.id}/confirm`
+                      )
+                    }
+                  >
+                    {row.cells.map((cell) => {
+                      return (
+                        <td key={cell.id} {...cell.getCellProps()}>
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            gap="3"
+            my="2"
+            mx="5"
+            alignItems="center"
           >
-            Previous
-          </Button>
-          <Flex>
-            <p>
-              <span style={{ fontWeight: "bold" }}>{pageIndex + 1} </span> of{" "}
-              <span style={{ fontWeight: "bold" }}>{pageOptions.length}</span>
-            </p>
-          </Flex>
-          <Button
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-            size="sm"
-            variant="ghost"
-          >
-            Next
-          </Button>
-        </Box>
+            <Button
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              size="sm"
+              variant="ghost"
+            >
+              Previous
+            </Button>
+            <Flex>
+              <p>
+                <span style={{ fontWeight: "bold" }}>{pageIndex + 1} </span> of{" "}
+                <span style={{ fontWeight: "bold" }}>{pageOptions.length}</span>
+              </p>
+            </Flex>
+            <Button
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              size="sm"
+              variant="ghost"
+            >
+              Next
+            </Button>
+          </Box>
+        </div>
       </Box>
     </>
   );

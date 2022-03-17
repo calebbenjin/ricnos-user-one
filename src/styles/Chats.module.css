@@ -4,13 +4,26 @@
 
 .activeUsers {
   width: 30%;
-  
+  padding: 20px 0 0 0;
+}
+
+.searchContainer {
+  padding: 20px;
+}
+
+.sideNav {
+  width: 20%;
+  background: #fff;
+}
+
+.sideNav a {
+  white-space: nowrap;
 }
 
 .chatBody {
-  width: 70%;
-  background: #fafafa;
-  padding: 0 20px;
+  width: 80%;
+  padding: 20px 0 0 0;
+  overflow-y: hidden !important;
 }
 
 .heading .not {
@@ -58,12 +71,12 @@
 }
 
 .userList {
-  background: #fafafa;
+  /* background: #fafafa; */
   position: sticky;
-  top: 1rem;
+  top: 0rem;
 }
 
-.userList li{
+.userList li {
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -92,7 +105,7 @@
   position: relative;
 }
 
-.userList li h2 img{
+.userList li h2 img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -121,21 +134,24 @@
 .chats {
   position: relative;
   overflow: hidden;
-  height: 80vh;
+  height: 75vh;
+  width: 100%;
 }
 
-.chats ul{
+.chats ul {
   position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: 20px;
   overflow: scroll;
   height: 100%;
-  padding-bottom: 5rem;
+  padding: 0 20px;
 }
 
 .chatContainer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin: 2rem 0;
   position: relative;
 }
 
@@ -143,6 +159,7 @@
   list-style: none;
   width: 50%;
   margin-left: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .agent p {
@@ -200,7 +217,7 @@
   bottom: 0;
   left: 0;
 }
-.messageInput .input{
+.messageInput .input {
   display: flex;
   align-items: center;
   width: 90%;
@@ -209,7 +226,7 @@
   width: 100%;
   height: 50px;
   border: none;
-  border-radius: 55px;
+  border-radius: 6px;
   background: #fff !important;
   border: solid 1px #ccc;
   margin-left: 1rem;
@@ -228,21 +245,50 @@
   color: red;
 }
 
-@media screen and (max-width: 768px) {
+.emptyChat {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1022px) {
   .chatFlexContainer {
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 0;
   }
   .activeUsers {
     width: 100%;
+    padding: 20px 0 0 20px;
   }
-  
+
+  .searchContainer {
+    display: none;
+  }
+
+  .sideNav {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .sideNav a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #838383;
+  }
+
   .chatBody {
     width: 100%;
-    background: #fafafa;
     padding: 0;
-    margin-bottom: 5rem;
   }
 
   .userList {
@@ -251,14 +297,14 @@
     justify-content: center;
     align-items: center;
   }
-  
-  .userList li{
+
+  .userList li {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 1rem 0;
-    padding: 10px;
-    background: #fff;
+    margin: 8px 1rem;
+    padding: 0;
+    background: transparent;
     color: #333;
     font-size: 0.8rem;
     cursor: pointer;
@@ -271,7 +317,6 @@
     display: none;
   }
 
-
   .userList li h2 {
     width: 50px;
     height: 50px;
@@ -279,21 +324,31 @@
     border: solid 2px red;
   }
 
-  .userList li h2 img{
+  .userList li h2 img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin: 0;
-    /* border: solid 2px red; */
+    border: solid 2px red;
+  }
+
+  .chats {
+    height: 57vh;
+    width: 100%;
+    padding: 0 10px;
   }
 
   .messageInput {
-    padding: 1rem 1rem;
-    background: #fafafa;
-
+    padding: 5px 1rem;
+    background: #fff;
+    position: fixed;
+    /* top: 0; */
+    bottom: 4.7rem;
+    height: 10vh;
+    z-index: 9;
   }
 
-  .messageInput .input{
+  .messageInput .input {
     width: 80%;
   }
 
@@ -306,7 +361,7 @@
     margin: 0;
     resize: none;
     outline: none;
-    overflow: auto !important;
+    overflow: auto;
   }
 
   .messageInput .input textarea::placeholder {
@@ -316,7 +371,7 @@
   .file {
     font-size: 1.5rem;
   }
-  
+
   .button {
     font-size: 1.5rem;
     color: red;
@@ -327,22 +382,27 @@
   }
 
   .agent {
-    width: 100%;
+    width: 90%;
     margin-left: 0;
     padding-right: 20px;
   }
-  
+
   .agent p {
     padding: 10px;
+    font-size: 0.8rem;
   }
   .reply {
-    width: 100%;
+    width: 90%;
     margin-right: 0;
     padding-right: 20px;
   }
-  
+
   .reply p {
     padding: 10px;
+    font-size: 0.8rem;
   }
-  
+
+  .chats small {
+    font-size: 0.7rem;
+  }
 }

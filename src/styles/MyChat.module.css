@@ -1,0 +1,245 @@
+.container {
+  width: 100%;
+  height: 90vh;
+  /* background-color: blueviolet; */
+  display: flex;
+  overflow-y: hidden;
+}
+
+.contacts {
+  width: 30%;
+  height: 100%;
+  padding: 20px 0;
+  background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.searchContainer {
+  width: 100%;
+  display: flex;
+  padding: 0 10px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 0 10px;
+}
+
+.chatMessage {
+  width: 70%;
+  height: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  /* background-color: brown; */
+}
+
+.chatBody {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px;
+  overflow-y: scroll;
+  gap: 20px;
+}
+
+.chatInput {
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  padding: 20px;
+  align-items: center;
+  gap: 10px;
+}
+
+.userBubble,
+.riderBubble {
+  display: flex;
+  max-width: 70%;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.userBubble {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+/* .riderBubble {
+  margin-left: auto;
+} */
+
+.bubbleMessage {
+  border: 2px solid #cacaca;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.riderBubble .bubbleMessage {
+  border: none;
+  background-color: red;
+  color: #fff;
+}
+
+.bubbleBody {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bubbleTime {
+  font-size: 12px;
+}
+
+.input {
+  border: none;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.sendIcon {
+  font-size: 3rem;
+  color: rgba(256, 0, 0, 1);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.sendIcon:active {
+  transform: scale(0.8);
+}
+
+.chatHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid #efefef;
+}
+
+.chatName {
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.dotsIcon {
+  font-size: 1.5rem;
+}
+
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contact {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 15px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.contactSelected {
+  background-color: #dfdfdf;
+}
+
+.contact:hover {
+  cursor: pointer;
+  background-color: #dfdfdf;
+}
+
+.contactText {
+  width: 70%;
+  box-sizing: border-box;
+}
+
+.contactName,
+.lastMessage {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.contactName {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.contactProfile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.emptyWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+@media screen and (max-width: 1022px) {
+  .container {
+    height: 83vh;
+    flex-direction: column;
+  }
+
+  .contacts {
+    width: 100%;
+    height: fit-content;
+  }
+
+  .searchContainer {
+    display: none;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .contactList {
+    flex-direction: row;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+
+  .contactText {
+    display: none;
+  }
+
+  .chatMessage {
+    width: 100%;
+  }
+
+  .contactSelected {
+    background-color: none;
+    transform: scale(1.03);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .contact:hover {
+    cursor: pointer;
+    background-color: none;
+  }
+}

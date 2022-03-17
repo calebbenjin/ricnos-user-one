@@ -11,6 +11,12 @@ const GlobalStyle = ({ children }) => {
     <>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <CSSReset />
       <Global
@@ -32,6 +38,19 @@ const GlobalStyle = ({ children }) => {
           }
           ::-webkit-scrollbar-thumb:hover {
             background: #555;
+          }
+
+          p {
+            font-family: "Open Sans", sans-serif;
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-family: "Poppins", sans-serif;
           }
 
           .success-icon {

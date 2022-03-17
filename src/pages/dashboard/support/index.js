@@ -98,7 +98,6 @@ export default function SettingsPage({ user, token }) {
 
   return (
     <Layout data={user}>
-      <ToastContainer />
       <Flex justify="space-between" wrap="wrap">
         <Box width={["100%", "20%"]} className={navs.sideNav}>
           {/* <Container maxWidth='container.xl'> */}
