@@ -26,6 +26,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiUserLine } from "react-icons/ri";
 import Button from "@/components/Button";
 import AuthContext from "@/context/AuthContext";
+import NotificationModal from "./NotificationModal";
 // import MessageContext from '@/context/MessageContext';
 
 export default function Layout({ children, data }) {
@@ -66,12 +67,14 @@ export default function Layout({ children, data }) {
 
               <Box as="nav">
                 <Flex alignItems="center">
-                  <Link href="/dashboard/message/">
+                  <NotificationModal data={data} />
+
+                  {/* <Link href="/dashboard/message/">
                     <a className={styles.navIconBox}>
                       <IoNotificationsSharp className={styles.navIcon} />
                       <div>{data ? data.general_notification : null}</div>
                     </a>
-                  </Link>
+                  </Link> */}
                   <Box>
                     <Flex alignItems="center">
                       <Box mr="3" color="white" textAlign="left">
@@ -134,48 +137,45 @@ export default function Layout({ children, data }) {
               <Link href="/dashboard/pickup/">
                 <a className="navMobileBtn">Request pickup</a>
               </Link>
-              <Menu>
-                <MenuButton>
-                  <Flex alignItems="center">
-                    <Link href="/dashboard/message">
-                      <a className={styles.navIconBox}>
-                        <IoNotificationsSharp className={styles.navIcon} />
-                        <div>{data ? data.general_notification : null}</div>
-                      </a>
-                    </Link>
-                    <Avatar
-                      size="sm"
-                      className={styles.avatar}
-                      name={data ? data.name : null}
-                      src={data ? data.passport : null}
-                    />
-                    <BsThreeDotsVertical className={styles.dot} />
-                  </Flex>
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>
-                    <Link href="/dashboard/settings">
+              <Flex alignItems="center">
+                <NotificationModal />
+                <Menu>
+                  <MenuButton>
+                    <Flex alignItems="center">
+                      <Avatar
+                        size="sm"
+                        className={styles.avatar}
+                        name={data ? data.name : null}
+                        src={data ? data.passport : null}
+                      />
+                      <BsThreeDotsVertical className={styles.dot} />
+                    </Flex>
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>
+                      <Link href="/dashboard/settings">
+                        <a className={styles.menuLink}>
+                          <FiSettings className={styles.icon} /> Settings
+                        </a>
+                      </Link>
+                    </MenuItem>
+                    <hr />
+                    <MenuItem>
+                      <Link href="/dashboard/support">
+                        <a className={styles.menuLink}>
+                          <FaUsers className={styles.icon} /> Support
+                        </a>
+                      </Link>
+                    </MenuItem>
+                    <hr />
+                    <MenuItem onClick={() => logout()}>
                       <a className={styles.menuLink}>
-                        <FiSettings className={styles.icon} /> Settings
+                        <FiLogOut className={styles.icon} /> Logout
                       </a>
-                    </Link>
-                  </MenuItem>
-                  <hr />
-                  <MenuItem>
-                    <Link href="/dashboard/support">
-                      <a className={styles.menuLink}>
-                        <FaUsers className={styles.icon} /> Support
-                      </a>
-                    </Link>
-                  </MenuItem>
-                  <hr />
-                  <MenuItem onClick={() => logout()}>
-                    <a className={styles.menuLink}>
-                      <FiLogOut className={styles.icon} /> Logout
-                    </a>
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Flex>
             </Flex>
           </Container>
         </nav>

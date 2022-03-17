@@ -5,7 +5,7 @@
 }
 
 .aside {
-  background: #0A0909;
+  background: #0a0909;
   height: 100vh;
   width: 20%;
   /* padding: 20px; */
@@ -36,7 +36,7 @@
 .navLink {
   display: block;
   padding-left: 20px;
-  border-left: solid 3px #0A0909;
+  border-left: solid 3px #0a0909;
   line-height: 3.5;
   transition: 0.3s ease-in;
   display: flex;
@@ -131,15 +131,29 @@
   margin: 2rem 0;
 }
 
+.footerLink {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerLink > span {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+
+.footerLink > span:hover {
+  border-bottom: 1px solid #999;
+}
 
 @media screen and (min-width: 1022px) {
-
   .header {
-    background: #0A0909;
+    background: #0a0909;
     padding: 10px 2rem;
     display: block;
   }
-  
+
   .mobileFooter {
     display: none;
   }
@@ -148,7 +162,7 @@
   }
 
   .aside {
-    background: #0A0909;
+    background: #0a0909;
     height: 100vh;
     width: 20%;
     /* padding: 20px; */
@@ -161,5 +175,4 @@
     font-size: 2rem;
     margin-left: 0.1rem;
   }
-
 }

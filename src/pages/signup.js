@@ -1,9 +1,9 @@
-import { useState, useContext, useEffect } from 'react'
-import Layout from '@/components/HomeLayout'
-import Link from 'next/link'
-import { BsEye, BsEyeSlash } from 'react-icons/bs'
-import login from '@/styles/Login.module.css'
-import { useRouter } from 'next/router'
+import { useState, useContext, useEffect } from "react";
+import Layout from "@/components/HomeLayout";
+import Link from "next/link";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import login from "@/styles/Login.module.css";
+import { useRouter } from "next/router";
 import {
   Box,
   FormControl,
@@ -16,42 +16,42 @@ import {
   Checkbox,
   Text,
   Heading,
-} from '@chakra-ui/react'
-import { useForm } from 'react-hook-form'
-import Button from '@/components/Button'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import AuthContext from '@/context/AuthContext'
-import Loader from '@/components/Loader'
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import Button from "@/components/Button";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AuthContext from "@/context/AuthContext";
+import Loader from "@/components/Loader";
 
 export default function SignupPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
-  const [show, setShow] = useState(false)
-  const [confirmShow, setConfirmShow] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const { signup, error } = useContext(AuthContext)
+  } = useForm();
+  const [show, setShow] = useState(false);
+  const [confirmShow, setConfirmShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { signup, error } = useContext(AuthContext);
 
-  const handleClick = () => setShow(!show)
-  const confirmHandleClick = () => setConfirmShow(!confirmShow)
+  const handleClick = () => setShow(!show);
+  const confirmHandleClick = () => setConfirmShow(!confirmShow);
 
-  const router = useRouter()
+  const router = useRouter();
 
-  useEffect(() => error && toast.error(error))
+  useEffect(() => error && toast.error(error));
 
   const onSubmit = (data, e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    console.log(data)
-    setIsLoading(true)
+    console.log(data);
+    setIsLoading(true);
 
-    const { email, phone, password, password_confirmation } = data
+    const { email, phone, password, password_confirmation } = data;
 
-    signup({ phone, email, password, password_confirmation })
-  }
+    signup({ phone, email, password, password_confirmation });
+  };
 
   return (
     <Layout>
@@ -60,60 +60,66 @@ export default function SignupPage() {
 
         <ToastContainer />
         <Box className={login.form}>
-          <Container maxWidth='container.xl'>
-            <Box width={['100%', '50%']}></Box>
+          <Container maxWidth="container.xl">
+            <Box width={["100%", "50%"]}></Box>
             <Box>
-              <Heading mt='20' mb='10' size='lg'>
+              <Heading mt="20" mb="10" size="lg">
                 Sign Up
               </Heading>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isInvalid={errors.email}>
-                  <FormLabel fontWeight='normal'>Email</FormLabel>
+                  <FormLabel fontWeight="normal">Email</FormLabel>
                   <input
-                    type='email'
-                    id='email'
-                    name='email'
-                    placeholder='Enter Email'
-                    {...register('email', { required: 'Email is required' })}
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Email"
+                    {...register("email", { required: "Email is required" })}
                   />
                   <FormErrorMessage>
                     {errors.email && errors.email.message}
                   </FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={errors.phone} mt='6'>
-                  <FormLabel fontWeight='normal'>Phone Number</FormLabel>
+                <FormControl isInvalid={errors.phone} mt="6">
+                  <FormLabel fontWeight="normal">Phone Number</FormLabel>
                   <input
-                    type='text'
-                    id='phone'
-                    name='phone'
-                    placeholder='Enter Phone Number'
-                    {...register('phone', { required: 'Phone is required' })}
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter Phone Number"
+                    {...register("phone", { required: "Phone is required" })}
                   />
                   <FormErrorMessage>
                     {errors.phone && errors.phone.message}
                   </FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={errors.password} my='5'>
-                  <FormLabel fontWeight='normal'>Password</FormLabel>
+                <FormControl isInvalid={errors.password} my="5">
+                  <FormLabel fontWeight="normal">Password</FormLabel>
                   <InputGroup>
                     <input
-                      id='password'
-                      name='password'
-                      pr='2rem'
-                      type={show ? 'text' : 'password'}
-                      placeholder='Enter password'
-                      {...register('password', {
-                        required: 'Password is Required',
+                      id="password"
+                      name="password"
+                      pr="2rem"
+                      type={show ? "text" : "password"}
+                      placeholder="Enter password"
+                      {...register("password", {
+                        required: "Password is Required",
                       })}
                     />
                     <InputRightElement>
                       {show ? (
-                        <BsEye onClick={handleClick}>
-                          {show ? 'Hide' : 'Show'}
+                        <BsEye
+                          className={login.inputIcon}
+                          onClick={handleClick}
+                        >
+                          {show ? "Hide" : "Show"}
                         </BsEye>
                       ) : (
-                        <BsEyeSlash onClick={handleClick}>
-                          {show ? 'Hide' : 'Show'}
+                        <BsEyeSlash
+                          className={login.inputIcon}
+                          onClick={handleClick}
+                        >
+                          {show ? "Hide" : "Show"}
                         </BsEyeSlash>
                       )}
                     </InputRightElement>
@@ -123,28 +129,34 @@ export default function SignupPage() {
                   </FormErrorMessage>
                 </FormControl>
 
-                <FormControl isInvalid={errors.confirmPassword} my='5'>
-                  <FormLabel fontWeight='normal'>Confirm Password</FormLabel>
+                <FormControl isInvalid={errors.confirmPassword} my="5">
+                  <FormLabel fontWeight="normal">Confirm Password</FormLabel>
                   <InputGroup>
                     <input
-                      id='password_confirmation'
-                      pr='2rem'
-                      name='password_confirmation'
-                      type={confirmShow ? 'text' : 'password'}
-                      placeholder='Confirm password'
-                      {...register('password_confirmation', {
-                        required: 'Confirm Password is Required',
+                      id="password_confirmation"
+                      pr="2rem"
+                      name="password_confirmation"
+                      type={confirmShow ? "text" : "password"}
+                      placeholder="Confirm password"
+                      {...register("password_confirmation", {
+                        required: "Confirm Password is Required",
                       })}
                     />
 
                     <InputRightElement>
                       {confirmShow ? (
-                        <BsEye onClick={confirmHandleClick}>
-                          {confirmShow ? 'Hide' : 'Show'}
+                        <BsEye
+                          className={login.inputIcon}
+                          onClick={confirmHandleClick}
+                        >
+                          {confirmShow ? "Hide" : "Show"}
                         </BsEye>
                       ) : (
-                        <BsEyeSlash onClick={confirmHandleClick}>
-                          {confirmShow ? 'Hide' : 'Show'}
+                        <BsEyeSlash
+                          className={login.inputIcon}
+                          onClick={confirmHandleClick}
+                        >
+                          {confirmShow ? "Hide" : "Show"}
                         </BsEyeSlash>
                       )}
                     </InputRightElement>
@@ -155,27 +167,29 @@ export default function SignupPage() {
                   </FormErrorMessage>
                 </FormControl>
 
-                <FormControl mb='5'>
+                <FormControl mb="5">
                   <Flex>
-                    <Checkbox isRequired={true} colorScheme='red'>
-                      i agree to the terms and conditions of{' '}
-                      <Text as='span' color='red'>
+                    <Checkbox isRequired={true} colorScheme="red">
+                      i agree to the terms and conditions of{" "}
+                      <Text as="span" color="red">
                         Private policies
                       </Text>
                     </Checkbox>
                   </Flex>
                 </FormControl>
                 <hr />
-                <Box my='5'>
-                  <Link href='/login'>Already have an account? Login</Link>
+                <Box my="5">
+                  <Link href="/login">Already have an account? Login</Link>
                 </Box>
 
-                <Button type="submit" loading={isLoading}>Sign up</Button>
+                <Button type="submit" loading={isLoading}>
+                  Sign up
+                </Button>
               </form>
             </Box>
           </Container>
         </Box>
       </Box>
     </Layout>
-  )
+  );
 }

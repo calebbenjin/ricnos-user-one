@@ -1,7 +1,12 @@
 .cardBg {
   position: relative;
   height: 100%;
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/loginbg.png);
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.726),
+      rgba(0, 0, 0, 0.719)
+    ),
+    url(../asset/loginbg.png);
   background-position: center;
   background-size: cover;
   display: flex;
@@ -15,7 +20,12 @@
 .signupBg {
   position: relative;
   height: 100vh;
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.726), rgba(0, 0, 0, 0.719)), url(../asset/packaging.png);
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.726),
+      rgba(0, 0, 0, 0.719)
+    ),
+    url(../asset/packaging.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -33,7 +43,7 @@
 
 .label {
   display: inline-block;
-  padding: 8px 12px; 
+  padding: 8px 12px;
   cursor: pointer;
   border-radius: 4px;
   background-color: #9c27b0;
@@ -50,10 +60,14 @@
 } */
 .wrapper {
   position: relative;
-} 
+}
 
 .addBtn {
   background: transparent;
+}
+
+input:focus + div > .inputIcon {
+  color: red;
 }
 
 @media screen and (min-width: 1024px) {
@@ -71,5 +85,9 @@
   .signupBg {
     padding: 10rem 0;
     height: 100%;
+  }
+
+  input:focus + div > .inputIcon {
+    color: red;
   }
 }

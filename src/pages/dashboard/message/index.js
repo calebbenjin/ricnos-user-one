@@ -1,30 +1,48 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Pusher from "pusher-js";
 import * as dayjs from "dayjs";
 import Layout from "@/components/Layout";
-import { Flex, Box } from "@chakra-ui/react";
-import styles from "@/styles/Chats.module.css";
+import {
+  Flex,
+  Box,
+  Text,
+  InputGroup,
+  InputRightElement,
+  Input,
+  Avatar,
+  AvatarBadge,
+} from "@chakra-ui/react";
+import styles from "@/styles/MyChat.module.css";
 import { BsThreeDots } from "react-icons/bs";
-import { MdAttachFile } from "react-icons/md";
+import { MdAttachFile, MdEmojiPeople } from "react-icons/md";
 import { RiSendPlaneFill } from "react-icons/ri";
-import Image from "next/image";
+import { BiSearch } from "react-icons/bi";
 import { parseCookies } from "@/helpers/index";
-import AuthContext from "@/context/AuthContext";
 import { NEXT_PUSHER_KEY, API_URL } from "@/lib/index";
-import PageLoader from "@/components/PageLoader";
+import ChatList from "@/components/ChatList";
 
-export default function MessagePage({ riders, token, user }) {
-  const [selectedChat, setSelectedChat] = useState();
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState();
-  const [messages, setMessages] = useState();
+function mychat({ user, riders, token }) {
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [fetchingMessages, setFetchingMessages] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
 
-  const router = useRouter();
+  useEffect(() => {
+    const pusher = new Pusher(NEXT_PUSHER_KEY, {
+      cluster: "eu",
+    });
 
-  // if (!user) {
-  //   return <PageLoader />;
-  // }
+    const channel = pusher.subscribe("chat");
+
+    channel.bind("App\\Events\\MessageSent", (data) => {
+      setMessages(data.chat.reverse());
+    });
+
+    return () => {
+      pusher.unsubscribe("chat");
+    };
+  }, []);
 
   const fetchMessages = async (rider) => {
     var myHeaders = new Headers();
@@ -46,35 +64,18 @@ export default function MessagePage({ riders, token, user }) {
     return data;
   };
 
-  const handleChatSelect = (user) => {
-    setLoading(true);
-    fetchMessages(user).then((data) => {
+  const selectContact = (contact) => {
+    if (selectedContact === contact) {
+      return;
+    }
+    setSelectedContact(contact);
+
+    setFetchingMessages(true);
+    fetchMessages(contact).then((data) => {
       setMessages(data.data.chat);
-      setLoading(false);
+      setFetchingMessages(false);
     });
   };
-
-  useEffect(() => {
-    selectedChat && handleChatSelect(selectedChat);
-  }, [selectedChat]);
-
-  useEffect(() => {
-    const pusher = new Pusher(NEXT_PUSHER_KEY, {
-      cluster: "eu",
-    });
-
-    const channel = pusher.subscribe("chat");
-
-    channel.bind("App\\Events\\MessageSent", (data) => {
-      fetchMessages(selectedChat).then((data) => {
-        setMessages(data.data.chat);
-      });
-    });
-
-    return () => {
-      pusher.unsubscribe("chat");
-    };
-  }, []);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -84,7 +85,7 @@ export default function MessagePage({ riders, token, user }) {
 
     var formdata = new FormData();
     formdata.append("message", message);
-    formdata.append("receiver_id", selectedChat.long_id);
+    formdata.append("receiver_id", selectedContact.long_id);
 
     var requestOptions = {
       method: "POST",
@@ -99,163 +100,116 @@ export default function MessagePage({ riders, token, user }) {
     );
     const data = await res.json();
 
-    setMessages(data.data.chat);
+    // setMessages(data.data.chat);
 
     setMessage("");
   };
 
   return (
     <Layout title="Message" data={user}>
-      <>
-        <div className={styles.flexContainer}>
-          <div className={styles.chatBoard}>
-            <Box p="5" borderRadius="md">
-              <div className={styles.chatFlexContainer}>
-                <div className={styles.activeUsers}>
-                  <input
-                    type="text"
-                    className={styles.search}
-                    placeholder="Search"
-                  />
-                  <div className={styles.header}>
-                    <p>My Chat</p>
-                    <BsThreeDots />
-                  </div>
-
-                  <ul className={styles.userList}>
-                    {riders ? (
-                      riders.map((rider) => (
-                        <li
-                          key={rider.id}
-                          onClick={() => setSelectedChat(rider)}
-                        >
-                          <Flex alignItems="center">
-                            <h2>
-                              {rider.passport && (
-                                <Image
-                                  src={rider.passport}
-                                  alt={rider.name}
-                                  width="100"
-                                  height="100"
-                                />
-                              )}
-                              <span className={styles.notification}></span>
-                            </h2>
-                            <h4 className={styles.userName}>{rider.name}</h4>
-                          </Flex>
-                          {/* <p>{user.time}</p> */}
-                        </li>
-                      ))
-                    ) : (
-                      <p>No Recent Chats</p>
-                    )}
-                  </ul>
-                </div>
-
-                <div className={styles.chatBody}>
-                  {messages && (
-                    <div className={styles.heading}>
-                      <h2>{selectedChat.name}</h2>
-                      <Flex justify="center" alignItems="center">
-                        <p className={styles.not}></p>
-                        <h4>Active Now</h4>
-                      </Flex>
-                    </div>
-                  )}
-
-                  <div className={styles.chats}>
-                    <ul>
-                      {messages ? (
-                        messages?.map((message) => (
-                          <>
-                            {message.sender === "user" ? (
-                              <li className={styles.replyChat} key={message.id}>
-                                <div className={styles.reply}>
-                                  <p>{message.message}</p>
-                                  <small>
-                                    {dayjs(message.created_at).format(
-                                      "DD/MM/YYYY h:m"
-                                    )}
-                                  </small>
-                                </div>
-                                {user.passport && (
-                                  <Image
-                                    src={user.passport}
-                                    alt="User"
-                                    width="100"
-                                    height="100"
-                                    // placeholder="blur"
-                                  />
-                                )}
-                              </li>
-                            ) : (
-                              <li
-                                className={styles.chatContainer}
-                                key={message.id}
-                              >
-                                {selectedChat.passport && (
-                                  <Image
-                                    src={selectedChat.passport}
-                                    alt="User"
-                                    width="100"
-                                    height="100"
-                                  />
-                                )}
-                                <div className={styles.agent}>
-                                  <p>{message.message}</p>
-                                  <small>
-                                    {dayjs(message.created_at).format(
-                                      "DD/MM/YYYY h:m"
-                                    )}
-                                  </small>
-                                </div>
-                              </li>
-                            )}
-                          </>
-                        ))
-                      ) : (
-                        <p>No Messages available</p>
-                      )}
-                    </ul>
-
-                    {messages && (
-                      <form onSubmit={handleSendMessage}>
-                        <div className={styles.messageInput}>
-                          <div className={styles.input}>
-                            {user.passport && (
-                              <Image
-                                src={user.passport}
-                                alt="User"
-                                width="100"
-                                height="100"
-                              />
-                            )}
-
-                            <textarea
-                              onChange={(e) =>
-                                setMessage(e.currentTarget.value)
-                              }
-                              value={message}
-                              placeholder="Type a message here..."
-                            ></textarea>
-                          </div>
-                          <MdAttachFile className={styles.file} />
-                          <button>
-                            <RiSendPlaneFill className={styles.button} />
-                          </button>
-                        </div>
-                      </form>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Box>
+      <div className={styles.container}>
+        <div className={styles.contacts}>
+          <div className={styles.searchContainer}>
+            <InputGroup rounded="full">
+              <InputRightElement
+                pointerEvents="none"
+                children={<BiSearch color="gray.300" />}
+              />
+              <Input
+                bgColor="white"
+                rounded="full"
+                type="text"
+                placeholder="Search Contact"
+              />
+            </InputGroup>
           </div>
+          <div className={styles.header}>
+            <p>My Chat</p>
+            <BsThreeDots />
+          </div>
+          <ul className={styles.contactList}>
+            {riders?.length < 1 && (
+              <div className={styles.emptyWrapper}>
+                <p className={styles.emptyText}>No Contacts</p>
+              </div>
+            )}
+            {riders?.length > 0 &&
+              riders?.map((rider) => (
+                <li
+                  key={rider.id}
+                  onClick={() => selectContact(rider)}
+                  className={`${styles.contact} ${
+                    selectedContact?.id === rider.id && styles.contactSelected
+                  }`}
+                >
+                  <div className={styles.profileImageWrapper}>
+                    <Avatar size="md" name={rider.name} src={rider.passport}>
+                      {/* <AvatarBadge size="md" bg="green.500" /> */}
+                    </Avatar>
+                  </div>
+                  <div className={styles.contactText}>
+                    <p className={styles.contactName}>{rider.name}</p>
+                    {/* <p className={styles.lastMessage}>
+                      This is the last message message mesudidni dsilhnold
+                    </p> */}
+                  </div>
+                </li>
+              ))}
+          </ul>
         </div>
-      </>
+        <div className={styles.chatMessage}>
+          {fetchingMessages && (
+            <div className={styles.emptyWrapper}>
+              <p className={styles.emptyText}>Fetching Messages ...</p>
+            </div>
+          )}
+          {selectedContact && !fetchingMessages && (
+            <>
+              <div className={styles.chatHeader}>
+                <BsThreeDots className={styles.dotsIcon} />
+                <p className={styles.chatName}>{selectedContact.name}</p>
+              </div>
+              {/* chat messages */}
+              <ChatList
+                messages={messages}
+                rider={selectedContact}
+                user={user}
+              />
+              {/* input field */}
+              <form
+                className={styles.chatInput}
+                onSubmit={(e) => handleSendMessage(e)}
+              >
+                <Avatar size="md" name={user.name} src={user.passport}>
+                  {/* <AvatarBadge size="md" bg="green.500" /> */}
+                </Avatar>
+                <input
+                  className={styles.input}
+                  placeholder="Type a message here"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+                <MdAttachFile className={styles.icon} />
+                <MdEmojiPeople className={styles.icon} />
+                <RiSendPlaneFill
+                  className={styles.sendIcon}
+                  onClick={(e) => handleSendMessage(e)}
+                />
+              </form>
+            </>
+          )}
+          {!selectedContact && !fetchingMessages && (
+            <div className={styles.emptyWrapper}>
+              <p className={styles.emptyText}>Select a Contact</p>
+            </div>
+          )}
+        </div>
+      </div>
     </Layout>
   );
 }
+
+export default mychat;
 
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req);

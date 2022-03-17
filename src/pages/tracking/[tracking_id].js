@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Layout from "@/components/HomeLayout";
+import Layout from "@/components/TrackLayout";
 import Link from "next/link";
 import TrackForm from "@/components/TrackForm";
 import { Container, Heading, Text, Box } from "@chakra-ui/react";
@@ -125,7 +125,7 @@ const DisplayCard = styled.div`
 const ErrorMessage = styled.div`
   text-transform: uppercase;
   padding: 1rem;
-  background: lightgreen;
+  background: rgba(256, 0, 0, 0.12);
   text-align: center;
   font-weight: 700;
   border-radius: 6px;

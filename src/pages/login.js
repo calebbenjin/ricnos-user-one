@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from 'react';
-import Layout from '@/components/HomeLayout';
-import Link from 'next/link';
-import { BsEye } from 'react-icons/bs';
-import styles from '@/styles/Login.module.css';
+import { useState, useContext, useEffect } from "react";
+import Layout from "@/components/HomeLayout";
+import Link from "next/link";
+import { BsEye } from "react-icons/bs";
+import styles from "@/styles/Login.module.css";
 import {
   Box,
   FormControl,
@@ -16,14 +16,14 @@ import {
   Checkbox,
   Spacer,
   Heading,
-} from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/router';
-import Button from '@/components/Button';
-import AuthContext from '@/context/AuthContext';
-import Loading from '@/components/Loader';
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+import Button from "@/components/Button";
+import AuthContext from "@/context/AuthContext";
+import Loading from "@/components/Loader";
 
 function LoginPage() {
   const { login, isError, isLoading } = useContext(AuthContext);
@@ -53,7 +53,7 @@ function LoginPage() {
         <ToastContainer />
         <Box className={styles.form}>
           <Container maxWidth="container.xl">
-            <Box width={['100%', '50%']}></Box>
+            <Box width={["100%", "50%"]}></Box>
             <Box>
               <Heading mt="20" mb="10" size="lg">
                 Login
@@ -66,7 +66,7 @@ function LoginPage() {
                     id="email"
                     placeholder="Enter Email"
                     borderColor="grey"
-                    {...register('email', { required: 'Email is required' })}
+                    {...register("email", { required: "Email is required" })}
                   />
                   <FormErrorMessage>
                     {errors.email && errors.email.message}
@@ -78,15 +78,16 @@ function LoginPage() {
                     <Input
                       borderColor="grey"
                       pr="2rem"
-                      type={show ? 'text' : 'password'}
+                      type={show ? "text" : "password"}
                       placeholder="Enter password"
-                      {...register('password', {
-                        required: 'Password is Required',
+                      className={styles.passwordInput}
+                      {...register("password", {
+                        required: "Password is Required",
                       })}
                     />
                     <InputRightElement>
-                      <BsEye onClick={handleClick}>
-                        {show ? 'Hide' : 'Show'}
+                      <BsEye className={styles.inputIcon} onClick={handleClick}>
+                        {show ? "Hide" : "Show"}
                       </BsEye>
                     </InputRightElement>
                   </InputGroup>
